@@ -2,6 +2,7 @@
 #include <XL320.h>
 #include <XYZrobotServo.h>
 #include <SoftwareSerial.h>
+#include <cmd_def.h>
 
 /*
 Lägg bibliotek från tredje-part i \main\librarys mappen och egna .h filer i main mappen
