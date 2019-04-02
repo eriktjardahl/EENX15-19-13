@@ -1,9 +1,11 @@
+#include <dxl_pro.h>
+#include <XL320.h>
+#include <XYZrobotServo.h>
+#include <SoftwareSerial.h>
+
 /*
 Lägg bibliotek från tredje-part i \main\librarys mappen och egna .h filer i main mappen
 */
-// Put included librarys here
-#include <XYZrobotServo.h>
-#include <SoftwareSerial.h>
 
 // Set the SoftwareSerial RX & TX pins
 SoftwareSerial mySerial(10, 11); // (RX, TX)
