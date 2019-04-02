@@ -1,5 +1,9 @@
-#define a RIGHT_FINGER_1;
-#define b RIGHT_FINGER_2;
-#define c RIGHT_FINGER_3;
-#define d RIGHT_FINGER_4;
-#define e RIGHT_FINGER_5;
+#ifndef CMD_DEF_H
+#define CMD_DEF_H
+#endif
+
+#define RIGHT_FINGER_1 1
+#define RIGHT_FINGER_2 2
+#define RIGHT_FINGER_3 3
+#define RIGHT_FINGER_4 4
+#define RIGHT_FINGER_5 5
