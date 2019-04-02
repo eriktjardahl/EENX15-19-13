@@ -1,0 +1,18 @@
+/*
+Lägg bibliotek från tredje-part i \main\librarys mappen och egna .h filer i main mappen
+*/
+// Put included librarys here
+#include <XYZrobotServo.h>
+#include <SoftwareSerial.h>
+
+// Set the SoftwareSerial RX & TX pins
+SoftwareSerial mySerial(10, 11); // (RX, TX)
+
+void setup() {
+  // Set the baud rate, for A1-16 and XL-320 this should be 115200
+  Serial.begin(115200);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+}
