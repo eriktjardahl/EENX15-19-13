@@ -1,13 +1,13 @@
+#include <XYZrobotServo.h>
 #include <dxl_pro.h>
 #include <XL320.h>
-#include <XYZrobotServo.h>
 #include <SoftwareSerial.h>
 #include <cmd_def.h>
 #include <speed.h>
 #include <hand_motion.h>
 
 /*
-Lägg bibliotek från tredje-part i \main\librarys mappen och egna .h filer i main mappen
+Lägg bibliotek från tredje-part i \main\libraries mappen och egna .h filer i main mappen
 */
 
 // Set the SoftwareSerial RX & TX pins
