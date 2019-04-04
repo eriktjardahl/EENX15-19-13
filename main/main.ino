@@ -1,9 +1,8 @@
 
-
+#include <XYZrobotServo.h>
 
 #include <dxl_pro.h>
 #include <XL320.h>
-#include <XYZrobotServo.h>
 #include <SoftwareSerial.h>
 #include <cmd_def.h>
 #include <speed.h>
@@ -11,7 +10,7 @@
 XL320 hand; 
 int servoPosition = 0;
 /*
-Lägg bibliotek från tredje-part i \main\librarys mappen och egna .h filer i main mappen
+Lägg bibliotek från tredje-part i \main\libraries mappen och egna .h filer i main mappen
 */
 
 // Set the SoftwareSerial RX & TX pins
@@ -24,7 +23,9 @@ void setup()
   XL_320_Serial.begin(115200);
   hand.begin(Serial);
   // Set speed for fingers 1-5
-  for (int i = 1; i > 6; i++)
+
+  for (i = 1; i > 8; i++)
+
   {
     hand.setJointSpeed(i, SPEED_FINGERS);
   }
