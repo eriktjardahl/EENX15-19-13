@@ -5,10 +5,16 @@
 
 #define SERVO_COUNT 6
 
-#define rxPin 0
-#define txPin 1
+#define rxPin0 0
+#define txPin1 1
 
-SoftwareSerial servoSerial=SoftwareSerial(rxPin, txPin);
+#define rxPin10 10
+#define txPin11 11
+
+SoftwareSerial servoSerial=SoftwareSerial(rxPin0, txPin1);
+
+
+SoftwareSerial servo2Serial=SoftwareSerial(rxPin10, txPin11);
 
 
 XYZrobotServo servo1(servoSerial,1);
@@ -17,9 +23,9 @@ XYZrobotServo servo2(servoSerial,2);
 
 //XYZrobotServo servo3(servoSerial,3);
 
-XYZrobotServo servo4(servoSerial,4);
+XYZrobotServo servo4(servo2Serial,4);
 
-XYZrobotServo servo5(servoSerial,5);
+XYZrobotServo servo5(servo2Serial,5);
 
 XYZrobotServo servo6(servoSerial,6);
 
@@ -32,10 +38,15 @@ XYZrobotServo * servos[SERVO_COUNT] = {
 
 void setup(){ 
 
-  pinMode(rxPin,INPUT);
-  pinMode(txPin,OUTPUT);
+  pinMode(rxPin0,INPUT);
+  pinMode(txPin1,OUTPUT);
+
+  pinMode(rxPin10,INPUT);
+  pinMode(txPin11,OUTPUT);
+
 
    servoSerial.begin(115200);
+   servo2Serial.begin(115200);
 
 
 }
@@ -61,10 +72,15 @@ int i;
     
     servo1.setPosition(i,10);
     servo2.setPosition(i,10);
+
+    servo4.setPosition(i,10);
+    servo5.setPosition(i,10);
     
   }
   servo1.setPosition(0,10);
-    servo2.setPosition(0,10);
+  servo2.setPosition(0,10);
+  servo4.setPosition(0,10);
+  servo5.setPosition(0,10);
 
 /*
   servo2.setPosition(distance,playtime);
