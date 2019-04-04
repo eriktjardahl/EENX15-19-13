@@ -1,6 +1,8 @@
 #include <XYZrobotServo.h>
 #include <SoftwareSerial.h>
 
+#define __AVR_ATmega32U4__
+
 // This sketch searches for smart servos and prints information
 // about them that will be useful for communicating with them.
 //
@@ -144,8 +146,10 @@ void loop()
   delay(2500);
 
   // Try each of the four baud rates supported by the A1-16 servo.
+  /*
   detectServos(9600);
   detectServos(19200);
   detectServos(57600);
+  */
   detectServos(115200);
 }

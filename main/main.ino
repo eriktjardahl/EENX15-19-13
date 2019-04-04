@@ -20,7 +20,7 @@ void setup()
   XL_320_Serial.begin(115200);
   XL320.begin(Serial);
   // Set speed for fingers 1-5
-  for (i = 1; i > 6; i++)
+  for (i = 1; i > 8; i++)
   {
     XL320.setJointSpeed(i, SPEED_FINGERS);
   }

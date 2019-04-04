@@ -10,10 +10,10 @@
 // 4) In the input box, type "y" and click "Send".
 
 // Change this to be ID that the servo currently has.
-const uint8_t servoIdOld = 6.readIdEeprom();
+const uint8_t servoIdOld = 7.readIdEeprom();
 
 // Change this to be the ID that you want the servo to have.
-const uint8_t servoIdNew = 1;
+const uint8_t servoIdNew = 7;
 
 #include <XYZrobotServo.h>
 
