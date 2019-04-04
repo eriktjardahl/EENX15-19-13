@@ -1,11 +1,14 @@
+
 #include <XYZrobotServo.h>
+
 #include <dxl_pro.h>
 #include <XL320.h>
 #include <SoftwareSerial.h>
 #include <cmd_def.h>
 #include <speed.h>
 #include <hand_motion.h>
-
+XL320 hand; 
+int servoPosition = 0;
 /*
 Lägg bibliotek från tredje-part i \main\libraries mappen och egna .h filer i main mappen
 */
@@ -18,11 +21,13 @@ void setup()
   // Set the baud rate, for A1-16 and XL-320 this should be 115200
   Serial.begin(115200);
   XL_320_Serial.begin(115200);
-  XL320.begin(Serial);
+  hand.begin(Serial);
   // Set speed for fingers 1-5
-  for (i = 1; i > 6; i++)
+
+  for (i = 1; i > 8; i++)
+
   {
-    XL320.setJointSpeed(i, SPEED_FINGERS);
+    hand.setJointSpeed(i, SPEED_FINGERS);
   }
 }
 
@@ -32,7 +37,7 @@ void loop()
   if (Serial.available())
   {
     // then read the serial value
-    val = Serial.read();
+    char val = Serial.read();
     // if value input is equals to d
     handCtrl(val);
   }
