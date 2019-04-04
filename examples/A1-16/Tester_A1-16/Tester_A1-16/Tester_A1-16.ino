@@ -12,10 +12,15 @@
 #define rxPin3 3
 #define txPin4 4
 
+#define rxPin6 6
+#define txPin7 7
+
 #define rxPin10 10
 #define txPin11 11
 
 #define txPin12 12
+
+
 
 SoftwareSerial A116servoSerial=SoftwareSerial(rxPin0, txPin1);
 
@@ -23,6 +28,8 @@ SoftwareSerial A116servoSerial=SoftwareSerial(rxPin0, txPin1);
 SoftwareSerial A116servo2Serial=SoftwareSerial(rxPin10, txPin11);
 
 SoftwareSerial XL320servoSerial=SoftwareSerial(rxPin3, txPin4);
+
+SoftwareSerial XL320servo2Serial=SoftwareSerial(rxPin6, txPin7);
 
 
 XYZrobotServo servo1(A116servoSerial,1);
@@ -39,7 +46,9 @@ XYZrobotServo servo6(A116servo2Serial,6);
 
 XYZrobotServo servo7(A116servo2Serial,7);
 
-XL320 servoFinger;
+XL320 servoVanster;
+
+XL320 servoHoger;
 
 //Servo Elbow;
 
@@ -58,6 +67,9 @@ void setup(){
   pinMode(rxPin3,INPUT);
   pinMode(txPin4,OUTPUT);
 
+  pinMode(rxPin6,INPUT);
+  pinMode(txPin7,OUTPUT);
+
 
   pinMode(rxPin10,INPUT);
   pinMode(txPin11,OUTPUT);
@@ -68,7 +80,9 @@ void setup(){
    A116servoSerial.begin(115200);
    A116servo2Serial.begin(115200);
    XL320servoSerial.begin(115200);
-   servoFinger.begin(XL320servoSerial);
+   XL320servo2Serial.begin(115200);
+   servoVanster.begin(XL320servoSerial);
+   servoHoger.begin(XL320servo2Serial);
    //Elbow.attach(txPin12);
 
 
@@ -94,7 +108,8 @@ int i;
     servo6.setPosition(i,10);
     servo7.setPosition(i,10);
 
-    servoFinger.moveJoint(2,i);
+    servoVanster.moveJoint(5,i);
+    servoHoger.moveJoint(2,i);
 
     //Elbow.write(j);
      
@@ -108,7 +123,8 @@ int i;
   servo5.setPosition(0,10);
   servo6.setPosition(0,10);
   servo7.setPosition(0,10);
-  servoFinger.moveJoint(2,0);
+  servoVanster.moveJoint(5,0);
+  servoHoger.moveJoint(2,0);
   //Elbow.writeMicroseconds(1500);
 
 
