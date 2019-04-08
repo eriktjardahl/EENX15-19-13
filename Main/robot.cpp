@@ -73,15 +73,32 @@ void JointArmClassRight::SETUP(){
   servoRight.begin(XL320servo2Serial);  
   
   }
+//---------------------------------HandRight-------------------------------------------------// 
+void JointArmClassRight::HandRight_Stone(){
 
-void JointArmClassRight::MOVE(){
+    int initPos=0;
+    int stopPos=1023;
+  
 
-  int i;
-  for(i=1;i<=1000;i++){
-      
-    servo1.setPosition(i,10);
+for(int pos = initPos ; pos < stopPos; pos+=10){
+      for(int i = littleFingerRight ; i < ThumbRight + 1; i++){
+        robot.moveJoint(i, pos);
+
+
 }
-    servo1.setPosition(0,10);
+
+void JointArmClassRight::HandRight_Scissor(){
+
+    int initPos=0;
+    int stopPos=1023;
+  
+
+for(int pos = initPos ; pos < stopPos; pos+=10){
+      for(int i = littleFingerRight ; i < ThumbRight + 1; i++){
+         if( i == littleFingerLeft ||  i == ringFingerRight ||  i == thumbRight)
+      }
+        robot.moveJoint(i, pos);
+
 
 }
 
@@ -114,13 +131,13 @@ void JointArmClassLeft::SETUP(){
   
   }
  //---------------------------------HandLeft--------------------------------------------------// 
-<<<<<<< HEAD
+
  void JointArmClassLeft::HandLeft_Stone(){
     int initPos=0;
     int stopPos=1023;
 
      for(int pos = initPos ; pos < stopPos; pos+=10){
-      for(int i = littleFinger_Left ; i < thumb_Left + 1; i++){
+      for(int i = littleFingerLeft ; i < thumbLeft + 1; i++){
         servoLeft.moveJoint(i, pos);
         
      }
@@ -131,17 +148,15 @@ void JointArmClassLeft::HandLeft_Scissor(){
        int stopPos=1023;
 
       for(int pos = initPos ; pos < stopPos; pos+=10){
-      for(int i = littleFinger_Left ; i < thumb_Left + 1; i++){
-       if( i == littleFinger_Left ||  i == ringFinger_Left ||  i == thumb_Left)
+      for(int i = littleFingerLeft ; i < thumbLeft + 1; i++){
+       if( i == littleFingerLeft ||  i == ringFingerLeft ||  i == thumbLeft)
         servoLeft.moveJoint(i, pos);
       }
       }
       }
    
     
- 
-=======
->>>>>>> 87e87ab9c7a7a27ae5673386ef12bb836af05462
+
 
 
 

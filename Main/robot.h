@@ -98,7 +98,9 @@ class JointArmClassRight {
     JointArmClassRight();
     void SETUP();
     void SSP();
-    void MOVE();    
+    void MOVE(); 
+    void HandRight_Scissor();
+    void HandRight_Stone();   
 
 };
 
