@@ -30,11 +30,15 @@ XYZrobotServo servo6(A116servo2Serial,6);
 
 XYZrobotServo servo7(A116servo2Serial,7);
 
-
+char input_signal;
 
 XL320 servoLeft;
 /*
- * ID 1-5 Vänster hand. 1=Lillfinger, 2=Ringfinger, 3=Långfinger, 4=Pekfinger, 5=tumme
+  //lillfinger .   ID:1
+  //ringfinger     ID:2
+  //långfinger    ID:3
+  //pekfinger     ID:4
+  //tummer        ID:5
  */
 
 XL320 servoRight;
@@ -83,6 +87,9 @@ void JointArmClassRight::MOVE(){
 }
 
 
+
+
+
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
 
 JointArmClassRight jointArmRight = JointArmClassRight();
@@ -107,6 +114,30 @@ void JointArmClassLeft::SETUP(){
   servoLeft.begin(XL320servoSerial);
   
   }
+ //---------------------------------HandLeft--------------------------------------------------// 
+ void JointArmClassLeft::HandLeft(){
+  switch (input_signal) {
+    case 'a':    // sten
+     for(int j = 0 ; j < 1023; j+=10){
+      for(int i = 1 ; i < 6; i++){
+        servoLeft.moveJoint(i, j);
+        
+      }
+     }
+      break;
+    case 'b':    // sax
+         for(int j = 0 ; j < 1023; j+=10){
+      for(int i = 1 ; i < 6; i++){
+       if( i == 1 ||  i == 2 ||  i == 5)
+        servoLeft.moveJoint(i, j);
+      }
+      }
+      break;
+    case 'c':    // påse
+      break;
+  }   
+  
+}
 
 
 
