@@ -39,6 +39,21 @@
 #define txPin11 11
 #endif
 
+
+#ifndef neckJaw 11
+#define neckJaw 11
+#endif
+
+#ifndef neckPich 12
+#define neckPitch 12
+#endif
+
+#ifndef neckRoll 13
+#define neckRoll 13
+#endif
+
+
+
 #ifndef SERVO_COUNT
 #define SERVO_COUNT 6
 #endif
