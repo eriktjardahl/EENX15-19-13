@@ -52,33 +52,47 @@
 #define neckRoll 13
 #endif
 
-#ifndef littlefinger_left
-#define littlefinger_left 1
+#ifndef littleFingerLeft
+#define littleFingerLeft 1
 #endif
 
-#ifndef littleFinger_Left
-#define littleFinger_Left 1
+#ifndef ringFingerLeft
+#define ringFingerLeft 2
 #endif
 
-#ifndef ringFinger_Left
-#define ringFinger_Left 2
+#ifndef middleFingerLeft
+#define middleFingerLeft 3
 #endif
 
-#ifndef middleFinger_Left
-#define middleFinger_Left 3
+#ifndef indexFingerLeft
+#define indexFingerLeft 4
 #endif
 
-#ifndef indexFinger_Left
-#define indexFinger_Left 4
+
+#ifndef thumbLeft
+#define thumbLeft 5
 #endif
 
-<<<<<<< HEAD
-#ifndef thumb_Left
-#define thumb_Left 5
+#ifndef littleFingerRight
+#define littleFingerRight 6
 #endif
-=======
 
->>>>>>> 87e87ab9c7a7a27ae5673386ef12bb836af05462
+#ifndef ringFingerRight
+#define ringFingerRight 7
+#endif
+
+#ifndef middleFingerRight
+#define middleFingerRight 8
+#endif
+
+#ifndef indexFingerRight
+#define indexFingerRight 9
+#endif
+
+#ifndef thumbRight
+#define thumbRight 10
+#endif
+
 
 
 

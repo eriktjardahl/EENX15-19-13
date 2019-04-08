@@ -33,11 +33,12 @@ XYZrobotServo servo7(A116servo2Serial,7);
 
 XL320 servoLeft;
 /*
-  //lillfinger .   ID:1
-  //ringfinger     ID:2
-  //långfinger    ID:3
-  //pekfinger     ID:4
-  //tummer        ID:5
+ * Vänster hand
+  lillfinger .   ID:1
+  ringfinger     ID:2
+  långfinger    ID:3
+  pekfinger     ID:4
+  tummer        ID:5
  */
 
 XL320 servoRight;
@@ -131,7 +132,10 @@ void JointArmClassLeft::SETUP(){
   
   }
  //---------------------------------HandLeft--------------------------------------------------// 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 316f4b0b9e25b9281e397016d41879d8027ddaf2
  void JointArmClassLeft::HandLeft_Stone(){
     int initPos=0;
     int stopPos=1023;
@@ -156,7 +160,10 @@ void JointArmClassLeft::HandLeft_Scissor(){
       }
    
     
+<<<<<<< HEAD
 
+=======
+>>>>>>> 316f4b0b9e25b9281e397016d41879d8027ddaf2
 
 
 
@@ -180,11 +187,7 @@ void JointNeckClass::SETUP(){
 }
 
 void JointNeckClass::nod(){
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 87e87ab9c7a7a27ae5673386ef12bb836af05462
 int initPos =0;
 int stopPos=100;
 
