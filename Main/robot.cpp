@@ -82,7 +82,7 @@ void JointArmClassRight::HandRight_Stone(){
   
 
 for(int pos = initPos ; pos < stopPos; pos+=10){
-      for(int i = littleFingerRight ; i < ThumbRight + 1; i++){
+      for(int i = littleFingerRight ; i < thumbRight + 1; i++){
         robot.moveJoint(i, pos);
 
 
@@ -132,10 +132,7 @@ void JointArmClassLeft::SETUP(){
   
   }
  //---------------------------------HandLeft--------------------------------------------------// 
-<<<<<<< HEAD
 
-=======
->>>>>>> 316f4b0b9e25b9281e397016d41879d8027ddaf2
  void JointArmClassLeft::HandLeft_Stone(){
     int initPos=0;
     int stopPos=1023;
@@ -160,10 +157,6 @@ void JointArmClassLeft::HandLeft_Scissor(){
       }
    
     
-<<<<<<< HEAD
-
-=======
->>>>>>> 316f4b0b9e25b9281e397016d41879d8027ddaf2
 
 
 
