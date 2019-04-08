@@ -4,9 +4,9 @@
 //-------------------------------------Initiera alla motorer------------------------------------------------//
 
 
-SoftwareSerial A116servoSerial=SoftwareSerial(rxPin0, txPin1); //Vänster arm
+SoftwareSerial A116servoSerial=SoftwareSerial(rxPin0, txPin1); //Höger arm
 
-SoftwareSerial A116servo2Serial=SoftwareSerial(rxPin10, txPin11); //Höger arm
+SoftwareSerial A116servo2Serial=SoftwareSerial(rxPin10, txPin11); //Väsnter arm
 
 SoftwareSerial XL320servoSerial=SoftwareSerial(rxPin3, txPin4); //Vänster hand
 
@@ -58,8 +58,9 @@ void JointArmClassRight::SETUP(){
   pinMode(rxPin6,INPUT);
   pinMode(txPin7,OUTPUT);
 
-  pinMode(rxPin10,INPUT);
-  pinMode(txPin11,OUTPUT);
+   pinMode(rxPin0,INPUT);
+  pinMode(txPin1,OUTPUT);
+
 
  
   A116servo2Serial.begin(115200);  // höger arm
@@ -92,8 +93,8 @@ JointArmClassLeft::JointArmClassLeft(){
 }
 
 void JointArmClassLeft::SETUP(){
-  pinMode(rxPin0,INPUT);
-  pinMode(txPin1,OUTPUT);
+  pinMode(rxPin10,INPUT);
+  pinMode(txPin11,OUTPUT);
 
   pinMode(rxPin3,INPUT);
   pinMode(txPin4,OUTPUT);
