@@ -2,7 +2,7 @@
 #include "Arduino.h"
 #include "robot.h"
 
-
+hej 
 void setup() {
   // put your setup code here, to run once:
   jointArm.SETUP();
