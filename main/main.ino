@@ -12,8 +12,7 @@ void setup() {
 
 void loop() {
 
-  jointArmRight.MOVE();
-
+  
   jointNeck.dab();
     
   /*

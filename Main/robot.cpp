@@ -81,21 +81,13 @@ void JointArmClassRight::HandRight_Stone(){
     int stopPos=1023;
   
 
-<<<<<<< HEAD
-  for(int pos = initPos ; pos < stopPos; pos+=10){
-      for(int i = littleFingerRight ; i < thumbRight + 1; i++){
-        servoRight.moveJoint(i, pos);
-=======
 
   for(int pos = initPos ; pos < stopPos; pos+=10){
       for(int i = littleFingerRight ; i < thumbRight + 1; i++){
         servoRight.moveJoint(i, pos);
 
-
->>>>>>> c0579c88b9a6db26a7314989673deea05629e6d7
-
+    }
   }
-}
 }
 void JointArmClassRight::HandRight_Scissor(){
 
@@ -164,12 +156,7 @@ void JointArmClassLeft::HandLeft_Scissor(){
       }
       }
       }
-<<<<<<< HEAD
-=======
-   
 
-
->>>>>>> c0579c88b9a6db26a7314989673deea05629e6d7
 
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
