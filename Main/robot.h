@@ -43,6 +43,10 @@
 #define SERVO_COUNT 6
 #endif
 
+#ifndef littlefinger_left
+#define littlefinger_left 1
+#endif
+
 
 //---------------------------------Arm_RIGHT--------------------------------------------------//
 

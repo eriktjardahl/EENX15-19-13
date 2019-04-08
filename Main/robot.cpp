@@ -30,7 +30,6 @@ XYZrobotServo servo6(A116servo2Serial,6);
 
 XYZrobotServo servo7(A116servo2Serial,7);
 
-char input_signal;
 
 XL320 servoLeft;
 /*
@@ -115,24 +114,26 @@ void JointArmClassLeft::SETUP(){
   
   }
  //---------------------------------HandLeft--------------------------------------------------// 
- void JointArmClassLeft::HandLeft(){
-  switch (input_signal) {
-    case 'a':    // sten
+ void JointArmClassLeft::HandLeft_Stone(){
+
+
      for(int j = 0 ; j < 1023; j+=10){
       for(int i = 1 ; i < 6; i++){
         servoLeft.moveJoint(i, j);
         
-      }
      }
-      break;
-    case 'b':    // sax
-         for(int j = 0 ; j < 1023; j+=10){
+     }
+     }
+void JointArmClassLeft::HandLeft_Sissor(){
+
+      for(int j = 0 ; j < 1023; j+=10){
       for(int i = 1 ; i < 6; i++){
        if( i == 1 ||  i == 2 ||  i == 5)
         servoLeft.moveJoint(i, j);
       }
       }
-      break;
+      }
+   
     case 'c':    // påse
       break;
   }   
