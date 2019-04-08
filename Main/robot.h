@@ -54,14 +54,32 @@
 
 
 
+#ifndef littleFinger_Left
+#define littleFinger_Left 1
+#endif
+
+#ifndef ringFinger_Left
+#define ringFinger_Left 2
+#endif
+
+#ifndef middleFinger_Left
+#define middleFinger_Left 3
+#endif
+
+#ifndef indexFinger_Left
+#define indexFinger_Left 4
+#endif
+
+#ifndef thumb_Left
+#define thumb_Left 5
+#endif
+
+
+
+
 #ifndef SERVO_COUNT
 #define SERVO_COUNT 6
 #endif
-
-#ifndef littlefinger_left
-#define littlefinger_left 1
-#endif
-
 
 //---------------------------------Arm_RIGHT--------------------------------------------------//
 
@@ -90,7 +108,9 @@ class JointArmClassLeft {
   public:
     JointArmClassLeft();
     void SETUP();
-    void SSP();    
+    void SSP(); 
+    void HandLeft_Stone(); 
+    void HandLeft_Scissor();  
 
 };
 
