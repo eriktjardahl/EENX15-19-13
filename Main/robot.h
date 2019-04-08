@@ -52,15 +52,15 @@
 #define neckRoll 13
 #endif
 
-
+#ifndef littlefinger_left
+#define littlefinger_left 1
+#endif
 
 #ifndef SERVO_COUNT
 #define SERVO_COUNT 6
 #endif
 
-#ifndef littlefinger_left
-#define littlefinger_left 1
-#endif
+
 
 
 //---------------------------------Arm_RIGHT--------------------------------------------------//
@@ -109,6 +109,7 @@ class JointNeckClass{
   JointNeckClass();
   void SETUP();
   void nod();
+  void dab();
 };
 
 extern JointNeckClass jointNeck;

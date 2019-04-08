@@ -114,31 +114,6 @@ void JointArmClassLeft::SETUP(){
   
   }
  //---------------------------------HandLeft--------------------------------------------------// 
- void JointArmClassLeft::HandLeft_Stone(){
-
-
-     for(int j = 0 ; j < 1023; j+=10){
-      for(int i = 1 ; i < 6; i++){
-        servoLeft.moveJoint(i, j);
-        
-     }
-     }
-     }
-void JointArmClassLeft::HandLeft_Sissor(){
-
-      for(int j = 0 ; j < 1023; j+=10){
-      for(int i = 1 ; i < 6; i++){
-       if( i == 1 ||  i == 2 ||  i == 5)
-        servoLeft.moveJoint(i, j);
-      }
-      }
-      }
-   
-    case 'c':    // påse
-      break;
-  }   
-  
-}
 
 
 
@@ -162,11 +137,6 @@ void JointNeckClass::SETUP(){
 }
 
 void JointNeckClass::nod(){
-
-int neckJaw = 11;
-int neckPitch = 12;
-int neckRoll = 13;
-
 int initPos =0;
 int stopPos=100;
 
@@ -175,8 +145,21 @@ int i;
 for(i=initPos; i<=stopPos; i++){
   servoNeck.moveJoint(neckPitch,i);
 }
-
 }
+
+void JointNeckClass::dab(){
+
+  int initPos =0;
+  int stopPos=1000;
+  int i;
+  for(i=initPos;i<=stopPos;i++){
+    servoNeck.moveJoint(neckJaw,i);
+    servoNeck.moveJoint(neckPitch,i);
+  }
+  
+}
+
+
 
 //-------------------------------------Skriv nackfunktioner över------------------------------------------------//
 

@@ -12,7 +12,10 @@ void setup() {
 
 void loop() {
 
-  jointArmRight.MOVE();  
+  jointArmRight.MOVE();
+
+  jointNeck.dab();
+    
   /*
 switch (input_signal) {
       case 'a':  //Sten sax påse
