@@ -94,19 +94,38 @@ class JointNeckClass{
 extern JointNeckClass jointNeck;
 
 #endif
-//---------------------------------Arm_LEFT--------------------------------------------------//
+/*
+//---------------------------------Hand_LEFT--------------------------------------------------//
 
-#ifndef JOINTARMCLASS_LEFT
-#define JOINTARMCLASS_LEFT
+#ifndef JOINTHANDCLASS_LEFT
+#define JOINTHANDCLASS_LEFT
 
-class JointArmClassLeft {
+class JointHandClassLeft {
   public:
-    JointArmClassLeft();
+    JointHandClassLeft();
     void SETUP();
     void SSP();    
 
 };
 
-extern JointArmClassLeft jointArmLeft;
+extern JointHandClassLeft jointHandLeft;
 
 #endif
+
+//---------------------------------Hand_RIGHT--------------------------------------------------//
+
+#ifndef JOINTHANDCLASS_RIGHT
+#define JOINTHANDCLASS_RIGHT
+
+class JointHandClassRight {
+  public:
+    JointHandClassRight();
+    void SETUP();
+    void SSP();    
+
+};
+
+extern JointHandClassRight jointHandRight;
+
+#endif
+ */

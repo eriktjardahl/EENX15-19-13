@@ -47,17 +47,13 @@ XL320 servoNeck;
  * Id 11-14 Nack rotationer. 
  */
 
-//---------------------------------Arm--------------------------------------------------//
+//---------------------------------Arm_RIGHT-------------------------------------------------//
 
-JointArmClass::JointArmClass(){
+JointArmClassRight::JointArmClassRight(){
 }
 
-void JointArmClass::SETUP(){
-  pinMode(rxPin0,INPUT);
-  pinMode(txPin1,OUTPUT);
+void JointArmClassRight::SETUP(){
 
-  pinMode(rxPin3,INPUT);
-  pinMode(txPin4,OUTPUT);
 
   pinMode(rxPin6,INPUT);
   pinMode(txPin7,OUTPUT);
@@ -65,21 +61,48 @@ void JointArmClass::SETUP(){
   pinMode(rxPin10,INPUT);
   pinMode(txPin11,OUTPUT);
 
-  A116servoSerial.begin(115200);
-  A116servo2Serial.begin(115200);
-  XL320servoSerial.begin(115200);
-  XL320servo2Serial.begin(115200);
+ 
+  A116servo2Serial.begin(115200);  // höger arm
+  XL320servo2Serial.begin(115200); // höger hand
   
-  servoLeft.begin(XL320servoSerial);
+ 
   servoRight.begin(XL320servo2Serial);  
   
   }
 
-void 
+
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
 
-JointArmClass jointArm = JointArmClass();
+JointArmClassRight jointArmRight = JointArmClassRight();
+
+//---------------------------------Arm_Left--------------------------------------------------//
+
+JointArmClassLeft::JointArmClassLeft(){
+}
+
+void JointArmClassLeft::SETUP(){
+  pinMode(rxPin0,INPUT);
+  pinMode(txPin1,OUTPUT);
+
+  pinMode(rxPin3,INPUT);
+  pinMode(txPin4,OUTPUT);
+
+
+  A116servoSerial.begin(115200); //vänster arm 
+  XL320servoSerial.begin(115200); //vänster hand 
+
+  
+  servoLeft.begin(XL320servoSerial);
+  
+  }
+
+
+
+//-------------------------------------Skriv armfunktioner över------------------------------------------------//
+
+JointArmClassLeft jointArmLeft = JointArmClassLeft();
+
 
 //-------------------------------------Neck------------------------------------------------//
 

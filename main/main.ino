@@ -5,12 +5,13 @@
 
 void setup() {
   // put your setup code here, to run once:
-  jointArm.SETUP();
+  jointArmLeft.SETUP();
+  jointArmRight.SETUP();
   jointNeck.SETUP();
 }
 
 void loop() {
-  
+  /*
 switch (input_signal) {
       case 'a':  //Sten sax påse
       break;
@@ -23,6 +24,7 @@ switch (input_signal) {
       
       case 'd': // Nicka
       break;
-  }     
+  }   
+  */  
 
 }
