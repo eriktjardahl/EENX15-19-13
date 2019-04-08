@@ -2,7 +2,6 @@
 #include "Arduino.h"
 #include "robot.h"
 
-hej 
 void setup() {
   // put your setup code here, to run once:
   jointArm.SETUP();
@@ -10,6 +9,19 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  
+switch (input_signal) {
+      case 'a':  //Sten sax påse
+      break;
+      
+      case 'b':   //Vinka  
+      break;
+      
+      case 'c':    // High-Five
+      break;
+      
+      case 'd': // Nicka
+      break;
+  }     
 
 }
