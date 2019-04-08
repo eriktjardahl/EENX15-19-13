@@ -52,7 +52,9 @@
 #define neckRoll 13
 #endif
 
-
+#ifndef littlefinger_left
+#define littlefinger_left 1
+#endif
 
 #ifndef littleFinger_Left
 #define littleFinger_Left 1
@@ -70,9 +72,13 @@
 #define indexFinger_Left 4
 #endif
 
+<<<<<<< HEAD
 #ifndef thumb_Left
 #define thumb_Left 5
 #endif
+=======
+
+>>>>>>> 87e87ab9c7a7a27ae5673386ef12bb836af05462
 
 
 
@@ -129,6 +135,7 @@ class JointNeckClass{
   JointNeckClass();
   void SETUP();
   void nod();
+  void dab();
 };
 
 extern JointNeckClass jointNeck;
