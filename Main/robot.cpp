@@ -115,13 +115,12 @@ void JointArmClassLeft::SETUP(){
   
   }
  //---------------------------------HandLeft--------------------------------------------------// 
-<<<<<<< HEAD
  void JointArmClassLeft::HandLeft_Stone(){
     int initPos=0;
     int stopPos=1023;
 
      for(int pos = initPos ; pos < stopPos; pos+=10){
-      for(int i = littleFinger_Left ; i < thumb_Left + 1; i++){
+      for(int i = littleFingerLeft ; i < thumbLeft + 1; i++){
         servoLeft.moveJoint(i, pos);
         
      }
@@ -132,17 +131,14 @@ void JointArmClassLeft::HandLeft_Scissor(){
        int stopPos=1023;
 
       for(int pos = initPos ; pos < stopPos; pos+=10){
-      for(int i = littleFinger_Left ; i < thumb_Left + 1; i++){
-       if( i == littleFinger_Left ||  i == ringFinger_Left ||  i == thumb_Left)
+      for(int i = littleFingerLeft ; i < thumbLeft + 1; i++){
+       if( i == littleFingerLeft ||  i == ringFingerLeft ||  i == thumbLeft)
         servoLeft.moveJoint(i, pos);
       }
       }
       }
    
     
- 
-=======
->>>>>>> 87e87ab9c7a7a27ae5673386ef12bb836af05462
 
 
 
@@ -166,11 +162,7 @@ void JointNeckClass::SETUP(){
 }
 
 void JointNeckClass::nod(){
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 87e87ab9c7a7a27ae5673386ef12bb836af05462
 int initPos =0;
 int stopPos=100;
 
