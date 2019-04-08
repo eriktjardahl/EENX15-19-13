@@ -111,10 +111,6 @@ void setup(){
 
 void loop() {
  // put your main code here, to run repeatedly:
- 
-      int playtime =75;
-      int distance = 10000;
-
 int i;
 
 
@@ -129,19 +125,25 @@ int i;
     servo6.setPosition(i,10);
     servo7.setPosition(i,10);
 
-/*
+
     servoLeft.moveJoint(1,i);
     servoLeft.moveJoint(2,i);
     servoLeft.moveJoint(3,i);
     servoLeft.moveJoint(4,i);
     servoLeft.moveJoint(5,i);
-*/
+
     
     servoRight.moveJoint(6,i);
     servoRight.moveJoint(7,i);
     servoRight.moveJoint(8,i);
     servoRight.moveJoint(9,i);
     servoRight.moveJoint(10,i);
+
+    servoNeck.moveJoint(11,i);
+    servoNeck.moveJoint(12,i);
+    servoNeck.moveJoint(13,i);
+    servoNeck.moveJoint(14,i);
+    
 
     //Elbow.write(j);
      
@@ -155,8 +157,24 @@ int i;
   servo5.setPosition(0,10);
   servo6.setPosition(0,10);
   servo7.setPosition(0,10);
+  
+  servoLeft.moveJoint(1,0);
+  servoLeft.moveJoint(2,0);
+  servoLeft.moveJoint(3,0);
+  servoLeft.moveJoint(4,0);
   servoLeft.moveJoint(5,0);
-  servoRight.moveJoint(2,0);
+  
+  servoRight.moveJoint(6,0);
+  servoRight.moveJoint(7,0);
+  servoRight.moveJoint(8,0);
+  servoRight.moveJoint(9,0);
+  servoRight.moveJoint(10,0);
+
+    servoNeck.moveJoint(11,0);
+    servoNeck.moveJoint(12,0);
+    servoNeck.moveJoint(13,0);
+    servoNeck.moveJoint(14,0);
+  
   //Elbow.writeMicroseconds(1500);
 
 
