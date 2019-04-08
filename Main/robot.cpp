@@ -4,15 +4,17 @@
 //-------------------------------------Initiera alla motorer------------------------------------------------//
 
 
-SoftwareSerial A116servoSerial=SoftwareSerial(rxPin0, txPin1);
+SoftwareSerial A116servoSerial=SoftwareSerial(rxPin0, txPin1); //Vänster arm
 
-SoftwareSerial A116servo2Serial=SoftwareSerial(rxPin10, txPin11);
+SoftwareSerial A116servo2Serial=SoftwareSerial(rxPin10, txPin11); //Höger arm
 
-SoftwareSerial XL320servoSerial=SoftwareSerial(rxPin3, txPin4);
+SoftwareSerial XL320servoSerial=SoftwareSerial(rxPin3, txPin4); //Vänster hand
 
-SoftwareSerial XL320servo2Serial=SoftwareSerial(rxPin6, txPin7);
+SoftwareSerial XL320servo2Serial=SoftwareSerial(rxPin6, txPin7);  //Höger hand
 
-SoftwareSerial XL320servo3Serial=SoftwareSerial(rxPin8, txPin9);
+SoftwareSerial XL320servo3Serial=SoftwareSerial(rxPin8, txPin9);  //Nacke
+
+
 
 XYZrobotServo servo1(A116servoSerial,1);
 
@@ -70,9 +72,10 @@ void JointArmClass::SETUP(){
   
   servoLeft.begin(XL320servoSerial);
   servoRight.begin(XL320servo2Serial);  
- 
   
   }
+
+void 
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
 
