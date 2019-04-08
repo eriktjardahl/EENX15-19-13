@@ -33,11 +33,12 @@ XYZrobotServo servo7(A116servo2Serial,7);
 
 XL320 servoLeft;
 /*
-  //lillfinger .   ID:1
-  //ringfinger     ID:2
-  //långfinger    ID:3
-  //pekfinger     ID:4
-  //tummer        ID:5
+ * Vänster hand
+  lillfinger .   ID:1
+  ringfinger     ID:2
+  långfinger    ID:3
+  pekfinger     ID:4
+  tummer        ID:5
  */
 
 XL320 servoRight;
