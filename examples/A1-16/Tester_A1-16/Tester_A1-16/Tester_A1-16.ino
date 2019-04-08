@@ -145,7 +145,7 @@ int i;
     servoNeck.moveJoint(14,i);
     
 
-    //Elbow.write(j);
+    //Elbow.write(j);    
      
     
   }
