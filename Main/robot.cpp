@@ -70,6 +70,16 @@ void JointArmClassRight::SETUP(){
   
   }
 
+void JointArmClassRight::MOVE(){
+
+  int i;
+  for(i=1;i<=1000;i++){
+      
+    servo1.setPosition(i,10);
+}
+    servo1.setPosition(0,10);
+
+}
 
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//

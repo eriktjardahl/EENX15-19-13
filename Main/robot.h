@@ -54,7 +54,8 @@ class JointArmClassRight {
   public:
     JointArmClassRight();
     void SETUP();
-    void SSP();    
+    void SSP();
+    void MOVE();    
 
 };
 
