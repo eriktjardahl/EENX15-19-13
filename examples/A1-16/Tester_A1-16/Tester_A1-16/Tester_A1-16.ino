@@ -2,6 +2,7 @@
 #include <XL320.h>
 #include <XYZrobotServo.h>
 #include <SoftwareSerial.h>
+
 //#include <Servo.h>
 
 #define SERVO_COUNT 6
@@ -14,6 +15,9 @@
 
 #define rxPin6 6
 #define txPin7 7
+
+#define rxPin8 8
+#define txPin9 9
 
 #define rxPin10 10
 #define txPin11 11
@@ -31,6 +35,8 @@ SoftwareSerial XL320servoSerial=SoftwareSerial(rxPin3, txPin4);
 
 SoftwareSerial XL320servo2Serial=SoftwareSerial(rxPin6, txPin7);
 
+SoftwareSerial XL320servo3Serial=SoftwareSerial(rxPin8, txPin9);
+
 
 XYZrobotServo servo1(A116servoSerial,1);
 
@@ -46,9 +52,21 @@ XYZrobotServo servo6(A116servo2Serial,6);
 
 XYZrobotServo servo7(A116servo2Serial,7);
 
-XL320 servoVanster;
 
-XL320 servoHoger;
+XL320 servoLeft;
+/*
+ * ID 1-5 Vänster hand. 1=Lillfinger, 2=Ringfinger, 3=Långfinger, 4=Pekfinger, 5=tumme
+ */
+
+XL320 servoRight;
+/*
+ * ID 6-10 Vänster hand. 6=Lillfinger, 7=Ringfinger,8=Långfinger, 9=Pekfinger, 10=tumme
+ */
+
+XL320 servoNeck;
+/*
+ * Id 11-14 Nack rotationer. 
+ */
 
 //Servo Elbow;
 
@@ -69,11 +87,14 @@ void setup(){
 
   pinMode(rxPin6,INPUT);
   pinMode(txPin7,OUTPUT);
+  
+  pinMode(rxPin8,INPUT);
+  pinMode(txPin9,OUTPUT);
 
 
   pinMode(rxPin10,INPUT);
   pinMode(txPin11,OUTPUT);
-
+  
   pinMode(txPin12,OUTPUT);
 
 
@@ -81,8 +102,11 @@ void setup(){
    A116servo2Serial.begin(115200);
    XL320servoSerial.begin(115200);
    XL320servo2Serial.begin(115200);
-   servoVanster.begin(XL320servoSerial);
-   servoHoger.begin(XL320servo2Serial);
+   XL320servo3Serial.begin(115200);
+   servoLeft.begin(XL320servoSerial);
+   servoRight.begin(XL320servo2Serial);
+   servoNeck.begin(XL320servo3Serial);
+   
    //Elbow.attach(txPin12);
 
 
@@ -108,8 +132,8 @@ int i;
     servo6.setPosition(i,10);
     servo7.setPosition(i,10);
 
-    servoVanster.moveJoint(5,i);
-    servoHoger.moveJoint(2,i);
+    servoLeft.moveJoint(5,i);
+    servoRight.moveJoint(2,i);
 
     //Elbow.write(j);
      
@@ -123,8 +147,8 @@ int i;
   servo5.setPosition(0,10);
   servo6.setPosition(0,10);
   servo7.setPosition(0,10);
-  servoVanster.moveJoint(5,0);
-  servoHoger.moveJoint(2,0);
+  servoLeft.moveJoint(5,0);
+  servoRight.moveJoint(2,0);
   //Elbow.writeMicroseconds(1500);
 
 
