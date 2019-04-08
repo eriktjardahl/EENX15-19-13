@@ -22,12 +22,10 @@
 #define rxPin10 10
 #define txPin11 11
 
-#define txPin12 12
 
 
 
 SoftwareSerial A116servoSerial=SoftwareSerial(rxPin0, txPin1);
-
 
 SoftwareSerial A116servo2Serial=SoftwareSerial(rxPin10, txPin11);
 
@@ -95,7 +93,6 @@ void setup(){
   pinMode(rxPin10,INPUT);
   pinMode(txPin11,OUTPUT);
   
-  pinMode(txPin12,OUTPUT);
 
 
    A116servoSerial.begin(115200);
@@ -132,8 +129,19 @@ int i;
     servo6.setPosition(i,10);
     servo7.setPosition(i,10);
 
+/*
+    servoLeft.moveJoint(1,i);
+    servoLeft.moveJoint(2,i);
+    servoLeft.moveJoint(3,i);
+    servoLeft.moveJoint(4,i);
     servoLeft.moveJoint(5,i);
-    servoRight.moveJoint(2,i);
+*/
+    
+    servoRight.moveJoint(6,i);
+    servoRight.moveJoint(7,i);
+    servoRight.moveJoint(8,i);
+    servoRight.moveJoint(9,i);
+    servoRight.moveJoint(10,i);
 
     //Elbow.write(j);
      
