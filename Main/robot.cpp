@@ -129,6 +129,23 @@ void JointNeckClass::SETUP(){
   servoNeck.begin(XL320servo3Serial);
 }
 
+void JointNeckClass::nod(){
+
+int neckJaw = 11;
+int neckPitch = 12;
+int neckRoll = 13;
+
+int initPos =0;
+int stopPos=100;
+
+int i;
+
+for(i=initPos; i<=stopPos; i++){
+  servoNeck.moveJoint(neckPitch,i);
+}
+
+}
+
 //-------------------------------------Skriv nackfunktioner över------------------------------------------------//
 
 JointNeckClass jointNeck = JointNeckClass();  

@@ -89,7 +89,7 @@ class JointNeckClass{
   public:
   JointNeckClass();
   void SETUP();
-  void NICK();
+  void nod();
 };
 
 extern JointNeckClass jointNeck;
