@@ -134,11 +134,11 @@ class JointArmClassLeft {
   public:
     JointArmClassLeft();
     void SETUP();
-    void Rock(); 
-    void Scissor(); 
-    void Paper();  
-    void ArmMotionSSP();
-    void Reset();
+    void rock(); 
+    void scissor(); 
+    void paper();  
+    void armMotionSSP();
+    void RESET();
 
 };
 

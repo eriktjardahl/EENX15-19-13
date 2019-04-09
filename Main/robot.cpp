@@ -147,11 +147,11 @@ void JointArmClassLeft::SETUP(){
   
   }
 
-  void JointArmClassLeft::ArmMotionSSP(){
+  void JointArmClassLeft::armMotionSSP(){
     
     
   }
-  void JointArmClassLeft::Reset(){
+  void JointArmClassLeft::RESET(){
   int initPos = 0;
   elbowLeft.setPosition(initPos,playtime);
   shoulderLeftPitch.setPosition(initPos,playtime);
@@ -162,7 +162,7 @@ void JointArmClassLeft::SETUP(){
 }
  //---------------------------------HandLeft--------------------------------------------------// 
 
-void JointArmClassLeft::Rock(){
+void JointArmClassLeft::rock(){
     int initPos=0;
     int stopPos=1023;
 
@@ -173,7 +173,7 @@ void JointArmClassLeft::Rock(){
         }
      }
 }
-void JointArmClassLeft::Scissor(){
+void JointArmClassLeft::scissor(){
       int initPos=0;
        int stopPos=1023;
 
@@ -185,7 +185,7 @@ void JointArmClassLeft::Scissor(){
       }
 }
 
-void JointArmClassLeft::Paper(){
+void JointArmClassLeft::paper(){
 
   
 }
