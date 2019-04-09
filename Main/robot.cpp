@@ -69,7 +69,7 @@ void JointArmClassRight::SETUP(){
   
   }
 
-void JointArmClassRight::ArmRightMotionSSP(){
+void JointArmClassRight::ArmMotionSSP(){
   int initPos=0;  // initsiera positioner 
   int stopPos=1023;
     for(int pos = initPos; pos <= stopPos ; pos+=10){
@@ -87,7 +87,7 @@ void JointArmClassRight::Reset(){
   }
 }
 //---------------------------------HandRight-------------------------------------------------// 
-void JointArmClassRight::HandRightStone(){
+void JointArmClassRight::Rock(){
 
     int initPos=0;
     int stopPos=1023;
@@ -101,7 +101,7 @@ void JointArmClassRight::HandRightStone(){
       }
   }
 }
-void JointArmClassRight::HandRightScissor(){
+void JointArmClassRight::Scissor(){
 
     int initPos=0;
     int stopPos=1023;
@@ -117,7 +117,7 @@ void JointArmClassRight::HandRightScissor(){
   }
 }
 
-void JointArmClassRight::HandRightPaper(){
+void JointArmClassRight::Paper(){
 
   
 }

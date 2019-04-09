@@ -115,12 +115,10 @@ class JointArmClassRight {
   public:
     JointArmClassRight();
     void SETUP();
-    void SSP();
-    void MOVE(); 
-    void HandRightScissor();
-    void HandRightStone();   
-    void HandRightPaper(); 
-    void ArmRightMotionSSP();
+    void Scissor();
+    void Rock();   
+    void Paper(); 
+    void ArmMotionSSP();
     void Reset();
 };
 
