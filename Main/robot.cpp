@@ -162,7 +162,7 @@ void JointArmClassLeft::SETUP(){
 }
  //---------------------------------HandLeft--------------------------------------------------// 
 
-void JointArmClassLeft::HandLeftStone(){
+void JointArmClassLeft::Rock(){
     int initPos=0;
     int stopPos=1023;
 
@@ -173,7 +173,7 @@ void JointArmClassLeft::HandLeftStone(){
         }
      }
 }
-void JointArmClassLeft::HandLeftScissor(){
+void JointArmClassLeft::Scissor(){
       int initPos=0;
        int stopPos=1023;
 
@@ -185,7 +185,7 @@ void JointArmClassLeft::HandLeftScissor(){
       }
 }
 
-void JointArmClassLeft::HandLeftPaper(){
+void JointArmClassLeft::Paper(){
 
   
 }

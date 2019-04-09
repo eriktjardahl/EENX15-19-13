@@ -136,10 +136,9 @@ class JointArmClassLeft {
   public:
     JointArmClassLeft();
     void SETUP();
-    void SSP(); 
-    void HandLeftStone(); 
-    void HandLeftScissor(); 
-    void HandLeftPaper();  
+    void Rock(); 
+    void Scissor(); 
+    void Paper();  
     void ArmLeftMotionSSP();
     void Reset();
 
