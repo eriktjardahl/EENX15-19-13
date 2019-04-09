@@ -77,6 +77,15 @@ void JointArmClassRight::ArmRightMotionSSP(){
      delay(200); // vill vi ha delay?
     }
 }
+void JointArmClassRight::ArmRightReset(){
+  int initPos = 0;
+  elbowRight.setPosition(initPos,playtime);
+  shoulderRightPitch.setPosition(initPos,playtime);
+  shoulderRightYaw.setPosition(initPos,playtime);
+  for(int i = littleFingerRight ; i < thumbRight + 1; i++){
+  servoRight.moveJoint(i, pos);
+  }
+}
 //---------------------------------HandRight-------------------------------------------------// 
 void JointArmClassRight::HandRightStone(){
 

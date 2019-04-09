@@ -17,7 +17,7 @@ void setup() {
 
 void loop() {
 
-   jointArmRight.HandRight_Stone();
+   jointArmRight.HandRightStone();
   /*
 switch (input_signal) {
       case 'a':  //Sten sax påse
