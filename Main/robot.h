@@ -121,7 +121,7 @@ class JointArmClassRight {
     void HandRightStone();   
     void HandRightPaper(); 
     void ArmRightMotionSSP();
-    void ArmRightReset();
+    void Reset();
 };
 
 extern JointArmClassRight jointArmRight;
@@ -141,6 +141,7 @@ class JointArmClassLeft {
     void HandLeftScissor(); 
     void HandLeftPaper();  
     void ArmLeftMotionSSP();
+    void Reset();
 
 };
 

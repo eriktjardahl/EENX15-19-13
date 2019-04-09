@@ -77,7 +77,7 @@ void JointArmClassRight::ArmRightMotionSSP(){
      delay(200); // vill vi ha delay?
     }
 }
-void JointArmClassRight::ArmRightReset(){
+void JointArmClassRight::Reset(){
   int initPos = 0;
   elbowRight.setPosition(initPos,playtime);
   shoulderRightPitch.setPosition(initPos,playtime);
@@ -151,6 +151,15 @@ void JointArmClassLeft::SETUP(){
     
     
   }
+  void JointArmClassLeft::Reset(){
+  int initPos = 0;
+  elbowLeft.setPosition(initPos,playtime);
+  shoulderLeftPitch.setPosition(initPos,playtime);
+  shoulderLeftYaw.setPosition(initPos,playtime);
+  for(int i = littleFingerLeft ; i < thumbLeft + 1; i++){
+  servoLeft.moveJoint(i, pos);
+  }
+}
  //---------------------------------HandLeft--------------------------------------------------// 
 
 void JointArmClassLeft::HandLeftStone(){
