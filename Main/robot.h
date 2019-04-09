@@ -97,10 +97,6 @@
 #define playtime 750
 #endif
 
-
-
-
-
 #ifndef SERVO_COUNT
 #define SERVO_COUNT 6
 #endif
@@ -115,11 +111,12 @@ class JointArmClassRight {
   public:
     JointArmClassRight();
     void SETUP();
+    void RESET();
     void scissor();
     void rock();   
     void paper(); 
     void armMotionSSP();
-    void RESET();
+    
 };
 
 extern JointArmClassRight jointArmRight;
@@ -134,11 +131,12 @@ class JointArmClassLeft {
   public:
     JointArmClassLeft();
     void SETUP();
+    void RESET();
     void rock(); 
     void scissor(); 
     void paper();  
     void armMotionSSP();
-    void RESET();
+    
 
 };
 
