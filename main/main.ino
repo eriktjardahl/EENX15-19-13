@@ -8,7 +8,7 @@ void setup() {
   jointArmLeft.SETUP();
   jointArmRight.SETUP();
   jointNeck.SETUP();
-   jointArmRight.HandRight_Stone();
+   jointArmRight.HandRightStone();
   
     
 }
