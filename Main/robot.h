@@ -115,11 +115,11 @@ class JointArmClassRight {
   public:
     JointArmClassRight();
     void SETUP();
-    void Scissor();
-    void Rock();   
-    void Paper(); 
-    void ArmMotionSSP();
-    void Reset();
+    void scissor();
+    void rock();   
+    void paper(); 
+    void armMotionSSP();
+    void RESET();
 };
 
 extern JointArmClassRight jointArmRight;
@@ -156,7 +156,7 @@ class JointNeckClass{
   public:
   JointNeckClass();
   void SETUP();
-  void Reset();
+  void RESET();
   void nod();
   void dab();
 };

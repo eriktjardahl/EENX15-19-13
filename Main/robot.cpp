@@ -69,7 +69,7 @@ void JointArmClassRight::SETUP(){
   
   }
 
-void JointArmClassRight::ArmMotionSSP(){
+void JointArmClassRight::armMotionSSP(){
   int initPos=0;  // initsiera positioner 
   int stopPos=1023;
     for(int pos = initPos; pos <= stopPos ; pos+=10){
@@ -77,7 +77,7 @@ void JointArmClassRight::ArmMotionSSP(){
      delay(200); // vill vi ha delay?
     }
 }
-void JointArmClassRight::Reset(){
+void JointArmClassRight::RESET(){
   int initPos = 0;
   elbowRight.setPosition(initPos,playtime);
   shoulderRightPitch.setPosition(initPos,playtime);
@@ -87,7 +87,7 @@ void JointArmClassRight::Reset(){
   }
 }
 //---------------------------------HandRight-------------------------------------------------// 
-void JointArmClassRight::Rock(){
+void JointArmClassRight::rock(){
 
     int initPos=0;
     int stopPos=1023;
@@ -101,7 +101,7 @@ void JointArmClassRight::Rock(){
       }
   }
 }
-void JointArmClassRight::Scissor(){
+void JointArmClassRight::scissor(){
 
     int initPos=0;
     int stopPos=1023;
@@ -117,7 +117,7 @@ void JointArmClassRight::Scissor(){
   }
 }
 
-void JointArmClassRight::Paper(){
+void JointArmClassRight::paper(){
 
   
 }
@@ -151,13 +151,13 @@ void JointArmClassLeft::SETUP(){
     
     
   }
-  void JointArmClassLeft::Reset(){
+  void JointArmClassLeft::RESET(){
   int initPos = 0;
   elbowLeft.setPosition(initPos,playtime);
   shoulderLeftPitch.setPosition(initPos,playtime);
   shoulderLeftYaw.setPosition(initPos,playtime);
   for(int i = littleFingerLeft ; i < thumbLeft + 1; i++){
-  servoLeft.moveJoint(i, pos);
+  servoLeft.moveJoint(i, initPos);
   }
 }
  //---------------------------------HandLeft--------------------------------------------------// 
@@ -230,15 +230,15 @@ void JointNeckClass::dab(){
   }  
 }
 
-void JointNeckClass::reset(){
+void JointNeckClass::RESET(){
   int initPosJaw=0;
   int initPosRoll=0;
   int initPosPitch=0;
 
   
-  servoNeck.moveJoint(neckJaw,i);
-  servoNeck.moveJoint(neckJaw,i);
-  servoNeck.moveJoint(neckPitch,i);
+  servoNeck.moveJoint(neckJaw,initPosJaw);
+  servoNeck.moveJoint(neckRoll,initPosRoll);
+  servoNeck.moveJoint(neckPitch,initPosPitch);
     
 }
 
