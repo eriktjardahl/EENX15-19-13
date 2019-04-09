@@ -157,6 +157,7 @@ class JointNeckClass{
   public:
   JointNeckClass();
   void SETUP();
+  void Reset();
   void nod();
   void dab();
 };

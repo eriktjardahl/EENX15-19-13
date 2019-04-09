@@ -212,7 +212,17 @@ void JointNeckClass::dab(){
   }  
 }
 
+void JointNeckClass::reset(){
+  int initPosJaw=0;
+  int initPosRoll=0;
+  int initPosPitch=0;
 
+  
+  servoNeck.moveJoint(neckJaw,i);
+  servoNeck.moveJoint(neckJaw,i);
+  servoNeck.moveJoint(neckPitch,i);
+    
+}
 
 //-------------------------------------Skriv nackfunktioner över------------------------------------------------//
 
