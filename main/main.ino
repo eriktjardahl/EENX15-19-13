@@ -2,34 +2,33 @@
 #include "Arduino.h"
 #include "robot.h"
 
+char input = 'a';
 
-void setup() {
+void setup()
+{
   // put your setup code here, to run once:
   jointArmLeft.SETUP();
   jointArmRight.SETUP();
   jointNeck.SETUP();
-   jointArmRight.rock();
-  
-    
+  jointArmRight.rock();
 }
 
-void loop() {
+void loop()
+{
 
-   //jointArmRight.HandRight_Stone();
-  /*
-switch (input_signal) {
-      case 'a':  //Sten sax påse
-      break;
-      
-      case 'b':   //Vinka  
-      break;
-      
-      case 'c':    // High-Five
-      break;
-      
-      case 'd': // Nicka
-      break;
-  }   
-  */  
+  switch (input)
+  {
+  case 'a': //Sten sax påse
+    jointArmRight.rock();
+    break;
 
+  case 'b': //Vinka
+    break;
+
+  case 'c': // High-Five
+    break;
+
+  case 'd': // Nicka
+    break;
+  }
 }

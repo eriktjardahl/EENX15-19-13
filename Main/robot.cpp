@@ -3,23 +3,19 @@
 
 //-------------------------------------Initiera alla motorer------------------------------------------------//
 
+SoftwareSerial A116servoSerial = SoftwareSerial(rxPin0, txPin1);    //Höger arm
+SoftwareSerial A116servo2Serial = SoftwareSerial(rxPin10, txPin11); //Väsnter arm
+SoftwareSerial XL320servoSerial = SoftwareSerial(rxPin3, txPin4);   //Vänster hand
+SoftwareSerial XL320servo2Serial = SoftwareSerial(rxPin6, txPin7);  //Höger hand
+SoftwareSerial XL320servo3Serial = SoftwareSerial(rxPin8, txPin9);  //Nacke
 
-SoftwareSerial A116servoSerial=SoftwareSerial(rxPin0, txPin1); //Höger arm
-SoftwareSerial A116servo2Serial=SoftwareSerial(rxPin10, txPin11); //Väsnter arm
-SoftwareSerial XL320servoSerial=SoftwareSerial(rxPin3, txPin4); //Vänster hand
-SoftwareSerial XL320servo2Serial=SoftwareSerial(rxPin6, txPin7);  //Höger hand
-SoftwareSerial XL320servo3Serial=SoftwareSerial(rxPin8, txPin9);  //Nacke
-
-
-
-XYZrobotServo elbowRight(A116servoSerial,1);
-XYZrobotServo shoulderRightPitch(A116servoSerial,2);
+XYZrobotServo elbowRight(A116servoSerial, 1);
+XYZrobotServo shoulderRightPitch(A116servoSerial, 2);
 //XYZrobotServo servo3(A116servoSerial,3);
-XYZrobotServo shoulderRightYaw(A116servoSerial,4);
-XYZrobotServo elbowLeft(A116servo2Serial,5);
-XYZrobotServo shoulderLeftPitch(A116servo2Serial,6);
-XYZrobotServo shoulderLeftYaw(A116servo2Serial,7);
-
+XYZrobotServo shoulderRightYaw(A116servoSerial, 4);
+XYZrobotServo elbowLeft(A116servo2Serial, 5);
+XYZrobotServo shoulderLeftPitch(A116servo2Serial, 6);
+XYZrobotServo shoulderLeftYaw(A116servo2Serial, 7);
 
 XL320 servoLeft;
 /*
@@ -48,80 +44,80 @@ XL320 servoNeck;
 
 //---------------------------------Arm_RIGHT-------------------------------------------------//
 
-JointArmClassRight::JointArmClassRight(){
+JointArmClassRight::JointArmClassRight()
+{
 }
 
-void JointArmClassRight::SETUP(){
+void JointArmClassRight::SETUP()
+{
 
+  pinMode(rxPin6, INPUT);
+  pinMode(txPin7, OUTPUT);
+  pinMode(rxPin0, INPUT);
+  pinMode(txPin1, OUTPUT);
 
-  pinMode(rxPin6,INPUT);
-  pinMode(txPin7,OUTPUT);
-  pinMode(rxPin0,INPUT);
-  pinMode(txPin1,OUTPUT);
-
-
- 
   A116servo2Serial.begin(115200);  // höger arm
   XL320servo2Serial.begin(115200); // höger hand
-  
- 
-  servoRight.begin(XL320servo2Serial);  
-  
-  }
 
-void JointArmClassRight::armMotionSSP(){
-  int initPos=0;  // initsiera positioner 
-  int stopPos=1023;
-    for(int pos = initPos; pos <= stopPos ; pos+=10){
-    elbowRight.setPosition(pos,playtime);
-     delay(200); // vill vi ha delay?
-    }
+  servoRight.begin(XL320servo2Serial);
 }
-void JointArmClassRight::RESET(){
+
+void JointArmClassRight::armMotionSSP()
+{
+  int initPos = 0; // initsiera positioner
+  int stopPos = 1023;
+  for (int pos = initPos; pos <= stopPos; pos += 10)
+  {
+    elbowRight.setPosition(pos, playtime);
+    delay(200); // vill vi ha delay?
+  }
+}
+void JointArmClassRight::RESET()
+{
   int initPos = 0;
-  elbowRight.setPosition(initPos,playtime);
-  shoulderRightPitch.setPosition(initPos,playtime);
-  shoulderRightYaw.setPosition(initPos,playtime);
-  for(int i = littleFingerRight ; i < thumbRight + 1; i++){
-  servoRight.moveJoint(i, initPos);
+  elbowRight.setPosition(initPos, playtime);
+  shoulderRightPitch.setPosition(initPos, playtime);
+  shoulderRightYaw.setPosition(initPos, playtime);
+  for (int i = littleFingerRight; i < thumbRight + 1; i++)
+  {
+    servoRight.moveJoint(i, initPos);
   }
 }
-//---------------------------------HandRight-------------------------------------------------// 
-void JointArmClassRight::rock(){
+//---------------------------------HandRight-------------------------------------------------//
+void JointArmClassRight::rock()
+{
 
-    int initPos=0;
-    int stopPos=1023;
-  
+  int initPos = 0;
+  int stopPos = 1023;
 
+  for (int pos = initPos; pos < stopPos; pos += 15)
+  {
+    for (int i = littleFingerRight; i <= thumbRight; i++)
+    {
+      servoRight.moveJoint(i, pos);
+    }
+  }
+}
+void JointArmClassRight::scissor()
+{
 
-  for(int pos = initPos ; pos < stopPos; pos+=15){
-      for(int i = littleFingerRight ; i <= thumbRight ; i++){
+  int initPos = 0;
+  int stopPos = 1023;
+
+  for (int pos = initPos; pos < stopPos; pos += 10)
+  {
+    for (int i = littleFingerRight; i < thumbRight + 1; i++)
+    {
+      if (i == littleFingerLeft || i == ringFingerRight || i == thumbRight)
+
         servoRight.moveJoint(i, pos);
-
-      }
-  }
-}
-void JointArmClassRight::scissor(){
-
-    int initPos=0;
-    int stopPos=1023;
-  
-
-  for(int pos = initPos ; pos < stopPos; pos+=10){
-      for(int i = littleFingerRight ; i < thumbRight + 1; i++){
-         if( i == littleFingerLeft ||  i == ringFingerRight ||  i == thumbRight)
-      
-        servoRight.moveJoint(i, pos);
-
-      }
+    }
   }
 }
 
-void JointArmClassRight::paper(){
-
-  
+void JointArmClassRight::paper()
+{
 }
-
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
 
@@ -129,119 +125,127 @@ JointArmClassRight jointArmRight = JointArmClassRight();
 
 //---------------------------------Arm_Left--------------------------------------------------//
 
-JointArmClassLeft::JointArmClassLeft(){
+JointArmClassLeft::JointArmClassLeft()
+{
 }
 
-void JointArmClassLeft::SETUP(){
-  pinMode(rxPin10,INPUT);
-  pinMode(txPin11,OUTPUT);
-  pinMode(rxPin3,INPUT);
-  pinMode(txPin4,OUTPUT);
+void JointArmClassLeft::SETUP()
+{
+  pinMode(rxPin10, INPUT);
+  pinMode(txPin11, OUTPUT);
+  pinMode(rxPin3, INPUT);
+  pinMode(txPin4, OUTPUT);
 
+  A116servoSerial.begin(115200);  //vänster arm
+  XL320servoSerial.begin(115200); //vänster hand
 
-  A116servoSerial.begin(115200); //vänster arm 
-  XL320servoSerial.begin(115200); //vänster hand 
-
-  
   servoLeft.begin(XL320servoSerial);
-  
-  }
+}
 
-  void JointArmClassLeft::armMotionSSP(){
-    
-    
-  }
-  void JointArmClassLeft::RESET(){
+void JointArmClassLeft::armMotionSSP()
+{
+}
+void JointArmClassLeft::RESET()
+{
   int initPos = 0;
-  elbowLeft.setPosition(initPos,playtime);
-  shoulderLeftPitch.setPosition(initPos,playtime);
-  shoulderLeftYaw.setPosition(initPos,playtime);
-  for(int i = littleFingerLeft ; i < thumbLeft + 1; i++){
-  servoLeft.moveJoint(i, initPos);
+  elbowLeft.setPosition(initPos, playtime);
+  shoulderLeftPitch.setPosition(initPos, playtime);
+  shoulderLeftYaw.setPosition(initPos, playtime);
+  for (int i = littleFingerLeft; i < thumbLeft + 1; i++)
+  {
+    servoLeft.moveJoint(i, initPos);
   }
 }
- //---------------------------------HandLeft--------------------------------------------------// 
+//---------------------------------HandLeft--------------------------------------------------//
 
-void JointArmClassLeft::rock(){
-    int initPos=0;
-    int stopPos=1023;
+void JointArmClassLeft::rock()
+{
+  int initPos = 0;
+  int stopPos = 1023;
 
-     for(int pos = initPos ; pos < stopPos; pos+=10){
-        for(int i = littleFingerLeft ; i < thumbLeft + 1; i++){
-           servoLeft.moveJoint(i, pos);
-        
-        }
-     }
+  for (int pos = initPos; pos < stopPos; pos += 10)
+  {
+    for (int i = littleFingerLeft; i < thumbLeft + 1; i++)
+    {
+      servoLeft.moveJoint(i, pos);
+    }
+  }
 }
-void JointArmClassLeft::scissor(){
-      int initPos=0;
-       int stopPos=1023;
+void JointArmClassLeft::scissor()
+{
+  int initPos = 0;
+  int stopPos = 1023;
 
-      for(int pos = initPos ; pos < stopPos; pos+=10){
-          for(int i = littleFingerLeft ; i < thumbLeft + 1; i++){
-            if( i == littleFingerLeft ||  i == ringFingerLeft ||  i == thumbLeft)
-              servoLeft.moveJoint(i, pos);
-          }
-      }
+  for (int pos = initPos; pos < stopPos; pos += 10)
+  {
+    for (int i = littleFingerLeft; i < thumbLeft + 1; i++)
+    {
+      if (i == littleFingerLeft || i == ringFingerLeft || i == thumbLeft)
+        servoLeft.moveJoint(i, pos);
+    }
+  }
 }
 
-void JointArmClassLeft::paper(){
-
-  
+void JointArmClassLeft::paper()
+{
 }
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
 
 JointArmClassLeft jointArmLeft = JointArmClassLeft();
 
-
 //-------------------------------------Neck------------------------------------------------//
 
-JointNeckClass::JointNeckClass(){
+JointNeckClass::JointNeckClass()
+{
 }
 
-void JointNeckClass::SETUP(){
-  pinMode(rxPin8,INPUT);
-  pinMode(txPin9,OUTPUT);
+void JointNeckClass::SETUP()
+{
+  pinMode(rxPin8, INPUT);
+  pinMode(txPin9, OUTPUT);
 
   XL320servo3Serial.begin(115200);
   servoNeck.begin(XL320servo3Serial);
 }
 
-void JointNeckClass::nod(){
+void JointNeckClass::nod()
+{
 
-int initPos =0;
-int stopPos=100;
-int i;
+  int initPos = 0;
+  int stopPos = 100;
+  int i;
 
-  for(i=initPos; i<=stopPos; i++){
-    servoNeck.moveJoint(neckPitch,i);
+  for (i = initPos; i <= stopPos; i++)
+  {
+    servoNeck.moveJoint(neckPitch, i);
   }
 }
 
-void JointNeckClass::dab(){
+void JointNeckClass::dab()
+{
 
-  int initPos =0;
-  int stopPos=1000;
+  int initPos = 0;
+  int stopPos = 1000;
   int i;
-  for(i=initPos;i<=stopPos;i++){
-    servoNeck.moveJoint(neckJaw,i);
-    servoNeck.moveJoint(neckPitch,i);
-  }  
+  for (i = initPos; i <= stopPos; i++)
+  {
+    servoNeck.moveJoint(neckJaw, i);
+    servoNeck.moveJoint(neckPitch, i);
+  }
 }
 
-void JointNeckClass::RESET(){
-  int initPosJaw=0;
-  int initPosRoll=0;
-  int initPosPitch=0;
+void JointNeckClass::RESET()
+{
+  int initPosJaw = 0;
+  int initPosRoll = 0;
+  int initPosPitch = 0;
 
-  
-  servoNeck.moveJoint(neckJaw,initPosJaw);
-  servoNeck.moveJoint(neckRoll,initPosRoll);
-  servoNeck.moveJoint(neckPitch,initPosPitch);
-    
+  servoNeck.moveJoint(neckJaw, initPosJaw);
+  servoNeck.moveJoint(neckRoll, initPosRoll);
+  servoNeck.moveJoint(neckPitch, initPosPitch);
 }
 
 //-------------------------------------Skriv nackfunktioner över------------------------------------------------//
 
-JointNeckClass jointNeck = JointNeckClass();  
+JointNeckClass jointNeck = JointNeckClass();
