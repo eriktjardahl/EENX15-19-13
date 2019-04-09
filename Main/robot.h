@@ -3,52 +3,51 @@
 #include <XYZrobotServo.h>
 #include <SoftwareSerial.h>
 
-#ifndef rxPin0 0
+#ifndef rxPin0 
 #define rxPin0 0
 #endif
-#ifndef txPin1 1
+#ifndef txPin1 
 #define txPin1 1
 #endif
 
-
-#ifndef rxPin3 3
+#ifndef rxPin3 
 #define rxPin3 3
 #endif
-#ifndef txPin4 4
+#ifndef txPin4 
 #define txPin4 4
 #endif
 
-#ifndef rxPin6 6
+#ifndef rxPin6 
 #define rxPin6 6
 #endif
-#ifndef txPin7 7
+#ifndef txPin7 
 #define txPin7 7
 #endif
 
-#ifndef rxPin8 8
+#ifndef rxPin8 
 #define rxPin8 8
 #endif
-#ifndef txPin9 9
+#ifndef txPin9 
 #define txPin9 9
 #endif
 
-#ifndef rxPin10 10
+#ifndef rxPin10 
 #define rxPin10 10
 #endif
-#ifndef txPin11 11
+#ifndef txPin11 
 #define txPin11 11
 #endif
 
 
-#ifndef neckJaw 11
+#ifndef neckJaw 
 #define neckJaw 11
 #endif
 
-#ifndef neckPich 12
+#ifndef neckPich 
 #define neckPitch 12
 #endif
 
-#ifndef neckRoll 13
+#ifndef neckRoll 
 #define neckRoll 13
 #endif
 
