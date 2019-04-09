@@ -147,7 +147,7 @@ void JointArmClassLeft::SETUP(){
   
   }
 
-  void JointArmClassLeft::ArmLeftMotion(){
+  void JointArmClassLeft::ArmMotionSSP(){
     
     
   }

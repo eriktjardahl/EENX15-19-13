@@ -137,7 +137,7 @@ class JointArmClassLeft {
     void Rock(); 
     void Scissor(); 
     void Paper();  
-    void ArmLeftMotionSSP();
+    void ArmMotionSSP();
     void Reset();
 
 };
