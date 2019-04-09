@@ -8,14 +8,14 @@ void setup() {
   jointArmLeft.SETUP();
   jointArmRight.SETUP();
   jointNeck.SETUP();
-   jointArmRight.HandRight_Stone();
+
   
     
 }
 
 void loop() {
 
- 
+   jointArmRight.HandRight_Stone();
   /*
 switch (input_signal) {
       case 'a':  //Sten sax påse
