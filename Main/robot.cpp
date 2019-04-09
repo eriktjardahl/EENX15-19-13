@@ -70,9 +70,9 @@ void JointArmClassRight::SETUP(){
   }
 
 void JointArmClassRight::ArmRight_Motion(){
-  int initPos=xx;  // initsiera positioner 
-  int stopPos=xx;
-    for(int pos = initPos; pos < stopPos ; pos+=10;){
+  int initPos=0;  // initsiera positioner 
+  int stopPos=1023;
+    for(int pos = initPos; pos < stopPos ; pos+=10){
     elbowRight.setPosition(400,playtime);
   delay(2000);
     }
@@ -85,8 +85,8 @@ void JointArmClassRight::HandRight_Stone(){
   
 
 
-  for(int pos = initPos ; pos < stopPos; pos+=10){
-      for(int i = littleFingerRight ; i < thumbRight + 1; i++){
+  for(int pos = initPos ; pos < stopPos; pos+=15){
+      for(int i = littleFingerRight ; i <= thumbRight ; i++){
         servoRight.moveJoint(i, pos);
 
       }
