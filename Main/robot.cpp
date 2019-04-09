@@ -13,12 +13,12 @@ SoftwareSerial XL320servo3Serial=SoftwareSerial(rxPin8, txPin9);  //Nacke
 
 
 XYZrobotServo elbowRight(A116servoSerial,1);
-XYZrobotServo shoulderRightFirst(A116servoSerial,2);
+XYZrobotServo shoulderRightPitch(A116servoSerial,2);
 //XYZrobotServo servo3(A116servoSerial,3);
-XYZrobotServo shoulderRightSecond(A116servoSerial,4);
+XYZrobotServo shoulderRightYaw(A116servoSerial,4);
 XYZrobotServo elbowLeft(A116servo2Serial,5);
-XYZrobotServo shoulderLeftFirst(A116servo2Serial,6);
-XYZrobotServo shoulderLeftSecond(A116servo2Serial,7);
+XYZrobotServo shoulderLeftPitch(A116servo2Serial,6);
+XYZrobotServo shoulderLeftYaw(A116servo2Serial,7);
 
 
 XL320 servoLeft;
@@ -69,7 +69,7 @@ void JointArmClassRight::SETUP(){
   
   }
 
-void JointArmClassRight::ArmRight_Motion(){
+void JointArmClassRight::ArmRightMotion(){
   int initPos=0;  // initsiera positioner 
   int stopPos=1023;
     for(int pos = initPos; pos < stopPos ; pos+=10){
@@ -78,7 +78,7 @@ void JointArmClassRight::ArmRight_Motion(){
     }
 }
 //---------------------------------HandRight-------------------------------------------------// 
-void JointArmClassRight::HandRight_Stone(){
+void JointArmClassRight::HandRightStone(){
 
     int initPos=0;
     int stopPos=1023;
@@ -92,7 +92,7 @@ void JointArmClassRight::HandRight_Stone(){
       }
   }
 }
-void JointArmClassRight::HandRight_Scissor(){
+void JointArmClassRight::HandRightScissor(){
 
     int initPos=0;
     int stopPos=1023;
@@ -108,7 +108,7 @@ void JointArmClassRight::HandRight_Scissor(){
   }
 }
 
-void JointArmClassRight::HandRight_Paper(){
+void JointArmClassRight::HandRightPaper(){
 
   
 }
@@ -138,13 +138,13 @@ void JointArmClassLeft::SETUP(){
   
   }
 
-  void JointArmClassLeft::ArmLeft_Motion(){
+  void JointArmClassLeft::ArmLeftMotion(){
     
     
   }
  //---------------------------------HandLeft--------------------------------------------------// 
 
-void JointArmClassLeft::HandLeft_Stone(){
+void JointArmClassLeft::HandLeftStone(){
     int initPos=0;
     int stopPos=1023;
 
@@ -155,7 +155,7 @@ void JointArmClassLeft::HandLeft_Stone(){
         }
      }
 }
-void JointArmClassLeft::HandLeft_Scissor(){
+void JointArmClassLeft::HandLeftScissor(){
       int initPos=0;
        int stopPos=1023;
 
@@ -167,7 +167,7 @@ void JointArmClassLeft::HandLeft_Scissor(){
       }
 }
 
-void JointArmClassLeft::HandLeft_Paper(){
+void JointArmClassLeft::HandLeftPaper(){
 
   
 }
