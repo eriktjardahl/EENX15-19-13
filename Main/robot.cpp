@@ -69,12 +69,12 @@ void JointArmClassRight::SETUP(){
   
   }
 
-void JointArmClassRight::ArmRightMotion(){
+void JointArmClassRight::ArmRightMotionSSP(){
   int initPos=0;  // initsiera positioner 
   int stopPos=1023;
-    for(int pos = initPos; pos < stopPos ; pos+=10){
-    elbowRight.setPosition(400,playtime);
-  delay(2000);
+    for(int pos = initPos; pos <= stopPos ; pos+=10){
+    elbowRight.setPosition(pos,playtime);
+     delay(200); // vill vi ha delay?
     }
 }
 //---------------------------------HandRight-------------------------------------------------// 
