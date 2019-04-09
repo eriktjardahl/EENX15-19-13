@@ -83,7 +83,7 @@ void JointArmClassRight::RESET(){
   shoulderRightPitch.setPosition(initPos,playtime);
   shoulderRightYaw.setPosition(initPos,playtime);
   for(int i = littleFingerRight ; i < thumbRight + 1; i++){
-  servoRight.moveJoint(i, pos);
+  servoRight.moveJoint(i, initPos);
   }
 }
 //---------------------------------HandRight-------------------------------------------------// 
