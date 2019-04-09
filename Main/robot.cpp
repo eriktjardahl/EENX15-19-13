@@ -5,35 +5,25 @@
 
 
 SoftwareSerial A116servoSerial=SoftwareSerial(rxPin0, txPin1); //Höger arm
-
 SoftwareSerial A116servo2Serial=SoftwareSerial(rxPin10, txPin11); //Väsnter arm
-
 SoftwareSerial XL320servoSerial=SoftwareSerial(rxPin3, txPin4); //Vänster hand
-
 SoftwareSerial XL320servo2Serial=SoftwareSerial(rxPin6, txPin7);  //Höger hand
-
 SoftwareSerial XL320servo3Serial=SoftwareSerial(rxPin8, txPin9);  //Nacke
 
 
 
-XYZrobotServo servo1(A116servoSerial,1);
-
-XYZrobotServo servo2(A116servoSerial,2);
-
+XYZrobotServo elbowRight(A116servoSerial,1);
+XYZrobotServo shoulderRightFirst(A116servoSerial,2);
 //XYZrobotServo servo3(A116servoSerial,3);
-
-XYZrobotServo servo4(A116servoSerial,4);
-
-XYZrobotServo servo5(A116servo2Serial,5);
-
-XYZrobotServo servo6(A116servo2Serial,6);
-
-XYZrobotServo servo7(A116servo2Serial,7);
+XYZrobotServo shoulderRightSecond(A116servoSerial,4);
+XYZrobotServo elbowLeft(A116servo2Serial,5);
+XYZrobotServo shoulderLeftFirst(A116servo2Serial,6);
+XYZrobotServo shoulderLeftSecond(A116servo2Serial,7);
 
 
 XL320 servoLeft;
 /*
- * Vänster hand
+  Vänster hand
   lillfinger .   ID:1
   ringfinger     ID:2
   långfinger    ID:3
@@ -43,7 +33,12 @@ XL320 servoLeft;
 
 XL320 servoRight;
 /*
- * ID 6-10 Höger hand. 6=Lillfinger, 7=Ringfinger,8=Långfinger, 9=Pekfinger, 10=tumme
+  Höger hand
+  lillfinger .   ID:6
+  ringfinger     ID:7
+  långfinger    ID:8
+  pekfinger     ID:9
+  tummer        ID:10
  */
 
 XL320 servoNeck;
@@ -61,8 +56,7 @@ void JointArmClassRight::SETUP(){
 
   pinMode(rxPin6,INPUT);
   pinMode(txPin7,OUTPUT);
-
-   pinMode(rxPin0,INPUT);
+  pinMode(rxPin0,INPUT);
   pinMode(txPin1,OUTPUT);
 
 
@@ -74,6 +68,15 @@ void JointArmClassRight::SETUP(){
   servoRight.begin(XL320servo2Serial);  
   
   }
+
+void JointArmClassRight::ArmRight_Motion(){
+  int initPos=xx;  // initsiera positioner 
+  int stopPos=xx;
+    for(int pos = initPos; pos < stopPos ; pos+=10;){
+    elbowRight.setPosition(400,playtime);
+  delay(2000);
+    }
+}
 //---------------------------------HandRight-------------------------------------------------// 
 void JointArmClassRight::HandRight_Stone(){
 
@@ -86,7 +89,7 @@ void JointArmClassRight::HandRight_Stone(){
       for(int i = littleFingerRight ; i < thumbRight + 1; i++){
         servoRight.moveJoint(i, pos);
 
-    }
+      }
   }
 }
 void JointArmClassRight::HandRight_Scissor(){
@@ -105,7 +108,10 @@ void JointArmClassRight::HandRight_Scissor(){
   }
 }
 
+void JointArmClassRight::HandRight_Paper(){
 
+  
+}
 
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
@@ -120,7 +126,6 @@ JointArmClassLeft::JointArmClassLeft(){
 void JointArmClassLeft::SETUP(){
   pinMode(rxPin10,INPUT);
   pinMode(txPin11,OUTPUT);
-
   pinMode(rxPin3,INPUT);
   pinMode(txPin4,OUTPUT);
 
@@ -132,32 +137,40 @@ void JointArmClassLeft::SETUP(){
   servoLeft.begin(XL320servoSerial);
   
   }
+
+  void JointArmClassLeft::ArmLeft_Motion(){
+    
+    
+  }
  //---------------------------------HandLeft--------------------------------------------------// 
 
- void JointArmClassLeft::HandLeft_Stone(){
+void JointArmClassLeft::HandLeft_Stone(){
     int initPos=0;
     int stopPos=1023;
 
      for(int pos = initPos ; pos < stopPos; pos+=10){
-      for(int i = littleFingerLeft ; i < thumbLeft + 1; i++){
-        servoLeft.moveJoint(i, pos);
+        for(int i = littleFingerLeft ; i < thumbLeft + 1; i++){
+           servoLeft.moveJoint(i, pos);
         
+        }
      }
-     }
-     }
+}
 void JointArmClassLeft::HandLeft_Scissor(){
       int initPos=0;
        int stopPos=1023;
 
       for(int pos = initPos ; pos < stopPos; pos+=10){
-      for(int i = littleFingerLeft ; i < thumbLeft + 1; i++){
-       if( i == littleFingerLeft ||  i == ringFingerLeft ||  i == thumbLeft)
-        servoLeft.moveJoint(i, pos);
+          for(int i = littleFingerLeft ; i < thumbLeft + 1; i++){
+            if( i == littleFingerLeft ||  i == ringFingerLeft ||  i == thumbLeft)
+              servoLeft.moveJoint(i, pos);
+          }
       }
-      }
-      }
+}
 
+void JointArmClassLeft::HandLeft_Paper(){
 
+  
+}
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
 
@@ -174,7 +187,6 @@ void JointNeckClass::SETUP(){
   pinMode(txPin9,OUTPUT);
 
   XL320servo3Serial.begin(115200);
-
   servoNeck.begin(XL320servo3Serial);
 }
 
@@ -182,12 +194,11 @@ void JointNeckClass::nod(){
 
 int initPos =0;
 int stopPos=100;
-
 int i;
 
-for(i=initPos; i<=stopPos; i++){
-  servoNeck.moveJoint(neckPitch,i);
-}
+  for(i=initPos; i<=stopPos; i++){
+    servoNeck.moveJoint(neckPitch,i);
+  }
 }
 
 void JointNeckClass::dab(){
@@ -198,8 +209,7 @@ void JointNeckClass::dab(){
   for(i=initPos;i<=stopPos;i++){
     servoNeck.moveJoint(neckJaw,i);
     servoNeck.moveJoint(neckPitch,i);
-  }
-  
+  }  
 }
 
 

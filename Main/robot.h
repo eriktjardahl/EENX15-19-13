@@ -93,6 +93,10 @@
 #define thumbRight 10
 #endif
 
+#ifndef playtime
+#define playtime 750
+#endif
+
 
 
 
@@ -115,7 +119,8 @@ class JointArmClassRight {
     void MOVE(); 
     void HandRight_Scissor();
     void HandRight_Stone();   
-
+    void HandRight_Paper(); 
+    void ArmRight_Motion();
 };
 
 extern JointArmClassRight jointArmRight;
@@ -132,7 +137,9 @@ class JointArmClassLeft {
     void SETUP();
     void SSP(); 
     void HandLeft_Stone(); 
-    void HandLeft_Scissor();  
+    void HandLeft_Scissor(); 
+    void HandLeft_Paper();  
+    void ArmLeft_Motion();
 
 };
 
