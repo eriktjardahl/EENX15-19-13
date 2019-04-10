@@ -66,11 +66,21 @@ void JointArmClassRight::armMotionSSP()
 {
   int initPos = 0; // initsiera positioner
   int stopPos = 1023;
-  for (int pos = initPos; pos <= stopPos; pos += 10)
+  int posYaw = 0;
+  int posPitch = 0;
+  
+  shoulderRightPitch.setPosition(posPitch, playtime); //initierar axelpositionerna och sedan är de stela 
+  shoulderRightYaw.setPosition(posYaw, playtime);
+
+  
+  for(int i = 0; i <= 2; i++)
   {
+    for (int pos = initPos; pos <= stopPos; pos += 10)
+    {
     elbowRight.setPosition(pos, playtime);
-    delay(200); // vill vi ha delay?
-  }
+    }
+    elbowRight.setPosition(initPos, playtime);
+  }  
 }
 void JointArmClassRight::RESET()
 {
@@ -89,6 +99,8 @@ void JointArmClassRight::rock()
 
   int initPos = 0;
   int stopPos = 1023;
+  int initPosArm = 0;
+  int stopPosArm = 1023;
 
   for (int pos = initPos; pos < stopPos; pos += 15)
   {
@@ -97,12 +109,19 @@ void JointArmClassRight::rock()
       servoRight.moveJoint(i, pos);
     }
   }
+  for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
+  {
+    elbowRight.setPosition(pos, playtime);
+   
+  }
 }
 void JointArmClassRight::scissor()
 {
 
   int initPos = 0;
   int stopPos = 1023;
+  int initPosArm = 0;
+  int stopPosArm = 1023;
 
   for (int pos = initPos; pos < stopPos; pos += 10)
   {
@@ -113,14 +132,29 @@ void JointArmClassRight::scissor()
         servoRight.moveJoint(i, pos);
     }
   }
+  for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
+  {
+    elbowRight.setPosition(pos, playtime);
+   
+  }
 }
 
 void JointArmClassRight::paper()
 {
+<<<<<<< HEAD
   //int initPos=0;
   int pos=100;
   elbowRight.setPosition(pos,playtime);
   //elbowRight.setPosition(initPos,playtime);
+=======
+  int initPosArm = 0;
+  int stopPosArm = 1023;
+  for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
+  {
+    elbowRight.setPosition(pos, playtime);
+   
+  }
+>>>>>>> 81d6fb29455a4f1a630fd167774aa8034f214776
 }
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
@@ -148,6 +182,24 @@ void JointArmClassLeft::SETUP()
 
 void JointArmClassLeft::armMotionSSP()
 {
+  
+  int initPos = 0; // initsiera positioner
+  int stopPos = 1023;
+  int posYaw = 0;
+  int posPitch = 0;
+  
+  shoulderLeftPitch.setPosition(posPitch, playtime); //initierar axelpositionerna och sedan är de stela 
+  shoulderLeftYaw.setPosition(posYaw, playtime);
+
+  for(int i = 0; i <= 2; i++)
+  {
+    for (int pos = initPos; pos <= stopPos; pos += 10)
+    {
+    elbowLeft.setPosition(pos, playtime);
+    }
+    elbowLeft.setPosition(initPos, playtime);
+  }  
+
 }
 void JointArmClassLeft::RESET()
 {
@@ -166,6 +218,8 @@ void JointArmClassLeft::rock()
 {
   int initPos = 0;
   int stopPos = 1023;
+  int initPosArm = 0;
+  int stopPosArm = 1023;
 
   for (int pos = initPos; pos < stopPos; pos += 10)
   {
@@ -174,11 +228,18 @@ void JointArmClassLeft::rock()
       servoLeft.moveJoint(i, pos);
     }
   }
+  for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
+  {
+    elbowRight.setPosition(pos, playtime);
+   
+  }
 }
 void JointArmClassLeft::scissor()
 {
   int initPos = 0;
   int stopPos = 1023;
+  int initPosArm = 0;
+  int stopPosArm = 1023;
 
   for (int pos = initPos; pos < stopPos; pos += 10)
   {
@@ -188,10 +249,22 @@ void JointArmClassLeft::scissor()
         servoLeft.moveJoint(i, pos);
     }
   }
+  for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
+  {
+    elbowRight.setPosition(pos, playtime);
+   
+  }
 }
 
 void JointArmClassLeft::paper()
 {
+  int initPosArm = 0;
+  int stopPosArm = 1023;
+  for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
+  {
+    elbowRight.setPosition(pos, playtime);
+   
+  }
 }
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
