@@ -74,7 +74,7 @@ void JointArmClassRight::armMotionSSP()
 }
 void JointArmClassRight::RESET()
 {
-  int initPos = 0;
+  int initPos = 10;
   elbowRight.setPosition(initPos, playtime);
   shoulderRightPitch.setPosition(initPos, playtime);
   shoulderRightYaw.setPosition(initPos, playtime);
@@ -117,6 +117,10 @@ void JointArmClassRight::scissor()
 
 void JointArmClassRight::paper()
 {
+  //int initPos=0;
+  int pos=100;
+  elbowRight.setPosition(pos,playtime);
+  //elbowRight.setPosition(initPos,playtime);
 }
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
