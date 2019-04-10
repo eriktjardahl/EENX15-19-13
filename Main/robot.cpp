@@ -84,7 +84,7 @@ void JointArmClassRight::armMotionSSP()
 }
 void JointArmClassRight::RESET()
 {
-  int initPos = 10;
+  int initPos = 0;
   elbowRight.setPosition(initPos, playtime);
   shoulderRightPitch.setPosition(initPos, playtime);
   shoulderRightYaw.setPosition(initPos, playtime);
@@ -141,20 +141,10 @@ void JointArmClassRight::scissor()
 
 void JointArmClassRight::paper()
 {
-<<<<<<< HEAD
   //int initPos=0;
-  int pos=100;
+  int pos=200;
   elbowRight.setPosition(pos,playtime);
   //elbowRight.setPosition(initPos,playtime);
-=======
-  int initPosArm = 0;
-  int stopPosArm = 1023;
-  for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
-  {
-    elbowRight.setPosition(pos, playtime);
-   
-  }
->>>>>>> 81d6fb29455a4f1a630fd167774aa8034f214776
 }
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
@@ -211,6 +201,7 @@ void JointArmClassLeft::RESET()
   {
     servoLeft.moveJoint(i, initPos);
   }
+  
 }
 //---------------------------------HandLeft--------------------------------------------------//
 

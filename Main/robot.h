@@ -4,10 +4,10 @@
 #include <SoftwareSerial.h>
 
 #ifndef rxPin0 
-#define rxPin0 0
+#define rxPin0 1
 #endif
 #ifndef txPin1 
-#define txPin1 1
+#define txPin1 2
 #endif
 
 #ifndef rxPin3 
