@@ -3,11 +3,11 @@
 #include <XYZrobotServo.h>
 #include <SoftwareSerial.h>
 
-#ifndef rxPin0 
-#define rxPin0 1
+#ifndef rxPin1 
+#define rxPin1 1
 #endif
-#ifndef txPin1 
-#define txPin1 2
+#ifndef txPin2 
+#define txPin2 2
 #endif
 
 #ifndef rxPin3 
