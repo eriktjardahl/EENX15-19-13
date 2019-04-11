@@ -29,6 +29,12 @@ void loop()
     break;
 
   case 'd': // Nicka
+    break;¨
+
+  case 'e': // DAB
+    jointNeck.dab();
+    jointArmLeft.dab();
+    jointArmRight.dab();
     break;
   }
 }

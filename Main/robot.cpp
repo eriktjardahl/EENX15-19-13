@@ -82,17 +82,31 @@ void JointArmClassRight::armMotionSSP()
     elbowRight.setPosition(initPos, playtime);
   }  
 }
+
 void JointArmClassRight::RESET()
 {
   int initPos = 0;
   elbowRight.setPosition(initPos, playtime);
   shoulderRightPitch.setPosition(initPos, playtime);
   shoulderRightYaw.setPosition(initPos, playtime);
-  for (int i = littleFingerRight; i < thumbRight + 1; i++)
+  for (int i = littleFingerRight; i <= thumbRight; i++)
   {
     servoRight.moveJoint(i, initPos);
   }
 }
+
+void JointArmClassRight::dab(){
+  int initPos = 0;
+  int endPosYawShoulder = 1023;
+  int endPosPitchElbow =1023;
+
+  for (int i = initPos, int j = initPos; i<=endPosRollShoulder, j<=endPosPitchElbow; i++, j++ ) {
+    elbowRight.setPosition(j, playtime);
+    shoulderRightYaw.setPosition(i,playtime);
+  }
+
+}
+
 //---------------------------------HandRight-------------------------------------------------//
 void JointArmClassRight::rock()
 {
@@ -125,7 +139,7 @@ void JointArmClassRight::scissor()
 
   for (int pos = initPos; pos < stopPos; pos += 10)
   {
-    for (int i = littleFingerRight; i < thumbRight + 1; i++)
+    for (int i = littleFingerRight; i <= thumbRight; i++)
     {
       if (i == littleFingerLeft || i == ringFingerRight || i == thumbRight)
 
@@ -203,6 +217,19 @@ void JointArmClassLeft::RESET()
   }
   
 }
+
+void JointArmClassLeft::dab();{
+  int initPos = 0;
+
+  int endPosYawShoulder = 1023;
+
+  for(int i = initPos; i <= endPosYawShoulder; i++)
+  {
+    jointArmLeft.setPosition(i,playtime);
+  }
+  
+
+}
 //---------------------------------HandLeft--------------------------------------------------//
 
 void JointArmClassLeft::rock()
@@ -212,9 +239,9 @@ void JointArmClassLeft::rock()
   int initPosArm = 0;
   int stopPosArm = 1023;
 
-  for (int pos = initPos; pos < stopPos; pos += 10)
+  for (int pos = initPos; pos <= stopPos; pos += 10)
   {
-    for (int i = littleFingerLeft; i < thumbLeft + 1; i++)
+    for (int i = littleFingerLeft; i <= thumbLeft; i++)
     {
       servoLeft.moveJoint(i, pos);
     }
@@ -232,9 +259,9 @@ void JointArmClassLeft::scissor()
   int initPosArm = 0;
   int stopPosArm = 1023;
 
-  for (int pos = initPos; pos < stopPos; pos += 10)
+  for (int pos = initPos; pos <= stopPos; pos += 10)
   {
-    for (int i = littleFingerLeft; i < thumbLeft + 1; i++)
+    for (int i = littleFingerLeft; i <= thumbLeft; i++)
     {
       if (i == littleFingerLeft || i == ringFingerLeft || i == thumbLeft)
         servoLeft.moveJoint(i, pos);
