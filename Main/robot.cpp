@@ -3,10 +3,10 @@
 
 //-------------------------------------Initiera alla motorer------------------------------------------------//
 
-SoftwareSerial A116servoSerial = SoftwareSerial(rxPin1, txPin2);    //Höger arm
-SoftwareSerial A116servo2Serial = SoftwareSerial(rxPin10, txPin11); //Väsnter arm
+SoftwareSerial A116servoSerial = SoftwareSerial(rxPin1, txPin2);    //Höger arm, typ max pos armbåge = 300
+SoftwareSerial A116servo2Serial = SoftwareSerial(rxPin10, txPin11); //Vänster arm
 SoftwareSerial XL320servoSerial = SoftwareSerial(rxPin3, txPin4);   //Vänster hand
-SoftwareSerial XL320servo2Serial = SoftwareSerial(rxPin6, txPin7);  //Höger hand
+SoftwareSerial XL320servo2Serial = SoftwareSerial(rxPin6, txPin7);  //Höger hand, typ max pos finger 850
 SoftwareSerial XL320servo3Serial = SoftwareSerial(rxPin8, txPin9);  //Nacke
 
 XYZrobotServo elbowRight(A116servoSerial, 1);
@@ -42,6 +42,9 @@ XL320 servoNeck;
  * Id 11-14 Nack rotationer. 
  */
 
+boolean ran = false;
+
+
 //---------------------------------Arm_RIGHT-------------------------------------------------//
 
 JointArmClassRight::JointArmClassRight()
@@ -68,19 +71,18 @@ void JointArmClassRight::armMotionSSP()
   int stopPos = 1023;
   int posYaw = 0;
   int posPitch = 0;
-  
-  shoulderRightPitch.setPosition(posPitch, playtime); //initierar axelpositionerna och sedan är de stela 
+
+  shoulderRightPitch.setPosition(posPitch, playtime); //initierar axelpositionerna och sedan är de stela
   shoulderRightYaw.setPosition(posYaw, playtime);
 
-  
-  for(int i = 0; i <= 2; i++)
+  for (int i = 0; i <= 2; i++)
   {
     for (int pos = initPos; pos <= stopPos; pos += 10)
     {
-    elbowRight.setPosition(pos, playtime);
+      elbowRight.setPosition(pos, playtime);
     }
     elbowRight.setPosition(initPos, playtime);
-  }  
+  }
 }
 
 void JointArmClassRight::RESET()
@@ -95,16 +97,17 @@ void JointArmClassRight::RESET()
   }
 }
 
-void JointArmClassRight::dab(){
+void JointArmClassRight::dab()
+{
   int initPos = 0;
   int endPosYawShoulder = 1023;
-  int endPosPitchElbow =1023;
+  int endPosPitchElbow = 1023;
 
-  for (int i = initPos, int j = initPos; i<=endPosRollShoulder, j<=endPosPitchElbow; i++, j++ ) {
+  for (int i = initPos, j = initPos; i <= endPosYawShoulder, j <= endPosPitchElbow; i++, j++)
+  {
     elbowRight.setPosition(j, playtime);
-    shoulderRightYaw.setPosition(i,playtime);
+    shoulderRightYaw.setPosition(i, playtime);
   }
-
 }
 
 //---------------------------------HandRight-------------------------------------------------//
@@ -112,22 +115,24 @@ void JointArmClassRight::rock()
 {
 
   int initPos = 0;
-  int stopPos = 1023;
+  int stopPos = 10;
   int initPosArm = 0;
   int stopPosArm = 1023;
 
-  for (int pos = initPos; pos < stopPos; pos += 15)
+  for (int pos = initPos; pos < stopPos; pos += 1)
   {
     for (int i = littleFingerRight; i <= thumbRight; i++)
     {
       servoRight.moveJoint(i, pos);
     }
   }
+  /*
   for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
   {
     elbowRight.setPosition(pos, playtime);
    
   }
+  */
 }
 void JointArmClassRight::scissor()
 {
@@ -149,16 +154,47 @@ void JointArmClassRight::scissor()
   for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
   {
     elbowRight.setPosition(pos, playtime);
-   
   }
 }
 
 void JointArmClassRight::paper()
 {
-  //int initPos=0;
-  int pos=200;
-  elbowRight.setPosition(pos,playtime);
+  
+  int initPos = 0;
+  int maxPos = 300;
+  if (!ran)
+  {
+    for (int i = 0; i < 4; i++)
+    {
+      if (i == 0 || i == 2)
+      {
+        for (int j = initPos; j <= maxPos; j++)
+        {
+          elbowRight.setPosition(j, playtime);
+          delay(playtime);
+        }
+      }
+      else if (i == 1 || i == 3)
+      {
+        for (int j = maxPos; j >= initPos; j--)
+        {
+          elbowRight.setPosition(j, playtime);
+          delay(playtime);
+        }
+      }
+    }
+    ran = true;
+  }
   //elbowRight.setPosition(initPos,playtime);
+}
+
+void JointArmClassRight::ok()
+{
+
+  int initPos = 0;
+  int stopPos = 850;
+
+  servoRight.moveJoint(ringFingerRight, stopPos);
 }
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
@@ -186,24 +222,23 @@ void JointArmClassLeft::SETUP()
 
 void JointArmClassLeft::armMotionSSP()
 {
-  
+
   int initPos = 0; // initsiera positioner
   int stopPos = 1023;
   int posYaw = 0;
   int posPitch = 0;
-  
-  shoulderLeftPitch.setPosition(posPitch, playtime); //initierar axelpositionerna och sedan är de stela 
+
+  shoulderLeftPitch.setPosition(posPitch, playtime); //initierar axelpositionerna och sedan är de stela
   shoulderLeftYaw.setPosition(posYaw, playtime);
 
-  for(int i = 0; i <= 2; i++)
+  for (int i = 0; i <= 2; i++)
   {
     for (int pos = initPos; pos <= stopPos; pos += 10)
     {
-    elbowLeft.setPosition(pos, playtime);
+      elbowLeft.setPosition(pos, playtime);
     }
     elbowLeft.setPosition(initPos, playtime);
-  }  
-
+  }
 }
 void JointArmClassLeft::RESET()
 {
@@ -215,20 +250,18 @@ void JointArmClassLeft::RESET()
   {
     servoLeft.moveJoint(i, initPos);
   }
-  
 }
 
-void JointArmClassLeft::dab();{
+void JointArmClassLeft::dab()
+{
   int initPos = 0;
 
   int endPosYawShoulder = 1023;
 
-  for(int i = initPos; i <= endPosYawShoulder; i++)
+  for (int i = initPos; i <= endPosYawShoulder; i++)
   {
-    jointArmLeft.setPosition(i,playtime);
+    shoulderLeftYaw.setPosition(i, playtime);
   }
-  
-
 }
 //---------------------------------HandLeft--------------------------------------------------//
 
@@ -249,7 +282,6 @@ void JointArmClassLeft::rock()
   for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
   {
     elbowRight.setPosition(pos, playtime);
-   
   }
 }
 void JointArmClassLeft::scissor()
@@ -270,7 +302,6 @@ void JointArmClassLeft::scissor()
   for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
   {
     elbowRight.setPosition(pos, playtime);
-   
   }
 }
 
@@ -281,7 +312,6 @@ void JointArmClassLeft::paper()
   for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
   {
     elbowRight.setPosition(pos, playtime);
-   
   }
 }
 

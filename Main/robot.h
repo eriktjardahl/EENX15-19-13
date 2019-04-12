@@ -93,12 +93,14 @@
 #endif
 
 #ifndef playtime
-#define playtime 750
+#define playtime 30
 #endif
 
 #ifndef SERVO_COUNT
 #define SERVO_COUNT 6
 #endif
+
+
 
 //---------------------------------Arm_RIGHT--------------------------------------------------//
 
@@ -115,7 +117,8 @@ class JointArmClassRight {
     void rock();   
     void paper(); 
     void armMotionSSP();
-    
+    void dab();
+    void ok();
 };
 
 extern JointArmClassRight jointArmRight;
@@ -135,6 +138,7 @@ class JointArmClassLeft {
     void scissor(); 
     void paper();  
     void armMotionSSP();
+    void dab();
     
 
 };
