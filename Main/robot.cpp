@@ -412,10 +412,11 @@ void JointArmClassLeft::test()
   for (int i = 0; i < 1023; i++)
   {
     elbowLeft.setPosition(i, playtime);
+    Serial.println(elbowLeft.readStatus().position);
   }
   //uint16_t blob = elbowLeft.readStatus().position;
 
-  Serial.println(elbowLeft.readStatus().position);
+ 
 }
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
