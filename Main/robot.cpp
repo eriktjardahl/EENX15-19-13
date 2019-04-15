@@ -224,7 +224,7 @@ void JointArmClassRight::paper()
 
   initPos = 0;
   int maxPos = 300;
-=======
+
   int initPosArm = 0;
   int initPosHand = 850;
   int stopPosArm = 300;
@@ -409,7 +409,7 @@ void JointArmClassLeft::paper()
 void JointArmClassLeft::test()
 {
 
-  for (int i = 0; i < 1000; i++)
+  for (int i = 0; i < 1023; i++)
   {
     elbowLeft.setPosition(i, playtime);
   }
