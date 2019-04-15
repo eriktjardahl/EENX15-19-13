@@ -403,11 +403,21 @@ void JointArmClassLeft::paper()
 }
 void JointArmClassLeft::test()
 {
+<<<<<<< HEAD
   for (int i = 0; i < 0; i++)
   {
     elbowLeft.setPosition(i, playtime);
+=======
+ for(int i = 0; i < 1023;i++)
+{
+ elbowLeft.setPosition(i, playtime);
+
+   
+>>>>>>> 6073a365b626aefadba7615114386b631fa37fd3
   }
-  elbowLeft.setPosition(0, playtime);
+  uint16_t blob = elbowLeft.readStatus().position;
+  
+ Serial.println(blob);
 }
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
