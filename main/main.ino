@@ -17,8 +17,6 @@ void loop()
   switch (input)
   {
   case 'a': //Påse
-    //jointArmRight.armMotionSSP();
-    delay(10000);
     jointArmRight.paper();
     break;
 
