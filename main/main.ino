@@ -17,7 +17,7 @@ void loop()
   switch (input)
   {
   case 'a': //Sten sax påse
-    jointArmRight.paper();
+    jointArmLeft.test();
     break;
 
   case 'b': //Vinka

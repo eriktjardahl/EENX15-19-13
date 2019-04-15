@@ -332,6 +332,15 @@ void JointArmClassLeft::paper()
     elbowRight.setPosition(pos, playtime);
   }
 }
+void JointArmClassLeft::test()
+{
+  for(int i = 0; i < 0;i++)
+  {
+  elbowLeft.setPosition(i, playtime);
+   
+  }
+  elbowLeft.setPosition(0, playtime);
+}
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
 
