@@ -21,7 +21,7 @@ void loop()
     break;
 
   case 'b': //Reset
-    jointArmRight.RESET();
+    jointArmLeft.test();
     break;
 
   case 'c': // Ok

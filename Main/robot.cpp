@@ -215,10 +215,15 @@ void JointArmClassRight::scissor()
 void JointArmClassRight::paper()
 {
 
+
+  initPos = 0;
+  int maxPos = 300;
+
   int initPosArm = 0;
   int initPosHand = 850;
   int stopPosArm = 300;
   int stopPosHand = 0;
+
   if (!ran)
   {
     for (int i = initPosHand; i >= stopPosHand; i--)
@@ -409,13 +414,21 @@ void JointArmClassLeft::paper()
 }
 void JointArmClassLeft::test()
 {
-  for (int i = 0; i < 0; i++)
+
+  for (int i = 0; i < 1023; i++)
   {
     elbowLeft.setPosition(i, playtime);
+    Serial.println(elbowLeft.readStatus().position);
   }
+<<<<<<< HEAD
   uint16_t blob = elbowLeft.readStatus().position;
 
   Serial.println(blob);
+=======
+  //uint16_t blob = elbowLeft.readStatus().position;
+
+ 
+>>>>>>> 5f34c71d9c4a53597b23cee4601588cfe3c972fe
 }
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
