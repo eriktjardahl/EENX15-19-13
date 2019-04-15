@@ -44,7 +44,6 @@ XL320 servoNeck;
 
 boolean ran = false;
 
-
 //---------------------------------Arm_RIGHT-------------------------------------------------//
 
 JointArmClassRight::JointArmClassRight()
@@ -68,33 +67,60 @@ void JointArmClassRight::SETUP()
 void JointArmClassRight::armMotionSSP()
 {
   int initPos = 0; // initsiera positioner
-  int stopPos = 1023;
-  int posYaw = 0;
-  int posPitch = 0;
+  int stopPos = 300;
 
-  shoulderRightPitch.setPosition(posPitch, playtime); //initierar axelpositionerna och sedan är de stela
-  shoulderRightYaw.setPosition(posYaw, playtime);
-
-  for (int i = 0; i <= 2; i++)
+  if (!ran)
   {
-    for (int pos = initPos; pos <= stopPos; pos += 10)
+    shoulderRightPitch.setPosition(initPos, playtime + 100); //initierar axelpositionerna och sedan är de stela
+    shoulderRightYaw.setPosition(initPos, playtime + 100);
+    delay(playtime + 100);
+
+    for (int k = 0; k <= 850; k = k + 5)
     {
-      elbowRight.setPosition(pos, playtime);
+      for (int finger = littleFingerRight; finger <= thumbRight; finger++)
+      {
+        servoRight.moveJoint(ringFingerRight, k);
+      }
     }
-    elbowRight.setPosition(initPos, playtime);
+
+    for (int i = 0; i < 4; i++)
+    {
+      if (i == 0 || i == 2)
+      {
+        for (int j = initPos; j <= stopPos; j++)
+        {
+          elbowRight.setPosition(j, playtime);
+          delay(playtime);
+        }
+      }
+      else if (i == 1 || i == 3)
+      {
+        for (int j = stopPos; j >= initPos; j--)
+        {
+          elbowRight.setPosition(j, playtime);
+          delay(playtime);
+        }
+      }
+    }
+    ran = true;
   }
 }
 
 void JointArmClassRight::RESET()
 {
-  int initPos = 0;
-  elbowRight.setPosition(initPos, playtime);
-  shoulderRightPitch.setPosition(initPos, playtime);
-  shoulderRightYaw.setPosition(initPos, playtime);
-  for (int i = littleFingerRight; i <= thumbRight; i++)
+  if (!ran)
   {
-    servoRight.moveJoint(i, initPos);
+    int initPos = 0;
+    elbowRight.setPosition(initPos, playtime + 1000);
+    shoulderRightPitch.setPosition(initPos, playtime + 1000);
+    shoulderRightYaw.setPosition(initPos, playtime + 1000);
+    for (int i = littleFingerRight; i <= thumbRight; i++)
+    {
+      servoRight.moveJoint(i, initPos);
+      delay(playtime + 1000);
+    }
   }
+  ran = true;
 }
 
 void JointArmClassRight::dab()
@@ -106,7 +132,9 @@ void JointArmClassRight::dab()
   for (int i = initPos, j = initPos; i <= endPosYawShoulder, j <= endPosPitchElbow; i++, j++)
   {
     elbowRight.setPosition(j, playtime);
+    delay(playtime);
     shoulderRightYaw.setPosition(i, playtime);
+    delay(playtime);
   }
 }
 
@@ -159,25 +187,31 @@ void JointArmClassRight::scissor()
 
 void JointArmClassRight::paper()
 {
-  
-  int initPos = 0;
-  int maxPos = 300;
+
+  int initPosArm = 0;
+  int initPosHand = 850;
+  int stopPosArm = 300;
+  int stopPosHand = 0;
   if (!ran)
   {
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i <= 1; i++)
     {
-      if (i == 0 || i == 2)
+      if (i == 0)
       {
-        for (int j = initPos; j <= maxPos; j++)
+        for (int j = initPosArm; j <= stopPosArm; j++)
         {
           elbowRight.setPosition(j, playtime);
           delay(playtime);
         }
       }
-      else if (i == 1 || i == 3)
+      else if (i == 1)
       {
-        for (int j = maxPos; j >= initPos; j--)
+        for (int j = stopPosArm, k = initPosHand; j >= initPosArm, k >= stopPosHand; j--, k = k - 5)
         {
+          for (int finger = littleFingerRight; finger <= thumbRight; finger++)
+          {
+            servoRight.moveJoint(ringFingerRight, k);
+          }
           elbowRight.setPosition(j, playtime);
           delay(playtime);
         }
@@ -185,7 +219,6 @@ void JointArmClassRight::paper()
     }
     ran = true;
   }
-  //elbowRight.setPosition(initPos,playtime);
 }
 
 void JointArmClassRight::ok()
