@@ -59,7 +59,6 @@ XL320 servoNeck;
 
 boolean ran = false;
 
-
 //---------------------------------Arm_RIGHT-------------------------------------------------//
 
 JointArmClassRight::JointArmClassRight()
@@ -174,7 +173,7 @@ void JointArmClassRight::scissor()
 
 void JointArmClassRight::paper()
 {
-  
+
   initPos = 0;
   int maxPos = 300;
   if (!ran)
@@ -259,11 +258,11 @@ void JointArmClassLeft::armMotionSSP()
 void JointArmClassLeft::RESET()
 {
   initPos = 0;
-  
+
   elbowLeft.setPosition(initPos, playtime);
   shoulderLeftPitch.setPosition(initPos, playtime);
   shoulderLeftYaw.setPosition(initPos, playtime);
-  
+
   for (int i = littleFingerLeft; i < thumbLeft + 1; i++)
   {
     servoLeft.moveJoint(i, initPos);
@@ -334,15 +333,13 @@ void JointArmClassLeft::paper()
 }
 void JointArmClassLeft::test()
 {
- for(int i = 0; i < 1023;i++)
-{
- elbowLeft.setPosition(i, playtime);
-
-   
+  for (int i = 0; i < 1000; i++)
+  {
+    elbowLeft.setPosition(i, playtime);
   }
-  uint16_t blob = elbowLeft.readStatus().position;
-  
- Serial.println(blob);
+  //uint16_t blob = elbowLeft.readStatus().position;
+
+  Serial.println(elbowLeft.readStatus().position);
 }
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
@@ -369,7 +366,7 @@ void JointNeckClass::nod()
 
   initPos = 0;
   stopPos = 100;
-  
+
   for (int i = initPos; i <= stopPos; i++)
   {
     servoNeck.moveJoint(neckPitch, i);
@@ -381,7 +378,7 @@ void JointNeckClass::dab()
 
   initPos = 0;
   stopPos = 1000;
-  
+
   for (int i = initPos; i <= stopPos; i++)
   {
     servoNeck.moveJoint(neckJaw, i);
