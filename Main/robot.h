@@ -73,11 +73,11 @@
 #endif
 
 #ifndef littleFingerRight
-#define littleFingerRight 6
+#define littleFingerRight 10
 #endif
 
 #ifndef ringFingerRight
-#define ringFingerRight 7
+#define ringFingerRight 9
 #endif
 
 #ifndef middleFingerRight
@@ -85,11 +85,11 @@
 #endif
 
 #ifndef indexFingerRight
-#define indexFingerRight 9
+#define indexFingerRight 7
 #endif
 
 #ifndef thumbRight
-#define thumbRight 10
+#define thumbRight 6
 #endif
 
 #ifndef playtime
