@@ -77,37 +77,82 @@ void JointArmClassRight::SETUP()
   XL320servo2Serial.begin(115200); // höger hand
 
   servoRight.begin(XL320servo2Serial);
+  servoRight.setJointSpeed(littleFingerRight, 1023);
+  servoRight.setJointSpeed(ringFingerRight, 1023);
+  servoRight.setJointSpeed(middleFingerRight, 1023);
+  servoRight.setJointSpeed(indexFingerRight, 1023);
+  servoRight.setJointSpeed(thumbRight, 1023);
 }
 
 void JointArmClassRight::armMotionSSP()
 {
-  initPos = 0; // initsiera positioner
-  stopPos = 1023;
-  posYaw = 0;
-  posPitch = 0;
+  int initPos = 0; // initsiera positioner
+  int stopPos = 300;
 
-  shoulderRightPitch.setPosition(posPitch, playtime); //initierar axelpositionerna och sedan är de stela
-  shoulderRightYaw.setPosition(posYaw, playtime);
-
-  for (int i = 0; i <= 2; i++)
+  if (!ran)
   {
-    for (int pos = initPos; pos <= stopPos; pos += 10)
+    shoulderRightPitch.setPosition(initPos, playtime + 100); //initierar axelpositionerna och sedan är de stela
+    shoulderRightYaw.setPosition(initPos, playtime + 100);
+    delay(playtime + 100);
+
+    for (int k = 0; k <= 850; k = k + 5)
     {
-      elbowRight.setPosition(pos, playtime);
+      for (int finger = littleFingerRight; finger <= thumbRight; finger++)
+      {
+        servoRight.moveJoint(ringFingerRight, k);
+      }
     }
-    elbowRight.setPosition(initPos, playtime);
+
+    for (int i = 0; i < 4; i++)
+    {
+      if (i == 0 || i == 2)
+      {
+        for (int j = initPos; j <= stopPos; j++)
+        {
+          elbowRight.setPosition(j, playtime);
+          delay(playtime);
+        }
+      }
+      else if (i == 1 || i == 3)
+      {
+        for (int j = stopPos; j >= initPos; j--)
+        {
+          elbowRight.setPosition(j, playtime);
+          delay(playtime);
+        }
+      }
+    }
+    ran = true;
   }
 }
 
 void JointArmClassRight::RESET()
 {
-  initPos = 0;
-  elbowRight.setPosition(initPos, playtime);
-  shoulderRightPitch.setPosition(initPos, playtime);
-  shoulderRightYaw.setPosition(initPos, playtime);
-  for (int i = littleFingerRight; i <= thumbRight; i++)
+  if (!ran)
   {
-    servoRight.moveJoint(i, initPos);
+
+    int initPos = 850;
+
+    elbowRight.setPosition(initPos, playtime + 1000);
+    shoulderRightPitch.setPosition(initPos, playtime + 1000);
+    shoulderRightYaw.setPosition(initPos, playtime + 1000);
+
+    char rgb[] = "rgbypcwo";
+
+    for (int i = initPos; i >= 0; i = i - 5)
+    {
+      servoRight.moveJoint(thumbRight, i);
+      servoRight.LED(thumbRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(indexFingerRight, i);
+      servoRight.LED(indexFingerRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(middleFingerRight, i);
+      servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(ringFingerRight, i);
+      servoRight.LED(ringFingerRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(littleFingerRight, i);
+      servoRight.LED(littleFingerRight, &rgb[random(0, 7)]);
+    }
+    ran = true;
   }
 }
 
@@ -120,7 +165,9 @@ void JointArmClassRight::dab()
   for (int i = initPos, j = initPos; i <= endPosYawShoulder, j <= endPosPitchElbow; i++, j++)
   {
     elbowRight.setPosition(j, playtime);
+    delay(playtime);
     shoulderRightYaw.setPosition(i, playtime);
+    delay(playtime);
   }
 }
 
@@ -174,24 +221,35 @@ void JointArmClassRight::scissor()
 void JointArmClassRight::paper()
 {
 
+
   initPos = 0;
   int maxPos = 300;
+=======
+  int initPosArm = 0;
+  int initPosHand = 850;
+  int stopPosArm = 300;
+  int stopPosHand = 0;
+
   if (!ran)
   {
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i <= 1; i++)
     {
-      if (i == 0 || i == 2)
+      if (i == 0)
       {
-        for (int j = initPos; j <= maxPos; j++)
+        for (int j = initPosArm; j <= stopPosArm; j++)
         {
           elbowRight.setPosition(j, playtime);
           delay(playtime);
         }
       }
-      else if (i == 1 || i == 3)
+      else if (i == 1)
       {
-        for (int j = maxPos; j >= initPos; j--)
+        for (int j = stopPosArm, k = initPosHand; j >= initPosArm, k >= stopPosHand; j--, k = k - 5)
         {
+          for (int finger = littleFingerRight; finger <= thumbRight; finger++)
+          {
+            servoRight.moveJoint(ringFingerRight, k);
+          }
           elbowRight.setPosition(j, playtime);
           delay(playtime);
         }
@@ -199,18 +257,30 @@ void JointArmClassRight::paper()
     }
     ran = true;
   }
-  //elbowRight.setPosition(initPos,playtime);
 }
 
 void JointArmClassRight::ok()
 {
 
+  char rgb[] = "rgbypcwo";
+
   initPos = 0;
   stopPos = 850;
 
-  servoRight.moveJoint(ringFingerRight, stopPos);
+  if (!ran)
+  {
+    for (int i = initPos; i <= stopPos; i++)
+    {
+      servoRight.moveJoint(middleFingerRight, i);
+      servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(ringFingerRight, i);
+      servoRight.LED(ringFingerRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(littleFingerRight, i);
+      servoRight.LED(littleFingerRight, &rgb[random(0, 7)]);
+    }
+  }
+  ran = true;
 }
-
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
 
 JointArmClassRight jointArmRight = JointArmClassRight();
@@ -232,6 +302,11 @@ void JointArmClassLeft::SETUP()
   XL320servoSerial.begin(115200); //vänster hand
 
   servoLeft.begin(XL320servoSerial);
+  servoLeft.setJointSpeed(littleFingerLeft, 1023);
+  servoLeft.setJointSpeed(ringFingerLeft, 1023);
+  servoLeft.setJointSpeed(middleFingerLeft, 1023);
+  servoLeft.setJointSpeed(indexFingerLeft, 1023);
+  servoLeft.setJointSpeed(thumbLeft, 1023);
 }
 
 void JointArmClassLeft::armMotionSSP()
@@ -333,6 +408,7 @@ void JointArmClassLeft::paper()
 }
 void JointArmClassLeft::test()
 {
+
   for (int i = 0; i < 1000; i++)
   {
     elbowLeft.setPosition(i, playtime);

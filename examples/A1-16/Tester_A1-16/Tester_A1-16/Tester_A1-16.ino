@@ -114,7 +114,7 @@ void loop() {
 int i;
 
 
-  for(i=1;i<=1000;i++){
+  for(i=1;i<=850;i++){
 
     
     servo1.setPosition(i,10);
