@@ -412,6 +412,8 @@ void JointArmClassLeft::paper()
     elbowRight.setPosition(pos, playtime);
   }
 }
+
+/*
 void JointArmClassLeft::test()
 {
 
@@ -420,16 +422,11 @@ void JointArmClassLeft::test()
     elbowLeft.setPosition(i, playtime);
     Serial.println(elbowLeft.readStatus().position);
   }
-<<<<<<< HEAD
   uint16_t blob = elbowLeft.readStatus().position;
 
   Serial.println(blob);
-=======
-  //uint16_t blob = elbowLeft.readStatus().position;
-
- 
->>>>>>> 5f34c71d9c4a53597b23cee4601588cfe3c972fe
 }
+*/
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
 
