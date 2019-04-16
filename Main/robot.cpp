@@ -69,7 +69,7 @@ void Communication::readSerial()
 
 {
   int a = 0;
-char dataString[50] = {0};
+  char dataString[50] = {0};
 
   boolean newData = false;
   char incoming;
@@ -86,7 +86,7 @@ char dataString[50] = {0};
 void Communication::showNewData()
 {
   int a = 0;
-char dataString[50] = {0};
+  char dataString[50] = {0};
 
   boolean newData = false;
   char incoming;
@@ -103,7 +103,7 @@ char dataString[50] = {0};
 void Communication::sendSerial()
 {
   int a = 0;
-char dataString[50] = {0};
+  char dataString[50] = {0};
 
   boolean newData = false;
   char incoming;
@@ -187,6 +187,24 @@ void JointArmClassRight::RESET()
 
   if (!ran)
   {
+    switch (lastCase)
+    {
+    case 'a':
+      /* code */
+      break;
+
+    case 'b':
+      /* code */
+      break;
+      
+    case 'c'
+        /* code */
+        break;
+
+        default:
+      break;
+    }
+
     elbowRight.setPosition(initPosArm, playtime + 1000);
     shoulderRightPitch.setPosition(initPosArm, playtime + 1000);
     shoulderRightYaw.setPosition(initPosArm, playtime + 1000);
@@ -208,28 +226,29 @@ void JointArmClassRight::RESET()
   }
 }
 
-void JointArmClassRight::dab() 
+void JointArmClassRight::dab()
 {
   initPos = 0;
   int endPosYawShoulder = 1023;
   int endPosPitchElbow = 1023;
 
-  if(!ran)
+  if (!ran)
   {
-  for (int i = initPos, j = initPos; i <= endPosYawShoulder, j <= endPosPitchElbow; i++, j++)
-  {
-    elbowRight.setPosition(j, playtime);
-    delay(playtime);
-    shoulderRightYaw.setPosition(i, playtime);
-    delay(playtime);
+    for (int i = initPos, j = initPos; i <= endPosYawShoulder, j <= endPosPitchElbow; i++, j++)
+    {
+      elbowRight.setPosition(j, playtime);
+      delay(playtime);
+      shoulderRightYaw.setPosition(i, playtime);
+      delay(playtime);
+    }
+    ran = true;
   }
-  ran = true;
-}
 }
 
 //---------------------------------HandRight-------------------------------------------------//
-void JointArmClassRight::rock()
+void JointArmClassRight::rock() // char = c
 {
+  char lastCase = 'c';
   if (!ran)
   {
     int initPosHand = 0;
@@ -251,9 +270,10 @@ void JointArmClassRight::rock()
     ran = true;
   }
 }
-void JointArmClassRight::scissor() //ändra
+void JointArmClassRight::scissor() //ändra,,, char = b
 {
 
+  char lastCase = 'b';
   initPos = 0;
   stopPos = 1023;
   initPosArm = 0;
@@ -274,9 +294,10 @@ void JointArmClassRight::scissor() //ändra
   }
 }
 
-void JointArmClassRight::paper()
+void JointArmClassRight::paper() // char = a
 {
 
+  char lastCase = 'a';
   initPos = 0;
   int maxPos = 300;
 
@@ -324,7 +345,6 @@ void JointArmClassRight::ok()
     }
     ran = true;
   }
-  
 }
 
 void JointArmClassRight::open()
@@ -355,21 +375,16 @@ void JointArmClassRight::fack()
   int initPos = 800;
   int stopPos = 0;
 
-   if (!ran)
+  if (!ran)
   {
     for (int i = initPos; i >= stopPos; i--)
     {
       servoRight.moveJoint(middleFingerRight, i);
       servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
     }
-    
+
     ran = true;
-     
   }
-  
-
-
-
 }
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
 
