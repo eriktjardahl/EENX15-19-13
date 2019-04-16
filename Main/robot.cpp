@@ -208,12 +208,14 @@ void JointArmClassRight::RESET()
   }
 }
 
-void JointArmClassRight::dab() //ändra
+void JointArmClassRight::dab() 
 {
   initPos = 0;
   int endPosYawShoulder = 1023;
   int endPosPitchElbow = 1023;
 
+  if(!ran)
+  {
   for (int i = initPos, j = initPos; i <= endPosYawShoulder, j <= endPosPitchElbow; i++, j++)
   {
     elbowRight.setPosition(j, playtime);
@@ -221,6 +223,8 @@ void JointArmClassRight::dab() //ändra
     shoulderRightYaw.setPosition(i, playtime);
     delay(playtime);
   }
+  ran = true;
+}
 }
 
 //---------------------------------HandRight-------------------------------------------------//
