@@ -61,6 +61,64 @@ boolean ran = false;
 
 char rgb[] = "rgbypcwo";
 
+//---------------------------------Communication--------------------------------------------------//
+Communication::Communication()
+{
+}
+void Communication::readSerial()
+
+{
+  int a = 0;
+char dataString[50] = {0};
+
+  boolean newData = false;
+  char incoming;
+  // Send data only when you receive data:
+  if (Serial.available() > 0)
+  {
+    // Read the incoming byte and write to our variable incoming
+    incoming = Serial.read();
+    // Flag newData as true to enable showNewData to run
+    newData = true;
+  }
+}
+
+void Communication::showNewData()
+{
+  int a = 0;
+char dataString[50] = {0};
+
+  boolean newData = false;
+  char incoming;
+  // Only run if there is new data in the Serial stream.
+  if (newData == true)
+  {
+    // Print current value sent from the raspberry pi
+    Serial.print("This just in ... ");
+    Serial.println(incoming);
+    newData = false;
+  }
+}
+
+void Communication::sendSerial()
+{
+  int a = 0;
+char dataString[50] = {0};
+
+  boolean newData = false;
+  char incoming;
+  // Increment a every loop
+  a++;
+  // Convert a value to hexadecimal
+  sprintf(dataString, "%02X", a);
+  // Send the data to the serial stream
+  Serial.println(dataString);
+  // Delay before this method exits and can be ran again
+  delay(1000);
+}
+
+//---------------------------------Communication--------------------------------------------------//
+
 //---------------------------------Arm_RIGHT-------------------------------------------------//
 
 JointArmClassRight::JointArmClassRight()
@@ -122,10 +180,10 @@ void JointArmClassRight::armMotionSSP()
 
 void JointArmClassRight::RESET()
 {
-    
-    int initPosArm = 0;
-    int initPosHand = 0;
-    int maxPosHand = 800;
+
+  int initPosArm = 0;
+  int initPosHand = 0;
+  int maxPosHand = 800;
 
   if (!ran)
   {
@@ -214,7 +272,6 @@ void JointArmClassRight::scissor()
 
 void JointArmClassRight::paper()
 {
-
 
   initPos = 0;
   int maxPos = 300;

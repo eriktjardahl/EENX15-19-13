@@ -99,7 +99,24 @@
 #ifndef SERVO_COUNT
 #define SERVO_COUNT 6
 #endif
+//---------------------------------Communication--------------------------------------------------//
+#ifndef COMMUNICATION_
+#define COMMUNICATION_
 
+class Communication {
+  public:
+  Communication();
+  void readSerial();
+  void showNewData();
+  void sendSerial();
+
+
+};
+extern Communication communication; 
+
+#endif
+
+//---------------------------------Communication--------------------------------------------------//
 
 
 //---------------------------------Arm_RIGHT--------------------------------------------------//
