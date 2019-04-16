@@ -208,7 +208,7 @@ void JointArmClassRight::RESET()
   }
 }
 
-void JointArmClassRight::dab()
+void JointArmClassRight::dab() //ändra
 {
   initPos = 0;
   int endPosYawShoulder = 1023;
@@ -247,7 +247,7 @@ void JointArmClassRight::rock()
     ran = true;
   }
 }
-void JointArmClassRight::scissor()
+void JointArmClassRight::scissor() //ändra
 {
 
   initPos = 0;
