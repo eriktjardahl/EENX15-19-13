@@ -73,7 +73,7 @@
 #endif
 
 #ifndef littleFingerRight
-#define littleFingerRight 10
+#define littleFingerRight 8
 #endif
 
 #ifndef ringFingerRight
@@ -81,7 +81,7 @@
 #endif
 
 #ifndef middleFingerRight
-#define middleFingerRight 8
+#define middleFingerRight 10
 #endif
 
 #ifndef indexFingerRight
@@ -119,6 +119,7 @@ class JointArmClassRight {
     void armMotionSSP();
     void dab();
     void ok();
+    void open();
 };
 
 extern JointArmClassRight jointArmRight;
@@ -140,6 +141,7 @@ class JointArmClassLeft {
     void armMotionSSP();
     void dab();
     void test();
+    void open();
     
 
 };

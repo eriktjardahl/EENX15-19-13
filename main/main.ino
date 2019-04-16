@@ -2,7 +2,7 @@
 #include "Arduino.h"
 #include "robot.h"
 
-char input = 'b';
+char input = 'd';
 
 void setup()
 {
@@ -17,7 +17,7 @@ void loop()
   switch (input)
   {
   case 'a': //Påse
-    jointArmRight.paper();
+    jointArmRight.open();
     break;
 
   case 'b': //Reset
