@@ -2,7 +2,7 @@
 #include "Arduino.h"
 #include "robot.h"
 
-char input = 'd';
+char input = 'f';
 
 void setup()
 {
@@ -28,7 +28,7 @@ void loop()
     jointArmRight.ok();
     break;
 
-  case 'd': // Nicka
+  case 'd': // sten
     jointArmRight.rock();
     break;
 
@@ -36,6 +36,10 @@ void loop()
     jointNeck.dab();
     jointArmLeft.dab();
     jointArmRight.dab();
+    break;
+
+  case 'f': // fuck
+    jointArmRight.fack();
     break;
   }
 }

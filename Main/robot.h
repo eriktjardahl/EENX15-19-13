@@ -85,11 +85,11 @@
 #endif
 
 #ifndef indexFingerRight
-#define indexFingerRight 7
+#define indexFingerRight 6
 #endif
 
 #ifndef thumbRight
-#define thumbRight 6
+#define thumbRight 7
 #endif
 
 #ifndef playtime
@@ -120,6 +120,7 @@ class JointArmClassRight {
     void dab();
     void ok();
     void open();
+    void fack();
 };
 
 extern JointArmClassRight jointArmRight;

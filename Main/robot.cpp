@@ -261,8 +261,9 @@ void JointArmClassRight::ok()
       servoRight.moveJoint(littleFingerRight, i);
       servoRight.LED(littleFingerRight, &rgb[random(0, 7)]);
     }
+    ran = true;
   }
-  ran = true;
+  
 }
 
 void JointArmClassRight::open()
@@ -286,6 +287,28 @@ void JointArmClassRight::open()
     }
     ran = true;
   }
+}
+
+void JointArmClassRight::fack()
+{
+  int initPos = 800;
+  int stopPos = 0;
+
+   if (!ran)
+  {
+    for (int i = initPos; i >= stopPos; i--)
+    {
+      servoRight.moveJoint(middleFingerRight, i);
+      servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
+    }
+    
+    ran = true;
+     
+  }
+  
+
+
+
 }
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
 
