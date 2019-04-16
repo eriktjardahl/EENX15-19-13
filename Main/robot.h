@@ -109,7 +109,7 @@ class Communication {
   void readSerial();
   void showNewData();
   void sendSerial();
-
+  unsigned long getMillis();
 
 };
 extern Communication communication; 

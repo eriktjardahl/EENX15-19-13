@@ -2,7 +2,8 @@
 #include "Arduino.h"
 #include "robot.h"
 
-char input = 'f';
+char input = 'd';
+//char lastCase ='a';
 
 void setup()
 {
@@ -18,6 +19,7 @@ void loop()
   {
   case 'a': //Påse
     jointArmRight.open();
+    
     break;
 
   case 'b': //Reset

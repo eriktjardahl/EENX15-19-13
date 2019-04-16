@@ -61,6 +61,15 @@ boolean ran = false;
 
 char rgb[] = "rgbypcwo";
 
+int intervall = 50000;
+
+unsigned long timeMillis1;
+  
+unsigned long timeMillis2;
+unsigned long timeMillis3;
+unsigned long timeMillis4;
+unsigned long timeMillis5;
+
 //---------------------------------Communication--------------------------------------------------//
 Communication::Communication()
 {
@@ -69,7 +78,7 @@ void Communication::readSerial()
 
 {
   int a = 0;
-char dataString[50] = {0};
+  char dataString[50] = {0};
 
   boolean newData = false;
   char incoming;
@@ -86,7 +95,7 @@ char dataString[50] = {0};
 void Communication::showNewData()
 {
   int a = 0;
-char dataString[50] = {0};
+  char dataString[50] = {0};
 
   boolean newData = false;
   char incoming;
@@ -103,7 +112,7 @@ char dataString[50] = {0};
 void Communication::sendSerial()
 {
   int a = 0;
-char dataString[50] = {0};
+  char dataString[50] = {0};
 
   boolean newData = false;
   char incoming;
@@ -115,6 +124,11 @@ char dataString[50] = {0};
   Serial.println(dataString);
   // Delay before this method exits and can be ran again
   delay(1000);
+}
+
+unsigned long getMillis()
+{
+  return millis();
 }
 
 //---------------------------------Communication--------------------------------------------------//
@@ -224,14 +238,64 @@ void JointArmClassRight::dab() //ändra
 }
 
 //---------------------------------HandRight-------------------------------------------------//
-void JointArmClassRight::rock()
+void JointArmClassRight::rock()  //funkar inte helt
 {
+
   if (!ran)
   {
+    int intervall1 = 100;
+
+    for (int i = 0; i <= 900; i += 1)
+    {
+      timeMillis1 = 0;
+      timeMillis2 = 0;
+      timeMillis3 = 0;
+      timeMillis4 = 0;
+      timeMillis5 = 0;
+
+      if ((unsigned long)(millis() > timeMillis1 + intervall1))
+      {
+        
+        servoRight.moveJoint(6, i);
+        servoRight.LED(6, &rgb[random(0, 7)]);
+        timeMillis1 = millis();
+      }
+
+      if ((unsigned long)(millis() > timeMillis2 + intervall1))
+      {
+        timeMillis2 = millis();
+        servoRight.moveJoint(7, i);
+        servoRight.LED(7, &rgb[random(0, 7)]);
+      }
+
+      if ((unsigned long)(millis() > timeMillis3 + intervall1))
+      {
+        timeMillis3 = millis();
+
+        servoRight.moveJoint(8, i);
+        servoRight.LED(8, &rgb[random(0, 7)]);
+      }
+      if ((unsigned long)(millis() > timeMillis4 + intervall1))
+      {
+        timeMillis4 = millis();
+
+        servoRight.moveJoint(9, i);
+        servoRight.LED(9, &rgb[random(0, 7)]);
+      }
+      if ((unsigned long)(millis() > timeMillis5 + intervall1))
+      {
+        timeMillis5 = millis();
+
+        servoRight.moveJoint(10, i);
+        servoRight.LED(10, &rgb[random(0, 7)]);
+      }
+    }
+
+    /*
     int initPosHand = 0;
     int maxPosHand = 800;
 
-    for (int i = initPosHand; i <= maxPosHand; i = i + 2)
+    for (int i = initPosHand; i <= maxPosHand; i = i + 1)
     {
       servoRight.moveJoint(thumbRight, i);
       servoRight.LED(thumbRight, &rgb[random(0, 7)]);
@@ -243,7 +307,7 @@ void JointArmClassRight::rock()
       servoRight.LED(ringFingerRight, &rgb[random(0, 7)]);
       servoRight.moveJoint(littleFingerRight, i);
       servoRight.LED(littleFingerRight, &rgb[random(0, 7)]);
-    }
+    }*/
     ran = true;
   }
 }
@@ -320,16 +384,16 @@ void JointArmClassRight::ok()
     }
     ran = true;
   }
-  
 }
 
 void JointArmClassRight::open()
 {
   int initPosHand = 800;
   int stopPosHand = 0;
+
   if (!ran)
   {
-    for (int i = initPosHand; i >= stopPosHand; i = i - 2)
+    for (int i = initPosHand; i >= stopPosHand; i = i - 1)
     {
       servoRight.moveJoint(thumbRight, i);
       servoRight.LED(thumbRight, &rgb[random(0, 7)]);
@@ -348,24 +412,28 @@ void JointArmClassRight::open()
 
 void JointArmClassRight::fack()
 {
+  /*
   int initPos = 800;
   int stopPos = 0;
 
-   if (!ran)
+  previousMillis = 0;
+  currentMillis = getMillis();
+
+  if (!ran)
   {
-    for (int i = initPos; i >= stopPos; i--)
+    if ((unsigned long)(currentMillis - previousMillis) >= intervall)
     {
-      servoRight.moveJoint(middleFingerRight, i);
-      servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
+      for (int i = initPos; i >= stopPos; i--)
+      {
+        servoRight.moveJoint(middleFingerRight, i);
+        servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
+      }
     }
-    
-    ran = true;
-     
+    previousMillis = currentMillis;
+
+    //ran = true;
   }
-  
-
-
-
+  */
 }
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
 
