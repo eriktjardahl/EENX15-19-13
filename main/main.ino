@@ -2,7 +2,8 @@
 #include "Arduino.h"
 #include "robot.h"
 
-char input = 'f';
+char input = 'd';
+
 
 void setup()
 {

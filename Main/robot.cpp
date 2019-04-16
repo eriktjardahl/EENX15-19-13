@@ -58,6 +58,7 @@ XL320 servoNeck;
  */
 
 boolean ran = false;
+char lastCase = 'a';
 
 char rgb[] = "rgbypcwo";
 
@@ -180,36 +181,20 @@ void JointArmClassRight::armMotionSSP()
 
 void JointArmClassRight::RESET()
 {
-
+  
   int initPosArm = 0;
   int initPosHand = 0;
   int maxPosHand = 800;
 
   if (!ran)
   {
-    switch (lastCase)
-    {
-    case 'a':
-      /* code */
-      break;
-
-    case 'b':
-      /* code */
-      break;
-      
-    case 'c'
-        /* code */
-        break;
-
-        default:
-      break;
-    }
-
     elbowRight.setPosition(initPosArm, playtime + 1000);
     shoulderRightPitch.setPosition(initPosArm, playtime + 1000);
     shoulderRightYaw.setPosition(initPosArm, playtime + 1000);
-
-    for (int i = initPosHand; i <= maxPosHand; i = i + 2)
+    switch (lastCase)
+    {
+    case 'a'://påse
+      for (int i = initPosHand; i <= maxPosHand; i = i + 2)
     {
       servoRight.moveJoint(thumbRight, i);
       servoRight.LED(thumbRight, &rgb[random(0, 7)]);
@@ -222,6 +207,43 @@ void JointArmClassRight::RESET()
       servoRight.moveJoint(littleFingerRight, i);
       servoRight.LED(littleFingerRight, &rgb[random(0, 7)]);
     }
+      break;
+
+    case 'b'://sax
+      for (int i = initPosHand; i <= maxPosHand; i = i + 2)
+    {
+      servoRight.moveJoint(indexFingerRight, i);
+      servoRight.LED(indexFingerRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(middleFingerRight, i);
+      servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
+    }
+      break;
+
+    case 'c'://sten 
+  
+        break;
+    case 'd': //else
+      for (int i = initPosHand; i <= maxPosHand; i = i + 2)
+    {
+      servoRight.moveJoint(thumbRight, i);
+      servoRight.LED(thumbRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(indexFingerRight, i);
+      servoRight.LED(indexFingerRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(middleFingerRight, i);
+      servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(ringFingerRight, i);
+      servoRight.LED(ringFingerRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(littleFingerRight, i);
+      servoRight.LED(littleFingerRight, &rgb[random(0, 7)]);
+    }
+      break;
+
+       
+    }
+
+   
+
+    
     ran = true;
   }
 }
