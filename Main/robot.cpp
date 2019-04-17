@@ -745,15 +745,15 @@ void JointArmClassLeft::paper()
     for (int i = initPosHand; i >= stopPosHand; i--)
     {
       servoLeft.moveJoint(thumbLeft, i);
-      servoLeft.LED(thumbLeft, &rgb[random(0, 7)]);
+      servoLeft.LED(thumbLeft, &rgb[1]);
       servoLeft.moveJoint(indexFingerLeft, i);
-      servoLeft.LED(indexFingerLeft, &rgb[random(0, 7)]);
+      servoLeft.LED(indexFingerLeft, &rgb[1]);
       servoLeft.moveJoint(middleFingerLeft, i);
-      servoLeft.LED(middleFingerLeft, &rgb[random(0, 7)]);
+      servoLeft.LED(middleFingerLeft, &rgb[1]);
       servoLeft.moveJoint(ringFingerLeft, i);
-      servoLeft.LED(ringFingerLeft, &rgb[random(0, 7)]);
+      servoLeft.LED(ringFingerLeft, &rgb[1]);
       servoLeft.moveJoint(littleFingerLeft, i);
-      servoLeft.LED(littleFingerLeft, &rgb[random(0, 7)]);
+      servoLeft.LED(littleFingerLeft, &rgb[1]);
     }
   }
   ran = true;

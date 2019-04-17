@@ -32,7 +32,7 @@ void loop()
 
   case 'd': // sten
     
-    jointArmLeft.scissor();
+    jointArmLeft.paper();
     break;
 
   case 'e': // DAB
