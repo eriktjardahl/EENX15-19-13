@@ -11,6 +11,7 @@ void setup()
   jointArmLeft.SETUP();
   jointArmRight.SETUP();
   jointNeck.SETUP();
+  Serial.begin(115200);
 }
 
 void loop()
@@ -31,7 +32,7 @@ void loop()
     break;
 
   case 'd': // sten
-    jointArmRight.rock();
+    jointArmRight.armMotionSSP();
     break;
 
   case 'e': // DAB

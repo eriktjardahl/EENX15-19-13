@@ -282,7 +282,7 @@ void JointArmClassRight::dab()
 }
 
 //---------------------------------HandRight-------------------------------------------------//
-void JointArmClassRight::rock() // char = c
+void JointArmClassRight::rock() // char = c . Funkar inte riktigt än. Kanske prova med micro ist för milli
 {
   char lastCase = 'c';
   if (!ran)
