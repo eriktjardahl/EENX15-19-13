@@ -633,6 +633,7 @@ void JointArmClassLeft::dab()
 
 void JointArmClassLeft::rock()
 {
+  boolean ran = false; 
   char lastCase = 'c';
   if (!ran)
   {
@@ -649,38 +650,38 @@ void JointArmClassLeft::rock()
       if ((unsigned long)(millis() > timeMillis1 + intervall1))
       {
         
-        servoLeft.moveJoint(6, i);
-        servoLeft.LED(6, &rgb[random(0, 7)]);
+        servoLeft.moveJoint(4, i);
+        servoLeft.LED(4, &rgb[random(0, 7)]);
         timeMillis1 = millis();
       }
 
       if ((unsigned long)(millis() > timeMillis2 + intervall1))
       {
         timeMillis2 = millis();
-        servoLeft.moveJoint(7, i);
-        servoLeft.LED(7, &rgb[random(0, 7)]);
+        servoLeft.moveJoint(2, i);
+        servoLeft.LED(2, &rgb[random(0, 7)]);
       }
 
       if ((unsigned long)(millis() > timeMillis3 + intervall1))
       {
         timeMillis3 = millis();
 
-        servoLeft.moveJoint(8, i);
-        servoLeft.LED(8, &rgb[random(0, 7)]);
+        servoLeft.moveJoint(3, i);
+        servoLeft.LED(3, &rgb[random(0, 7)]);
       }
       if ((unsigned long)(millis() > timeMillis4 + intervall1))
       {
         timeMillis4 = millis();
 
-        servoLeft.moveJoint(9, i);
-        servoLeft.LED(9, &rgb[random(0, 7)]);
+        servoLeft.moveJoint(3, i);
+        servoLeft.LED(3, &rgb[random(0, 7)]);
       }
       if ((unsigned long)(millis() > timeMillis5 + intervall1))
       {
         timeMillis5 = millis();
 
-        servoLeft.moveJoint(10, i);
-        servoLeft.LED(10, &rgb[random(0, 7)]);
+        servoLeft.moveJoint(3, i);
+        servoLeft.LED(3, &rgb[random(0, 7)]);
       }
     }
 
@@ -706,23 +707,25 @@ void JointArmClassLeft::rock()
 }
 void JointArmClassLeft::scissor()
 {
-  initPos = 0;
-  stopPos = 1023;
-  initPosArm = 0;
-  stopPosArm = 1023;
+   
+  if(!ran)
+  {
+  
+  
 
-  for (int pos = initPos; pos <= stopPos; pos += 10)
-  {
-    for (int i = littleFingerLeft; i <= thumbLeft; i++)
-    {
-      if (i == littleFingerLeft || i == ringFingerLeft || i == thumbLeft)
-        servoLeft.moveJoint(i, pos);
-    }
-  }
-  for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
-  {
-    elbowLeft.setPosition(pos, playtime);
-  }
+  
+        servoLeft.LED(4, &rgb[1]);
+        servoLeft.moveJoint(4, 0);
+
+       
+
+
+        
+    
+  
+  ran = true; 
+  } 
+  
 }
 
 void JointArmClassLeft::paper()

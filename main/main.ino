@@ -23,7 +23,7 @@ void loop()
     break;
 
   case 'b': //Reset
-    jointArmLeft.test();
+    jointArmLeft.RESET();
     break;
 
   case 'c': // Ok
@@ -31,7 +31,8 @@ void loop()
     break;
 
   case 'd': // sten
-    jointArmRight.rock();
+    
+    jointArmLeft.scissor();
     break;
 
   case 'e': // DAB
