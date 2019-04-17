@@ -93,7 +93,7 @@
 #endif
 
 #ifndef playtime
-#define playtime 30
+#define playtime 100
 #endif
 
 #ifndef SERVO_COUNT
@@ -138,6 +138,7 @@ class JointArmClassRight {
     void ok();
     void open();
     void fack();
+    void close();
 };
 
 extern JointArmClassRight jointArmRight;

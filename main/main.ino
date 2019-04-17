@@ -19,19 +19,19 @@ void loop()
   switch (input)
   {
   case 'a': //Påse
-    jointArmRight.open();
+    jointArmRight.paper();
     
     break;
 
-  case 'b': //Reset
-    jointArmLeft.test();
+  case 'b': //sax
+    jointArmRight.scissor();
     break;
 
-  case 'c': // Ok
-    jointArmRight.ok();
+  case 'c': // sten
+    jointArmRight.rock();
     break;
 
-  case 'd': // sten
+  case 'd': // test
     jointArmRight.armMotionSSP();
     break;
 
@@ -44,5 +44,18 @@ void loop()
   case 'f': // fuck
     jointArmRight.fack();
     break;
+
+  case 'o':
+    jointArmRight.open();
+  break;
+
+  case 'p':
+    jointArmRight.close();
+  break;
+
+  case 'r': //reset
+    jointArmRight.RESET();
+    break;
+
   }
 }

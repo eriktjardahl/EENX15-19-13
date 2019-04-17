@@ -7,8 +7,8 @@
 
 #define SERVO_COUNT 6
 
-#define rxPin0 0
-#define txPin1 1
+#define rxPin0 1
+#define txPin1 2
 
 #define rxPin3 3
 #define txPin4 4
@@ -78,31 +78,10 @@ XYZrobotServo * servos[SERVO_COUNT] = {
 
 char rgb[] = "rgbypcwo";
 
- 
 
- 
+int moveIntervall;
 
-  unsigned long prevMillis1;
-  unsigned long prevMillis2;
-  
-  unsigned long prevMillis3;
-  unsigned long prevMillis4;
 
-  int moveIntervall;
-  
-  int moveIntervall2 = 0;
-
-    const long timeIntervall1 = 3000;
-    
-    const long timeIntervall2 = 2*timeIntervall1;
-    
-    const long timeIntervall3 = 3*timeIntervall1;
-    
-    const long timeIntervall4 = 4*timeIntervall1;
-    
-    const long timeIntervall5 = 5*timeIntervall1;
-
-    
 
 void setup() {
 
@@ -124,7 +103,7 @@ void setup() {
 
 
 
- // A116servoSerial.begin(115200);
+  A116servoSerial.begin(115200);
   A116servo2Serial.begin(115200);
   XL320servoSerial.begin(115200);
   XL320servo2Serial.begin(115200);
@@ -150,28 +129,70 @@ void setup() {
 
 }
 
-void loop() {  
-    servoRight.LED(9, &rgb[6]); //vit
+void loop() {
+
+  int initPos = 0;
+  int stopPos = 330;
+
+  unsigned long millisVarv = 0;
+  unsigned long currentMillis = millis();
+  int intervall = 10;
+
+  for (int i = 0; i <= 3; i++) {
+
+    if (i == 0 || i == 2) {
+
+      for (int pos = initPos; pos <= stopPos; pos += 1) {
+
+        servo1.setPosition(pos, intervall);
+
+        millisVarv = millis();
+        currentMillis = millis();
+        while (currentMillis - millisVarv <= intervall) {
+          currentMillis = millis();
+        }
+
+      }
+    }
+
+    if (i==1||i==3) {
+
+      for (int pos = stopPos; pos >= initPos; pos -= 1) {
+
+        servo1.setPosition(pos, intervall);
+
+        millisVarv = millis();
+        currentMillis = millis();
+        while (currentMillis - millisVarv <= intervall) {
+          currentMillis = millis();
+        }
+
+      }
+    }
+
+  }
+
+}
+
+/*
+  servoRight.LED(9, &rgb[6]); //vit
   servoRight.LED(10, &rgb[6]);
   servoRight.LED(8, &rgb[6]);
   servoRight.LED(7, &rgb[6]);
 
 
-  moveIntervall =800;
 
-  
+   int moveIntervall =800;
   unsigned long millisVarv=0;
   unsigned long currentMillis = millis();
-  int i=0;
-
   int intervall=10;
- 
 
-  for(i = 100; i<moveIntervall;i+=100){
-    
+
+  for(int i = 100; i<moveIntervall;i+=100){
+
     servoRight.moveJoint(10, i);
     servoRight.LED(10, &rgb[1]);
-    
+
     millisVarv=millis();
      currentMillis = millis();
     while(currentMillis-millisVarv <= intervall){
@@ -179,7 +200,7 @@ void loop() {
     }
     servoRight.moveJoint(9, i);
     servoRight.LED(9, &rgb[1]);
-    
+
     millisVarv=millis();
      currentMillis = millis();
     while(currentMillis-millisVarv <= intervall){
@@ -187,7 +208,7 @@ void loop() {
     }
     servoRight.moveJoint(8, i);
     servoRight.LED(8, &rgb[1]);
-    
+
   millisVarv=millis();
    currentMillis = millis();
     while(currentMillis-millisVarv <= intervall){
@@ -195,75 +216,74 @@ void loop() {
     }
     servoRight.moveJoint(7, i);
     servoRight.LED(7, &rgb[1]);
-    
+
 
   millisVarv=millis();
    currentMillis = millis();
     while(currentMillis-millisVarv <= intervall){
       currentMillis=millis();
     }
-    
+
   }
 
-  
+
+  /*
 
 
 
 
-  
-/*
+  /*
   for(i=5 ; i<moveIntervall ;i=i+5){
 
-//--------------------------------------------------------------------------------------
- 
- unsigned long prevMillis1=millis();
+  //--------------------------------------------------------------------------------------
+
+  unsigned long prevMillis1=millis();
   unsigned long prevMillis2=millis();
-  
+
   unsigned long prevMillis3=0;
   unsigned long prevMillis4=0;
 
-  
-  
-  
+
+
+
 
     if (currentMillis - prevMillis1 == timeIntervall1) {
         prevMillis1=currentMillis;
       servoRight.moveJoint(10, i);
       servoRight.LED(10, &rgb[1]);
-    
+
     }
-    
+
     if (currentMillis - prevMillis2 == timeIntervall2) {
       prevMillis2=currentMillis;
       servoRight.moveJoint(9, i);
       servoRight.LED(9, &rgb[1]);
-     
+
     }
 
     if (currentMillis - prevMillis3 == timeIntervall3) {
       prevMillis3=currentMillis;
       servoRight.moveJoint(8, i);
       servoRight.LED(8, &rgb[1]);
-      
+
     }
 
     if (currentMillis - prevMillis4 == timeIntervall4) {
       prevMillis4=currentMillis;
       servoRight.moveJoint(7, i);
       servoRight.LED(7, &rgb[1]);
-     
-      
+
+
     }
-//----------------------------------------------------------------------------------------------------------
+  //----------------------------------------------------------------------------------------------------------
 
 
   }*/
 
-  
-   
- //}
 
-} 
+
+//}
+
 
 
 

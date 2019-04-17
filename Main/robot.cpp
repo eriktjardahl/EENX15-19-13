@@ -18,7 +18,7 @@ XYZrobotServo shoulderLeftPitch(A116servo2Serial, 6);
 XYZrobotServo shoulderLeftYaw(A116servo2Serial, 7);
 
 // Declaration of init variables
-int initPos;
+int initPosHand;
 int initPosArm;
 int initPosJaw;
 int initPosRoll;
@@ -62,21 +62,16 @@ char lastCase = 'a';
 
 char rgb[] = "rgbypcwo";
 
-int intervall = 50000;
-
-unsigned long timeMillis1;
-  
-unsigned long timeMillis2;
-unsigned long timeMillis3;
-unsigned long timeMillis4;
-unsigned long timeMillis5;
+int moveIntervall;
+unsigned long revMillis;
+unsigned long currentMillis;
+int intervallTime;
 
 //---------------------------------Communication--------------------------------------------------//
 Communication::Communication()
 {
 }
 void Communication::readSerial()
-
 {
   int a = 0;
   char dataString[50] = {0};
@@ -161,43 +156,19 @@ void JointArmClassRight::SETUP()
 
 void JointArmClassRight::armMotionSSP()
 {
-  int initPos = 0; // initsiera positioner
-  int stopPos = 300;
 
   if (!ran)
   {
-    shoulderRightPitch.setPosition(initPos, playtime + 100); //initierar axelpositionerna och sedan är de stela
-    shoulderRightYaw.setPosition(initPos, playtime + 100);
-    delay(playtime + 100);
+    
 
-    for (int i = 0; i < 4; i++)
-    {
-      if (i == 0 || i == 2)
-      {
-        for (int j = initPos; j <= stopPos; j++)
-        {
-          elbowRight.setPosition(j, playtime);
-          delay(playtime);
-        }
-      }
-      else if (i == 1 || i == 3)
-      {
-        for (int j = stopPos; j >= initPos; j--)
-        {
-          elbowRight.setPosition(j, playtime);
-          delay(playtime);
-        }
-      }
-    }
     ran = true;
   }
 }
 
 void JointArmClassRight::RESET()
 {
-  
+
   int initPosArm = 0;
-  int initPosHand = 0;
   int maxPosHand = 800;
 
   if (!ran)
@@ -207,250 +178,247 @@ void JointArmClassRight::RESET()
     shoulderRightYaw.setPosition(initPosArm, playtime + 1000);
     switch (lastCase)
     {
-    case 'a'://påse
-      for (int i = initPosHand; i <= maxPosHand; i = i + 2)
-    {
-      servoRight.moveJoint(thumbRight, i);
-      servoRight.LED(thumbRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(indexFingerRight, i);
-      servoRight.LED(indexFingerRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(middleFingerRight, i);
-      servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(ringFingerRight, i);
-      servoRight.LED(ringFingerRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(littleFingerRight, i);
-      servoRight.LED(littleFingerRight, &rgb[random(0, 7)]);
-    }
+    case 'a': //påse färdig
+      moveIntervall = 800;
+      revMillis = 0;
+      currentMillis = millis();
+      intervallTime = 10;
+      initPosHand = 0;
+
+      for (int i = initPosHand; i < moveIntervall; i += 100)
+      {
+
+        servoRight.moveJoint(middleFingerRight, i);
+        servoRight.LED(middleFingerRight, &rgb[1]);
+
+        revMillis = millis();
+        currentMillis = millis();
+        while (currentMillis - revMillis <= intervallTime)
+        {
+          currentMillis = millis();
+        }
+        servoRight.moveJoint(ringFingerRight, i);
+        servoRight.LED(ringFingerRight, &rgb[1]);
+
+        revMillis = millis();
+        currentMillis = millis();
+        while (currentMillis - revMillis <= intervallTime)
+        {
+          currentMillis = millis();
+        }
+        servoRight.moveJoint(littleFingerRight, i);
+        servoRight.LED(littleFingerRight, &rgb[1]);
+
+        revMillis = millis();
+        currentMillis = millis();
+        while (currentMillis - revMillis <= intervallTime)
+        {
+          currentMillis = millis();
+        }
+        servoRight.moveJoint(thumbRight, i);
+        servoRight.LED(thumbRight, &rgb[1]);
+
+        revMillis = millis();
+        currentMillis = millis();
+        while (currentMillis - revMillis <= intervallTime)
+        {
+          currentMillis = millis();
+        }
+
+        servoRight.moveJoint(indexFingerRight, i);
+        servoRight.LED(indexFingerRight, &rgb[1]);
+
+        revMillis = millis();
+        currentMillis = millis();
+        while (currentMillis - revMillis <= intervallTime)
+        {
+          currentMillis = millis();
+        }
+      }
+
       break;
 
-    case 'b'://sax
-      for (int i = initPosHand; i <= maxPosHand; i = i + 2)
-    {
-      servoRight.moveJoint(indexFingerRight, i);
-      servoRight.LED(indexFingerRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(middleFingerRight, i);
-      servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
-    }
+    case 'b': //sax färdig
+      moveIntervall = 800;
+      revMillis = 0;
+      currentMillis = millis();
+      intervallTime = 10;
+      initPosHand = 0;
+
+      for (int i = initPosHand; i < moveIntervall; i += 100)
+      {
+
+        servoRight.moveJoint(indexFingerRight, i);
+        servoRight.LED(indexFingerRight, &rgb[1]);
+
+        revMillis = millis();
+        currentMillis = millis();
+        while (currentMillis - revMillis <= intervallTime)
+        {
+          currentMillis = millis();
+        }
+
+        servoRight.moveJoint(middleFingerRight, i);
+        servoRight.LED(middleFingerRight, &rgb[1]);
+
+        revMillis = millis();
+        currentMillis = millis();
+        while (currentMillis - revMillis <= intervallTime)
+        {
+          currentMillis = millis();
+        }
+      }
+
       break;
 
-    case 'c'://sten 
-  
-        break;
+    case 'c': //sten
+
+      break;
     case 'd': //else
-      for (int i = initPosHand; i <= maxPosHand; i = i + 2)
-    {
-      servoRight.moveJoint(thumbRight, i);
-      servoRight.LED(thumbRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(indexFingerRight, i);
-      servoRight.LED(indexFingerRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(middleFingerRight, i);
-      servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(ringFingerRight, i);
-      servoRight.LED(ringFingerRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(littleFingerRight, i);
-      servoRight.LED(littleFingerRight, &rgb[random(0, 7)]);
-    }
+
       break;
-
-       
     }
 
-   
-
-    
     ran = true;
   }
 }
 
 void JointArmClassRight::dab()
 {
-  initPos = 0;
-  int endPosYawShoulder = 1023;
-  int endPosPitchElbow = 1023;
 
   if (!ran)
   {
-    for (int i = initPos, j = initPos; i <= endPosYawShoulder, j <= endPosPitchElbow; i++, j++)
-    {
-      elbowRight.setPosition(j, playtime);
-      delay(playtime);
-      shoulderRightYaw.setPosition(i, playtime);
-      delay(playtime);
-    }
+
     ran = true;
   }
 }
 
 //---------------------------------HandRight-------------------------------------------------//
-void JointArmClassRight::rock() // char = c . Funkar inte riktigt än. Kanske prova med micro ist för milli
+void JointArmClassRight::rock() // lastCase = c
 {
   char lastCase = 'c';
+}
+void JointArmClassRight::scissor() //lastCase = b färdig
+{
+
   if (!ran)
   {
-    int intervall1 = 100;
+    moveIntervall = 0;
+    revMillis = 0;
+    currentMillis = millis();
+    intervallTime = 10;
+    initPosHand = 800;
 
-    for (int i = 0; i <= 900; i += 1)
+    for (int i = initPosHand; i > moveIntervall; i -= 100)
     {
-      timeMillis1 = 0;
-      timeMillis2 = 0;
-      timeMillis3 = 0;
-      timeMillis4 = 0;
-      timeMillis5 = 0;
 
-      if ((unsigned long)(millis() > timeMillis1 + intervall1))
+      servoRight.moveJoint(indexFingerRight, i);
+      servoRight.LED(indexFingerRight, &rgb[1]);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
       {
-        
-        servoRight.moveJoint(6, i);
-        servoRight.LED(6, &rgb[random(0, 7)]);
-        timeMillis1 = millis();
+        currentMillis = millis();
       }
 
-      if ((unsigned long)(millis() > timeMillis2 + intervall1))
-      {
-        timeMillis2 = millis();
-        servoRight.moveJoint(7, i);
-        servoRight.LED(7, &rgb[random(0, 7)]);
-      }
+      servoRight.moveJoint(middleFingerRight, i);
+      servoRight.LED(middleFingerRight, &rgb[1]);
 
-      if ((unsigned long)(millis() > timeMillis3 + intervall1))
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
       {
-        timeMillis3 = millis();
-
-        servoRight.moveJoint(8, i);
-        servoRight.LED(8, &rgb[random(0, 7)]);
-      }
-      if ((unsigned long)(millis() > timeMillis4 + intervall1))
-      {
-        timeMillis4 = millis();
-
-        servoRight.moveJoint(9, i);
-        servoRight.LED(9, &rgb[random(0, 7)]);
-      }
-      if ((unsigned long)(millis() > timeMillis5 + intervall1))
-      {
-        timeMillis5 = millis();
-
-        servoRight.moveJoint(10, i);
-        servoRight.LED(10, &rgb[random(0, 7)]);
+        currentMillis = millis();
       }
     }
-
-    /*
-    int initPosHand = 0;
-    int maxPosHand = 800;
-
-    for (int i = initPosHand; i <= maxPosHand; i = i + 1)
-    {
-      servoRight.moveJoint(thumbRight, i);
-      servoRight.LED(thumbRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(indexFingerRight, i);
-      servoRight.LED(indexFingerRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(middleFingerRight, i);
-      servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(ringFingerRight, i);
-      servoRight.LED(ringFingerRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(littleFingerRight, i);
-      servoRight.LED(littleFingerRight, &rgb[random(0, 7)]);
-    }*/
+    char lastCase = 'b';
     ran = true;
   }
 }
-void JointArmClassRight::scissor() //ändra,,, char = b
+
+void JointArmClassRight::paper() // lastCase = a
 {
-
-  char lastCase = 'b';
-  initPos = 0;
-  stopPos = 1023;
-  initPosArm = 0;
-  stopPosArm = 1023;
-
-  for (int pos = initPos; pos < stopPos; pos += 10)
-  {
-    for (int i = littleFingerRight; i <= thumbRight; i++)
-    {
-      if (i == littleFingerLeft || i == ringFingerRight || i == thumbRight)
-
-        servoRight.moveJoint(i, pos);
-    }
-  }
-  for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
-  {
-    elbowRight.setPosition(pos, playtime);
-  }
-}
-
-void JointArmClassRight::paper() // char = a
-{
-
-  char lastCase = 'a';
-  initPos = 0;
-  int maxPos = 300;
-
-  int initPosArm = 0;
-  int initPosHand = 850;
-  int stopPosArm = 300;
-  int stopPosHand = 0;
 
   if (!ran)
   {
-    for (int i = initPosHand; i >= stopPosHand; i--)
-    {
-      servoRight.moveJoint(thumbRight, i);
-      servoRight.LED(thumbRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(indexFingerRight, i);
-      servoRight.LED(indexFingerRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(middleFingerRight, i);
-      servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(ringFingerRight, i);
-      servoRight.LED(ringFingerRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(littleFingerRight, i);
-      servoRight.LED(littleFingerRight, &rgb[random(0, 7)]);
-    }
+
+    ran = true;
   }
-  ran = true;
 }
 
 void JointArmClassRight::ok()
 {
-  initPos = 850;
-  stopPos = 0;
 
   if (!ran)
   {
-    for (int i = initPos; i >= stopPos; i--)
-    {
-      servoRight.moveJoint(thumbRight, i);
-      servoRight.LED(thumbRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(middleFingerRight, i);
-      servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(ringFingerRight, i);
-      servoRight.LED(ringFingerRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(littleFingerRight, i);
-      servoRight.LED(littleFingerRight, &rgb[random(0, 7)]);
-    }
+
     ran = true;
   }
 }
 
-void JointArmClassRight::open()
+void JointArmClassRight::open() //färdig lastCase = o
 {
-  int initPosHand = 800;
-  int stopPosHand = 0;
+
+  lastCase = 'o';
 
   if (!ran)
   {
-    for (int i = initPosHand; i >= stopPosHand; i = i - 1)
+    moveIntervall = 0;
+    revMillis = 0;
+    currentMillis = millis();
+    intervallTime = 10;
+    initPosHand = 800;
+
+    for (int i = initPosHand; i > moveIntervall; i -= 100)
     {
-      servoRight.moveJoint(thumbRight, i);
-      servoRight.LED(thumbRight, &rgb[random(0, 7)]);
-      servoRight.moveJoint(indexFingerRight, i);
-      servoRight.LED(indexFingerRight, &rgb[random(0, 7)]);
+
       servoRight.moveJoint(middleFingerRight, i);
-      servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
+      servoRight.LED(middleFingerRight, &rgb[1]);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
       servoRight.moveJoint(ringFingerRight, i);
-      servoRight.LED(ringFingerRight, &rgb[random(0, 7)]);
+      servoRight.LED(ringFingerRight, &rgb[1]);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
       servoRight.moveJoint(littleFingerRight, i);
-      servoRight.LED(littleFingerRight, &rgb[random(0, 7)]);
+      servoRight.LED(littleFingerRight, &rgb[1]);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
+      servoRight.moveJoint(thumbRight, i);
+      servoRight.LED(thumbRight, &rgb[1]);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
+
+      servoRight.moveJoint(indexFingerRight, i);
+      servoRight.LED(indexFingerRight, &rgb[1]);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
     }
     ran = true;
   }
@@ -458,28 +426,77 @@ void JointArmClassRight::open()
 
 void JointArmClassRight::fack()
 {
-  /*
-  int initPos = 800;
-  int stopPos = 0;
+  lastCase = 'f';
+  if (!ran)
+  {
 
-  previousMillis = 0;
-  currentMillis = getMillis();
+    ran = true;
+  }
+}
+
+void JointArmClassRight::close() //färdig lastCase = p
+{
 
   if (!ran)
   {
-    if ((unsigned long)(currentMillis - previousMillis) >= intervall)
+    moveIntervall = 800;
+    revMillis = 0;
+    currentMillis = millis();
+    intervallTime = 10;
+    initPosHand = 0;
+
+    for (int i = initPosHand; i < moveIntervall; i += 100)
     {
-      for (int i = initPos; i >= stopPos; i--)
+
+      servoRight.moveJoint(middleFingerRight, i);
+      servoRight.LED(middleFingerRight, &rgb[1]);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
       {
-        servoRight.moveJoint(middleFingerRight, i);
-        servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
+        currentMillis = millis();
+      }
+      servoRight.moveJoint(ringFingerRight, i);
+      servoRight.LED(ringFingerRight, &rgb[1]);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
+      servoRight.moveJoint(littleFingerRight, i);
+      servoRight.LED(littleFingerRight, &rgb[1]);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
+      servoRight.moveJoint(thumbRight, i);
+      servoRight.LED(thumbRight, &rgb[1]);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
+
+      servoRight.moveJoint(indexFingerRight, i);
+      servoRight.LED(indexFingerRight, &rgb[1]);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
       }
     }
-    previousMillis = currentMillis;
-
-    //ran = true;
+    ran = true;
   }
-  */
 }
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
 
@@ -512,7 +529,7 @@ void JointArmClassLeft::SETUP()
 void JointArmClassLeft::armMotionSSP()
 {
 
-  initPos = 0; // initsiera positioner
+  initPosHand = 0; // initsiera positioner
   stopPos = 1023;
   posYaw = 0;
   posPitch = 0;
@@ -522,17 +539,17 @@ void JointArmClassLeft::armMotionSSP()
 
   for (int i = 0; i <= 2; i++)
   {
-    for (int pos = initPos; pos <= stopPos; pos += 10)
+    for (int pos = initPosHand; pos <= stopPos; pos += 10)
     {
       elbowLeft.setPosition(pos, playtime);
     }
-    elbowLeft.setPosition(initPos, playtime);
+    elbowLeft.setPosition(initPosHand, playtime);
   }
 }
 
 void JointArmClassLeft::RESET()
 {
-  initPos = 0;
+  int initPos = 0;
 
   elbowLeft.setPosition(initPos, playtime);
   shoulderLeftPitch.setPosition(initPos, playtime);
@@ -546,7 +563,7 @@ void JointArmClassLeft::RESET()
 
 void JointArmClassLeft::dab()
 {
-  initPos = 0;
+  int initPos = 0;
 
   int endPosYawShoulder = 1023;
 
@@ -559,7 +576,7 @@ void JointArmClassLeft::dab()
 
 void JointArmClassLeft::rock()
 {
-  initPos = 0;
+  int initPos = 0;
   stopPos = 1023;
   initPosArm = 0;
   stopPosArm = 1023;
@@ -578,7 +595,7 @@ void JointArmClassLeft::rock()
 }
 void JointArmClassLeft::scissor()
 {
-  initPos = 0;
+  int initPos = 0;
   stopPos = 1023;
   initPosArm = 0;
   stopPosArm = 1023;
@@ -599,28 +616,13 @@ void JointArmClassLeft::scissor()
 
 void JointArmClassLeft::paper()
 {
-  initPosArm = 0;
+  int initPosArm = 0;
   stopPosArm = 1023;
   for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
   {
     elbowRight.setPosition(pos, playtime);
   }
 }
-
-/*
-void JointArmClassLeft::test()
-{
-
-  for (int i = 0; i < 1023; i++)
-  {
-    elbowLeft.setPosition(i, playtime);
-    Serial.println(elbowLeft.readStatus().position);
-  }
-  uint16_t blob = elbowLeft.readStatus().position;
-
-  Serial.println(blob);
-}
-*/
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
 
@@ -644,7 +646,7 @@ void JointNeckClass::SETUP()
 void JointNeckClass::nod()
 {
 
-  initPos = 0;
+  int initPos = 0;
   stopPos = 100;
 
   for (int i = initPos; i <= stopPos; i++)
@@ -656,7 +658,7 @@ void JointNeckClass::nod()
 void JointNeckClass::dab()
 {
 
-  initPos = 0;
+  int initPos = 0;
   stopPos = 1000;
 
   for (int i = initPos; i <= stopPos; i++)
