@@ -511,69 +511,197 @@ void JointArmClassLeft::SETUP()
 
 void JointArmClassLeft::armMotionSSP()
 {
+int initPos = 0; // initsiera positioner
+  int stopPos = 300;
 
-  initPos = 0; // initsiera positioner
-  stopPos = 1023;
-  posYaw = 0;
-  posPitch = 0;
-
-  shoulderLeftPitch.setPosition(posPitch, playtime); //initierar axelpositionerna och sedan är de stela
-  shoulderLeftYaw.setPosition(posYaw, playtime);
-
-  for (int i = 0; i <= 2; i++)
+  if (!ran)
   {
-    for (int pos = initPos; pos <= stopPos; pos += 10)
+    shoulderLeftPitch.setPosition(initPos, playtime + 100); //initierar axelpositionerna och sedan är de stela
+    shoulderLeftYaw.setPosition(initPos, playtime + 100);
+    delay(playtime + 100);
+
+    for (int i = 0; i < 4; i++)
     {
-      elbowLeft.setPosition(pos, playtime);
+      if (i == 0 || i == 2)
+      {
+        for (int j = initPos; j <= stopPos; j++)
+        {
+          elbowLeft.setPosition(j, playtime);
+          delay(playtime);
+        }
+      }
+      else if (i == 1 || i == 3)
+      {
+        for (int j = stopPos; j >= initPos; j--)
+        {
+          elbowLeft.setPosition(j, playtime);
+          delay(playtime);
+        }
+      }
     }
-    elbowLeft.setPosition(initPos, playtime);
+    ran = true;
   }
 }
 
 void JointArmClassLeft::RESET()
 {
-  initPos = 0;
+  int initPosArm = 0;
+  int initPosHand = 0;
+  int maxPosHand = 800;
 
-  elbowLeft.setPosition(initPos, playtime);
-  shoulderLeftPitch.setPosition(initPos, playtime);
-  shoulderLeftYaw.setPosition(initPos, playtime);
-
-  for (int i = littleFingerLeft; i < thumbLeft + 1; i++)
+  if (!ran)
   {
-    servoLeft.moveJoint(i, initPos);
+    elbowRight.setPosition(initPosArm, playtime + 1000);
+    shoulderRightPitch.setPosition(initPosArm, playtime + 1000);
+    shoulderRightYaw.setPosition(initPosArm, playtime + 1000);
+    switch (lastCase)
+    {
+    case 'a'://påse
+      for (int i = initPosHand; i <= maxPosHand; i = i + 2)
+    {
+      servoRight.moveJoint(thumbRight, i);
+      servoRight.LED(thumbRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(indexFingerRight, i);
+      servoRight.LED(indexFingerRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(middleFingerRight, i);
+      servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(ringFingerRight, i);
+      servoRight.LED(ringFingerRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(littleFingerRight, i);
+      servoRight.LED(littleFingerRight, &rgb[random(0, 7)]);
+    }
+      break;
+
+    case 'b'://sax
+      for (int i = initPosHand; i <= maxPosHand; i = i + 2)
+    {
+      servoRight.moveJoint(indexFingerRight, i);
+      servoRight.LED(indexFingerRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(middleFingerRight, i);
+      servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
+    }
+      break;
+
+    case 'c'://sten 
+  
+        break;
+    case 'd': //else
+      for (int i = initPosHand; i <= maxPosHand; i = i + 2)
+    {
+      servoLeft.moveJoint(thumbLeft, i);
+      servoLeft.LED(thumbLeft, &rgb[random(0, 7)]);
+      servoLeft.moveJoint(indexFingerLeft, i);
+      servoLeft.LED(indexFingerLeft, &rgb[random(0, 7)]);
+      servoLeft.moveJoint(middleFingerLeft, i);
+      servoLeft.LED(middleFingerLeft, &rgb[random(0, 7)]);
+      servoLeft.moveJoint(ringFingerLeft, i);
+      servoLeft.LED(ringFingerLeft, &rgb[random(0, 7)]);
+      servoLeft.moveJoint(littleFingerLeft, i);
+      servoLeft.LED(littleFingerLeft, &rgb[random(0, 7)]);
+    }
+      break;
+
+       
+    }
+
+   
+
+    
+    ran = true;
   }
 }
 
 void JointArmClassLeft::dab()
 {
   initPos = 0;
-
   int endPosYawShoulder = 1023;
+  int endPosPitchElbow = 1023;
 
-  for (int i = initPos; i <= endPosYawShoulder; i++)
+  if (!ran)
   {
-    shoulderLeftYaw.setPosition(i, playtime);
+    for (int i = initPos, j = initPos; i <= endPosYawShoulder, j <= endPosPitchElbow; i++, j++)
+    {
+      elbowLeft.setPosition(j, playtime);
+      delay(playtime);
+      shoulderLeftYaw.setPosition(i, playtime);
+      delay(playtime);
+    }
+    ran = true;
   }
 }
 //---------------------------------HandLeft--------------------------------------------------//
 
 void JointArmClassLeft::rock()
 {
-  initPos = 0;
-  stopPos = 1023;
-  initPosArm = 0;
-  stopPosArm = 1023;
+  char lastCase = 'c';
+  if (!ran)
+  {
+    int intervall1 = 100;
 
-  for (int pos = initPos; pos <= stopPos; pos += 10)
-  {
-    for (int i = littleFingerLeft; i <= thumbLeft; i++)
+    for (int i = 0; i <= 900; i += 1)
     {
-      servoLeft.moveJoint(i, pos);
+      timeMillis1 = 0;
+      timeMillis2 = 0;
+      timeMillis3 = 0;
+      timeMillis4 = 0;
+      timeMillis5 = 0;
+
+      if ((unsigned long)(millis() > timeMillis1 + intervall1))
+      {
+        
+        servoLeft.moveJoint(6, i);
+        servoLeft.LED(6, &rgb[random(0, 7)]);
+        timeMillis1 = millis();
+      }
+
+      if ((unsigned long)(millis() > timeMillis2 + intervall1))
+      {
+        timeMillis2 = millis();
+        servoLeft.moveJoint(7, i);
+        servoLeft.LED(7, &rgb[random(0, 7)]);
+      }
+
+      if ((unsigned long)(millis() > timeMillis3 + intervall1))
+      {
+        timeMillis3 = millis();
+
+        servoLeft.moveJoint(8, i);
+        servoLeft.LED(8, &rgb[random(0, 7)]);
+      }
+      if ((unsigned long)(millis() > timeMillis4 + intervall1))
+      {
+        timeMillis4 = millis();
+
+        servoLeft.moveJoint(9, i);
+        servoLeft.LED(9, &rgb[random(0, 7)]);
+      }
+      if ((unsigned long)(millis() > timeMillis5 + intervall1))
+      {
+        timeMillis5 = millis();
+
+        servoLeft.moveJoint(10, i);
+        servoLeft.LED(10, &rgb[random(0, 7)]);
+      }
     }
-  }
-  for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
-  {
-    elbowRight.setPosition(pos, playtime);
+
+    /*
+    int initPosHand = 0;
+    int maxPosHand = 800;
+
+    for (int i = initPosHand; i <= maxPosHand; i = i + 1)
+    {
+      servoRight.moveJoint(thumbRight, i);
+      servoRight.LED(thumbRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(indexFingerRight, i);
+      servoRight.LED(indexFingerRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(middleFingerRight, i);
+      servoRight.LED(middleFingerRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(ringFingerRight, i);
+      servoRight.LED(ringFingerRight, &rgb[random(0, 7)]);
+      servoRight.moveJoint(littleFingerRight, i);
+      servoRight.LED(littleFingerRight, &rgb[random(0, 7)]);
+    }*/
+    ran = true;
   }
 }
 void JointArmClassLeft::scissor()
@@ -593,18 +721,39 @@ void JointArmClassLeft::scissor()
   }
   for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
   {
-    elbowRight.setPosition(pos, playtime);
+    elbowLeft.setPosition(pos, playtime);
   }
 }
 
 void JointArmClassLeft::paper()
 {
-  initPosArm = 0;
-  stopPosArm = 1023;
-  for (int pos = initPosArm; pos <= stopPosArm; pos += 10)
+  
+  char lastCase = 'a';
+  initPos = 0;
+  int maxPos = 300;
+
+  int initPosArm = 0;
+  int initPosHand = 850;
+  int stopPosArm = 300;
+  int stopPosHand = 0;
+
+  if (!ran)
   {
-    elbowRight.setPosition(pos, playtime);
+    for (int i = initPosHand; i >= stopPosHand; i--)
+    {
+      servoLeft.moveJoint(thumbLeft, i);
+      servoLeft.LED(thumbLeft, &rgb[random(0, 7)]);
+      servoLeft.moveJoint(indexFingerLeft, i);
+      servoLeft.LED(indexFingerLeft, &rgb[random(0, 7)]);
+      servoLeft.moveJoint(middleFingerLeft, i);
+      servoLeft.LED(middleFingerLeft, &rgb[random(0, 7)]);
+      servoLeft.moveJoint(ringFingerLeft, i);
+      servoLeft.LED(ringFingerLeft, &rgb[random(0, 7)]);
+      servoLeft.moveJoint(littleFingerLeft, i);
+      servoLeft.LED(littleFingerLeft, &rgb[random(0, 7)]);
+    }
   }
+  ran = true;
 }
 
 /*
