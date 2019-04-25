@@ -2,8 +2,8 @@
 #include "Arduino.h"
 #include "robot.h"
 
-char input = 'd';
-//char lastCase ='a';
+char input = 'r';
+//char LastCase;
 
 void setup()
 {
@@ -12,6 +12,8 @@ void setup()
   jointArmRight.SETUP();
   jointNeck.SETUP();
   Serial.begin(115200);
+
+ 
 }
 
 void loop()
@@ -20,11 +22,12 @@ void loop()
   {
   case 'a': //Påse
     jointArmRight.paper();
-    
+    //LastCase = input;
     break;
 
   case 'b': //sax
     jointArmRight.scissor();
+    
     break;
 
   case 'c': // sten
@@ -32,7 +35,7 @@ void loop()
     break;
 
   case 'd': // test
-    jointArmRight.armMotionSSP();
+    jointArmRight.ok();
     break;
 
   case 'e': // DAB
@@ -54,7 +57,7 @@ void loop()
   break;
 
   case 'r': //reset
-    jointArmRight.RESET();
+    jointArmRight.RESET(/*LastCase*/);
     break;
 
   }

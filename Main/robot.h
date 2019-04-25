@@ -93,12 +93,14 @@
 #endif
 
 #ifndef playtime
-#define playtime 100
+#define playtime 50
 #endif
 
 #ifndef SERVO_COUNT
 #define SERVO_COUNT 6
 #endif
+
+
 //---------------------------------Communication--------------------------------------------------//
 #ifndef COMMUNICATION_
 #define COMMUNICATION_
@@ -125,11 +127,12 @@ extern Communication communication;
 #ifndef JOINTARMCLASS_RIGHT
 #define JOINTARMCLASS_RIGHT
 
-class JointArmClassRight {
+class JointArmClassRight 
+{
   public:
     JointArmClassRight();
     void SETUP();
-    void RESET();
+    void RESET(/*char LastCase*/);
     void scissor();
     void rock();   
     void paper(); 
@@ -149,7 +152,8 @@ extern JointArmClassRight jointArmRight;
 #ifndef JOINTARMCLASS_LEFT
 #define JOINTARMCLASS_LEFT
 
-class JointArmClassLeft {
+class JointArmClassLeft 
+{
   public:
     JointArmClassLeft();
     void SETUP();
