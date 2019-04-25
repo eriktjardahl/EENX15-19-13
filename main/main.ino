@@ -2,7 +2,7 @@
 #include "Arduino.h"
 #include "robot.h"
 
-char input = 'r';
+char input = 'f';
 //char LastCase;
 
 void setup()
@@ -13,24 +13,25 @@ void setup()
   jointNeck.SETUP();
   Serial.begin(115200);
 
- 
-}
-
-void loop()
-{
   switch (input)
   {
   case 'a': //Påse
+    jointArmRight.close();
+    jointArmRight.armMotionSSP();
     jointArmRight.paper();
-    //LastCase = input;
-    break;
-
-  case 'b': //sax
-    jointArmRight.scissor();
     
     break;
 
+  case 'b': //sax
+    jointArmRight.close();
+    jointArmRight.armMotionSSP();
+    jointArmRight.scissor();
+
+    break;
+
   case 'c': // sten
+    jointArmRight.close();
+    jointArmRight.armMotionSSP();
     jointArmRight.rock();
     break;
 
@@ -50,15 +51,18 @@ void loop()
 
   case 'o':
     jointArmRight.open();
-  break;
+    break;
 
   case 'p':
     jointArmRight.close();
-  break;
+    break;
 
   case 'r': //reset
     jointArmRight.RESET(/*LastCase*/);
     break;
-
   }
+}
+
+void loop()
+{
 }
