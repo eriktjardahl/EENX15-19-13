@@ -163,53 +163,53 @@ void JointArmClassRight::armMotionSSP() //färdig, används ej direkt.
 
   if (!ran)
   {
-    for (int i = 0; i <= 5; i++)
+    for (int j = 0; j <= 5; j++) //armMotionSSP
     {
 
-      if (i == 0)
+      if (j == 0)
       {
         for (int pos = initPosArm; pos <= initPosSSP; pos += 4)
         {
 
-          elbowRight.setPosition(pos, intervallTime);
+          elbowRight.setPosition(pos, intervallTimeElbow);
 
           revMillis = millis();
           currentMillis = millis();
-          while (currentMillis - revMillis <= intervallTime)
+          while (currentMillis - revMillis <= intervallTimeElbow)
           {
             currentMillis = millis();
           }
         }
       }
 
-      if (i == 1 || i == 3 || i == 5)
+      if (j == 1 || j == 3 || j == 5)
       {
 
         for (int pos = initPosSSP; pos <= stopPosArm; pos += 4)
         {
 
-          elbowRight.setPosition(pos, intervallTime);
+          elbowRight.setPosition(pos, intervallTimeElbow);
 
           revMillis = millis();
           currentMillis = millis();
-          while (currentMillis - revMillis <= intervallTime)
+          while (currentMillis - revMillis <= intervallTimeElbow)
           {
             currentMillis = millis();
           }
         }
       }
 
-      if (i == 2 || i == 4)
+      if (j == 2 || j == 4)
       {
 
         for (int pos = stopPosArm; pos >= initPosSSP; pos -= 4)
         {
 
-          elbowRight.setPosition(pos, intervallTime);
+          elbowRight.setPosition(pos, intervallTimeElbow);
 
           revMillis = millis();
           currentMillis = millis();
-          while (currentMillis - revMillis <= intervallTime)
+          while (currentMillis - revMillis <= intervallTimeElbow)
           {
             currentMillis = millis();
           }
@@ -979,7 +979,7 @@ void JointArmClassRight::paper() // lastCase = a färdig
   }
 }
 
-void JointArmClassRight::ok() // lastCase = d
+void JointArmClassRight::ok() // färdig lastCase = d
 {
   lastCase = 'd';
   if (!ran)
@@ -1074,7 +1074,7 @@ void JointArmClassRight::open() //färdig lastCase = o
   }
 }
 
-void JointArmClassRight::fack() //lastCase = f
+void JointArmClassRight::fack() //färdig lastCase = f
 {
   lastCase = 'f';
   if (!ran)
