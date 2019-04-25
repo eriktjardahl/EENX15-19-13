@@ -39,8 +39,8 @@
 #endif
 
 
-#ifndef neckJaw 
-#define neckJaw 11
+#ifndef neckYaw 
+#define neckYaw 11
 #endif
 
 #ifndef neckPich 

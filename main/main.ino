@@ -35,7 +35,7 @@ void setup()
     jointArmRight.rock();
     break;
 
-  case 'd': // test
+  case 'd': //ok
     jointArmRight.ok();
     break;
 
@@ -57,10 +57,15 @@ void setup()
     jointArmRight.close();
     break;
 
-  case 'r': //reset
+  case 'r': //reset högerarm
     jointArmRight.RESET(/*LastCase*/);
     break;
+
+  case 's': //reset nacke
+    jointNeck.RESET();
+    break;
   }
+  
 }
 
 void loop()
