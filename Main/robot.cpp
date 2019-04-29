@@ -519,7 +519,7 @@ void JointArmClassRight::armMotionSSP() //färdig
   //}
 }
 
-void JointArmClassRight::dab() //skriven, behövs testas
+void JointArmClassRight::dab() //skriven, behövs testas. Kanske kan skrivas om. Utan armbågsböj. kan kanske ersättas med perpendicular
 {
   revMillis = 0;
   currentMillis = millis();
@@ -552,6 +552,54 @@ void JointArmClassRight::dab() //skriven, behövs testas
     }
   }
 }
+
+void JointArmClassRight::maxElbow() //skriven, ej testad
+{
+  initPosArm = 0;
+  stopPosArm = 330;
+
+  revMillis = 0;
+  currentMillis = millis();
+  intervallTimeElbow = 10;
+
+  for (int pos = initPosArm; pos <= stopPosArm; pos += 4)
+  {
+
+    elbowRight.setPosition(pos, intervallTimeElbow);
+
+    revMillis = millis();
+    currentMillis = millis();
+    while (currentMillis - revMillis <= intervallTimeElbow)
+    {
+      currentMillis = millis();
+    }
+  }
+}
+
+void JointArmClassRight::perpendicular() //skriven, ej testad. inte säker på att det är 90 grader, men typ.
+{
+  initPosArm = 0;
+  stopPosArm = 160;
+
+  revMillis = 0;
+  currentMillis = millis();
+  intervallTimeElbow = 10;
+
+  for (int pos = initPosArm; pos <= stopPosArm; pos += 4)
+  {
+
+    elbowRight.setPosition(pos, intervallTimeElbow);
+
+    revMillis = millis();
+    currentMillis = millis();
+    while (currentMillis - revMillis <= intervallTimeElbow)
+    {
+      currentMillis = millis();
+    }
+  }
+}
+
+
 
 //---------------------------------HandRight-------------------------------------------------//
 void JointArmClassRight::rock() // lastCase = c färdig
@@ -950,6 +998,7 @@ void JointArmClassRight::close() //färdig lastCase = p
   ran = true;
   //}
 }
+
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
 
 JointArmClassRight jointArmRight = JointArmClassRight();
@@ -1081,8 +1130,6 @@ void JointNeckClass::RESET()
     break;
   }
 }
-
-
 
 void JointNeckClass::nod() //behövs testas. är skriven
 {

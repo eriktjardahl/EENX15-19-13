@@ -142,6 +142,8 @@ class JointArmClassRight
     void open();
     void fack();
     void close();
+    void maxElbow();
+    void perpendicular();
 };
 
 extern JointArmClassRight jointArmRight;

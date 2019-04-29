@@ -134,9 +134,9 @@ void loop() {
   int initPos = 0;
   int stopPos = 330;
 
-  unsigned long millisVarv = 0;
+  unsigned long revMillis = 0;
   unsigned long currentMillis = millis();
-  int intervall = 10;
+  int intervallTime = 10;
 
   for (int i = 0; i <= 3; i++) {
 
@@ -144,11 +144,11 @@ void loop() {
 
       for (int pos = initPos; pos <= stopPos; pos += 1) {
 
-        servo1.setPosition(pos, intervall);
+        servo1.setPosition(pos, intervallTime);
 
-        millisVarv = millis();
+        revMillis = millis();
         currentMillis = millis();
-        while (currentMillis - millisVarv <= intervall) {
+        while (currentMillis - revMillis <= intervallTime) {
           currentMillis = millis();
         }
 
@@ -159,11 +159,11 @@ void loop() {
 
       for (int pos = stopPos; pos >= initPos; pos -= 1) {
 
-        servo1.setPosition(pos, intervall);
+        servo1.setPosition(pos, intervallTime);
 
-        millisVarv = millis();
+        revMillis = millis();
         currentMillis = millis();
-        while (currentMillis - millisVarv <= intervall) {
+        while (currentMillis - revMillis <= intervallTime) {
           currentMillis = millis();
         }
 
