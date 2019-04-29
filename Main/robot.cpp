@@ -132,10 +132,7 @@ void Communication::sendSerial()
   delay(1000);
 }
 
-unsigned long getMillis()
-{
-  return millis();
-}
+
 
 //---------------------------------Communication--------------------------------------------------//
 
@@ -599,8 +596,6 @@ void JointArmClassRight::perpendicular() //skriven, ej testad. inte säker på a
   }
 }
 
-
-
 //---------------------------------HandRight-------------------------------------------------//
 void JointArmClassRight::rock() // lastCase = c färdig
 {
@@ -1035,7 +1030,7 @@ void JointArmClassLeft::RESET()
 {
   switch (LastCase)
   {
-    case 'p':
+  case 'p': // skriven, ej testad
     stopPosHand = 800;
     revMillis = 0;
     currentMillis = millis();
@@ -1043,7 +1038,7 @@ void JointArmClassLeft::RESET()
     intervallTimeElbow = 10;
     initPosHand = 0;
     initPosArm = 0;
-  for (int i = stopPosHand; i >= initPosHand; i -= 100) //reset av handen
+    for (int i = stopPosHand; i >= initPosHand; i -= 100) //reset av handen
     {
 
       servoLeft.moveJoint(middleFingerLeft, i);
@@ -1180,7 +1175,8 @@ void JointArmClassLeft::open() //skriven, ej testad. LastCase = o.
   }
 }
 
-void JointArmClassLeft::close(){ //skriven, ej testad. lastCase = p.
+void JointArmClassLeft::close() //skriven, ej testad. lastCase = p.
+{ 
 
   lastCase = 'p';
   stopPosHand = 800;

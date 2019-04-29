@@ -19,7 +19,7 @@ void setup()
     jointArmRight.close();
     jointArmRight.armMotionSSP();
     jointArmRight.paper();
-    
+    //lastCase = input;
     break;
 
   case 'b': //sax
@@ -58,7 +58,7 @@ void setup()
     break;
 
   case 'r': //reset högerarm
-    jointArmRight.RESET(/*LastCase*/);
+    jointArmRight.RESET(/*lastCase*/);
     break;
 
   case 's': //reset nacke
