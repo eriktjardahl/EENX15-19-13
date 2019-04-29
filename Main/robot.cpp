@@ -76,6 +76,7 @@ unsigned long revMillis;
 unsigned long currentMillis;
 int intervallTime;
 int intervallTimeElbow;
+int intervallTimeShoulder;
 
 //---------------------------------Communication--------------------------------------------------//
 Communication::Communication()
@@ -131,8 +132,6 @@ void Communication::sendSerial()
   // Delay before this method exits and can be ran again
   delay(1000);
 }
-
-
 
 //---------------------------------Communication--------------------------------------------------//
 
@@ -1030,6 +1029,29 @@ void JointArmClassLeft::RESET()
 {
   switch (LastCase)
   {
+  case 'e': //skriven, ej testad
+    revMillis = 0;
+    currentMillis = millis();
+    intervallTime = 10;
+
+    intervallTimeShoulder = 10;
+
+    initPosShoulderYaw = 0;
+    stopPosShoulderYaw = 180;
+
+    for (int k = stopPosShoulderYaw; k >= initPosShoulderYaw; k -= 4)
+    {
+
+      shoulderLeftYaw.setPosition(k, intervallTimeShoulder);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTimeShoulder)
+      {
+        currentMillis = millis();
+      }
+    }
+    break;
   case 'p': // skriven, ej testad
     stopPosHand = 800;
     revMillis = 0;
@@ -1092,8 +1114,30 @@ void JointArmClassLeft::RESET()
   }
 }
 
-void JointArmClassLeft::dab()
+void JointArmClassLeft::dab() //skriven ,ej testad
 {
+  lastCase = 'e';
+  revMillis = 0;
+  currentMillis = millis();
+  intervallTime = 10;
+
+  intervallTimeShoulder = 10;
+
+  initPosShoulderYaw = 0;
+  stopPosShoulderYaw = 180;
+
+  for (int k = initPosShoulderYaw; k <= stopPosShoulderYaw; k += 4)
+  {
+
+    shoulderLeftYaw.setPosition(k, intervallTimeShoulder);
+
+    revMillis = millis();
+    currentMillis = millis();
+    while (currentMillis - revMillis <= intervallTimeShoulder)
+    {
+      currentMillis = millis();
+    }
+  }
 }
 //---------------------------------HandLeft--------------------------------------------------//
 
@@ -1176,7 +1220,7 @@ void JointArmClassLeft::open() //skriven, ej testad. LastCase = o.
 }
 
 void JointArmClassLeft::close() //skriven, ej testad. lastCase = p.
-{ 
+{
 
   lastCase = 'p';
   stopPosHand = 800;
