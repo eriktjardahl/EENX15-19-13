@@ -167,6 +167,7 @@ class JointArmClassLeft
     void dab();
     void test();
     void open();
+    void close();
     
 
 };
