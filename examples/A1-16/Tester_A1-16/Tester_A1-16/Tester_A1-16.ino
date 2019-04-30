@@ -7,8 +7,8 @@
 
 #define SERVO_COUNT 6
 
-#define rxPin0 0
-#define txPin1 1
+#define rxPin0 1
+#define txPin1 2
 
 #define rxPin3 3
 #define txPin4 4
@@ -78,15 +78,10 @@ XYZrobotServo * servos[SERVO_COUNT] = {
 
 char rgb[] = "rgbypcwo";
 
- 
+
+int moveIntervall;
 
 
-  unsigned long timeMillis1;
-  
-  unsigned long timeMillis2;
-  unsigned long timeMillis3;
-  unsigned long timeMillis4;
-  unsigned long timeMillis5;
 
 void setup() {
 
@@ -120,63 +115,176 @@ void setup() {
   //Elbow.attach(txPin12);
 
 
+  servoRight.LED(9, &rgb[6]); //vit
+  servoRight.LED(10, &rgb[6]);
+  servoRight.LED(8, &rgb[6]);
+  servoRight.LED(7, &rgb[6]);
 
+  servoRight.setJointSpeed(7, 1023);
+  servoRight.setJointSpeed(8, 1023);
+  servoRight.setJointSpeed(9, 1023);
+  servoRight.setJointSpeed(10, 1023);
+
+  Serial.begin(115200);
 
 }
 
 void loop() {
 
-  
-   int intervall1 = 10;
-   
-  for (int i = 0; i <= 800; i += 4) {
- timeMillis1=0;
- timeMillis2=0;
- timeMillis3=0;
- timeMillis4=0;
- timeMillis5=0;
- 
-    if ((unsigned long)(millis() > timeMillis1 + intervall1)) {
-     timeMillis1 = millis();
-      servoRight.moveJoint(6, i);
-      servoRight.LED(6, &rgb[random(0, 7)]);
-      
+  int initPos = 0;
+  int stopPos = 330;
+
+  unsigned long revMillis = 0;
+  unsigned long currentMillis = millis();
+  int intervallTime = 10;
+
+  for (int i = 0; i <= 3; i++) {
+
+    if (i == 0 || i == 2) {
+
+      for (int pos = initPos; pos <= stopPos; pos += 1) {
+
+        servo1.setPosition(pos, intervallTime);
+
+        revMillis = millis();
+        currentMillis = millis();
+        while (currentMillis - revMillis <= intervallTime) {
+          currentMillis = millis();
+        }
+
+      }
     }
 
-    if ((unsigned long)(millis() > timeMillis2 + intervall1)) {
-      timeMillis2 = millis();
-      servoRight.moveJoint(7, i);
-      servoRight.LED(7, &rgb[random(0, 7)]);
+    if (i==1||i==3) {
 
-    }
+      for (int pos = stopPos; pos >= initPos; pos -= 1) {
 
-    if ((unsigned long)(millis() > timeMillis3 + intervall1)) {
-      timeMillis3 = millis();
+        servo1.setPosition(pos, intervallTime);
 
-      servoRight.moveJoint(8, i);
-      servoRight.LED(8, &rgb[random(0, 7)]);
+        revMillis = millis();
+        currentMillis = millis();
+        while (currentMillis - revMillis <= intervallTime) {
+          currentMillis = millis();
+        }
 
-
-    }
-    if ((unsigned long)(millis() > timeMillis4 + intervall1)) {
-      timeMillis4 = millis();
-
-      servoRight.moveJoint(9, i);
-      servoRight.LED(9, &rgb[random(0, 7)]);
-
-
-    }
-    if ((unsigned long)(millis() > timeMillis5 + intervall1)) {
-      timeMillis5 = millis();
-
-      servoRight.moveJoint(10, i);
-      servoRight.LED(10, &rgb[random(0, 7)]);
-
-
+      }
     }
 
   }
+
 }
+
+/*
+  servoRight.LED(9, &rgb[6]); //vit
+  servoRight.LED(10, &rgb[6]);
+  servoRight.LED(8, &rgb[6]);
+  servoRight.LED(7, &rgb[6]);
+
+
+
+   int moveIntervall =800;
+  unsigned long millisVarv=0;
+  unsigned long currentMillis = millis();
+  int intervall=10;
+
+
+  for(int i = 100; i<moveIntervall;i+=100){
+
+    servoRight.moveJoint(10, i);
+    servoRight.LED(10, &rgb[1]);
+
+    millisVarv=millis();
+     currentMillis = millis();
+    while(currentMillis-millisVarv <= intervall){
+      currentMillis=millis();
+    }
+    servoRight.moveJoint(9, i);
+    servoRight.LED(9, &rgb[1]);
+
+    millisVarv=millis();
+     currentMillis = millis();
+    while(currentMillis-millisVarv <= intervall){
+      currentMillis=millis();
+    }
+    servoRight.moveJoint(8, i);
+    servoRight.LED(8, &rgb[1]);
+
+  millisVarv=millis();
+   currentMillis = millis();
+    while(currentMillis-millisVarv <= intervall){
+      currentMillis=millis();
+    }
+    servoRight.moveJoint(7, i);
+    servoRight.LED(7, &rgb[1]);
+
+
+  millisVarv=millis();
+   currentMillis = millis();
+    while(currentMillis-millisVarv <= intervall){
+      currentMillis=millis();
+    }
+
+  }
+
+
+  /*
+
+
+
+
+  /*
+  for(i=5 ; i<moveIntervall ;i=i+5){
+
+  //--------------------------------------------------------------------------------------
+
+  unsigned long prevMillis1=millis();
+  unsigned long prevMillis2=millis();
+
+  unsigned long prevMillis3=0;
+  unsigned long prevMillis4=0;
+
+
+
+
+
+    if (currentMillis - prevMillis1 == timeIntervall1) {
+        prevMillis1=currentMillis;
+      servoRight.moveJoint(10, i);
+      servoRight.LED(10, &rgb[1]);
+
+    }
+
+    if (currentMillis - prevMillis2 == timeIntervall2) {
+      prevMillis2=currentMillis;
+      servoRight.moveJoint(9, i);
+      servoRight.LED(9, &rgb[1]);
+
+    }
+
+    if (currentMillis - prevMillis3 == timeIntervall3) {
+      prevMillis3=currentMillis;
+      servoRight.moveJoint(8, i);
+      servoRight.LED(8, &rgb[1]);
+
+    }
+
+    if (currentMillis - prevMillis4 == timeIntervall4) {
+      prevMillis4=currentMillis;
+      servoRight.moveJoint(7, i);
+      servoRight.LED(7, &rgb[1]);
+
+
+    }
+  //----------------------------------------------------------------------------------------------------------
+
+
+  }*/
+
+
+
+//}
+
+
 
 
 /*
@@ -245,4 +353,5 @@ void loop() {
     servoNeck.moveJoint(14,0);
 
   //Elbow.writeMicroseconds(1500);
+  }
 */

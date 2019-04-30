@@ -39,8 +39,8 @@
 #endif
 
 
-#ifndef neckJaw 
-#define neckJaw 11
+#ifndef neckYaw 
+#define neckYaw 11
 #endif
 
 #ifndef neckPich 
@@ -93,12 +93,14 @@
 #endif
 
 #ifndef playtime
-#define playtime 30
+#define playtime 50
 #endif
 
 #ifndef SERVO_COUNT
 #define SERVO_COUNT 6
 #endif
+
+
 //---------------------------------Communication--------------------------------------------------//
 #ifndef COMMUNICATION_
 #define COMMUNICATION_
@@ -109,7 +111,6 @@ class Communication {
   void readSerial();
   void showNewData();
   void sendSerial();
-  unsigned long getMillis();
 
 };
 extern Communication communication; 
@@ -125,11 +126,12 @@ extern Communication communication;
 #ifndef JOINTARMCLASS_RIGHT
 #define JOINTARMCLASS_RIGHT
 
-class JointArmClassRight {
+class JointArmClassRight 
+{
   public:
     JointArmClassRight();
     void SETUP();
-    void RESET();
+    void RESET(/*char LastCase*/);
     void scissor();
     void rock();   
     void paper(); 
@@ -138,6 +140,9 @@ class JointArmClassRight {
     void ok();
     void open();
     void fack();
+    void close();
+    void maxElbow();
+    void perpendicular();
 };
 
 extern JointArmClassRight jointArmRight;
@@ -148,7 +153,8 @@ extern JointArmClassRight jointArmRight;
 #ifndef JOINTARMCLASS_LEFT
 #define JOINTARMCLASS_LEFT
 
-class JointArmClassLeft {
+class JointArmClassLeft 
+{
   public:
     JointArmClassLeft();
     void SETUP();
@@ -160,6 +166,7 @@ class JointArmClassLeft {
     void dab();
     void test();
     void open();
+    void close();
     
 
 };
