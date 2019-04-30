@@ -713,16 +713,11 @@ void JointArmClassLeft::scissor()
   
   
 
-  
+  for(int i = 0 ; i < 200000; i++)
+  {
         servoLeft.LED(4, &rgb[1]);
-        servoLeft.moveJoint(4, 0);
-
-       
-
-
-        
-    
-  
+        servoLeft.moveJoint(4, i%2047);
+  }
   ran = true; 
   } 
   

@@ -2,7 +2,7 @@
 #include "Arduino.h"
 #include "robot.h"
 
-char input = 'd';
+char input = 'b';
 //char lastCase ='a';
 
 void setup()
@@ -32,7 +32,7 @@ void loop()
 
   case 'd': // sten
     
-    jointArmLeft.paper();
+    jointArmLeft.scissor();
     break;
 
   case 'e': // DAB
