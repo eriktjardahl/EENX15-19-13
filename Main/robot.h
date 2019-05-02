@@ -40,15 +40,19 @@
 
 
 #ifndef neckYaw 
-#define neckYaw 17
+#define neckYaw 16
 #endif
 
-#ifndef neckPich 
-#define neckPitch 12
+#ifndef neckPichLeft 
+#define neckPitchLeft 14
+#endif
+
+#ifndef neckPichRight 
+#define neckPitchRight 13
 #endif
 
 #ifndef neckRoll 
-#define neckRoll 13
+#define neckRoll 15
 #endif
 
 #ifndef littleFingerLeft
@@ -169,6 +173,8 @@ class JointArmClassLeft
     void test();
     void open();
     void close();
+    void ShoulderRollPerp();
+    void ShoulderPitchPerp();
     
 
 };
