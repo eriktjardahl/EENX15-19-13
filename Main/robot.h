@@ -108,7 +108,7 @@
 class Communication {
   public:
   Communication();
-  void readSerial();
+  char readSerial();
   void showNewData();
   void sendSerial();
 
@@ -131,7 +131,7 @@ class JointArmClassRight
   public:
     JointArmClassRight();
     void SETUP();
-    void RESET(/*char LastCase*/);
+    void RESET(char LastCase);
     void scissor();
     void rock();   
     void paper(); 
@@ -143,6 +143,8 @@ class JointArmClassRight
     void close();
     void maxElbow();
     void perpendicular();
+    void ShoulderRollPerp();
+    void ShoulderPitchPerp();
 };
 
 extern JointArmClassRight jointArmRight;
@@ -158,7 +160,7 @@ class JointArmClassLeft
   public:
     JointArmClassLeft();
     void SETUP();
-    void RESET();
+    void RESET(char LastCase);
     void rock(); 
     void scissor(); 
     void paper();  
@@ -185,7 +187,7 @@ class JointNeckClass{
   public:
   JointNeckClass();
   void SETUP();
-  void RESET();
+  void RESET(char LastCase);
   void nod();
   void dab();
 };

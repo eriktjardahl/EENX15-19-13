@@ -10,12 +10,12 @@ SoftwareSerial XL320servo2Serial = SoftwareSerial(rxPin6, txPin7);  //Höger han
 SoftwareSerial XL320servo3Serial = SoftwareSerial(rxPin8, txPin9);  //Nacke
 
 XYZrobotServo elbowRight(A116servoSerial, 1);
-XYZrobotServo shoulderRightPitch(A116servoSerial, 2);
+XYZrobotServo shoulderRightPitch(A116servoSerial, 4);
 //XYZrobotServo servo3(A116servoSerial,3);
-XYZrobotServo shoulderRightYaw(A116servoSerial, 4);
+XYZrobotServo shoulderRightRoll(A116servoSerial, 5);
 XYZrobotServo elbowLeft(A116servo2Serial, 5);
 XYZrobotServo shoulderLeftPitch(A116servo2Serial, 6);
-XYZrobotServo shoulderLeftYaw(A116servo2Serial, 7);
+XYZrobotServo shoulderLeftRoll(A116servo2Serial, 7);
 
 // Declaration of init variables
 int initPosHand;
@@ -26,7 +26,7 @@ int initPosNeckPitch;
 int initPosNeckYaw;
 int initPosNeckRoll;
 
-int initPosShoulderYaw;
+int initPosShoulderRoll;
 int initPosShoulderPitch;
 
 // Declaration of stop position variables
@@ -38,7 +38,7 @@ int stopPosNeckPitch;
 int stopPosNeckYaw;
 int stopPosNeckRoll;
 
-int stopPosShoulderYaw;
+int stopPosShoulderRoll;
 int stopPosShoulderPitch;
 
 XL320 servoLeft;
@@ -68,7 +68,7 @@ XL320 servoNeck;
 
 boolean ran = false;
 char lastCase;
-char LastCase = 'a';
+//char LastCase = 'a';
 
 char rgb[] = "rgbypcwo";
 
@@ -82,7 +82,7 @@ int intervallTimeShoulder;
 Communication::Communication()
 {
 }
-void Communication::readSerial()
+char Communication::readSerial()
 {
   int a = 0;
   char dataString[50] = {0};
@@ -90,13 +90,14 @@ void Communication::readSerial()
   boolean newData = false;
   char incoming;
   // Send data only when you receive data:
-  if (Serial.available() > 0)
+  while (Serial.available() > 0)
   {
     // Read the incoming byte and write to our variable incoming
     incoming = Serial.read();
     // Flag newData as true to enable showNewData to run
     newData = true;
   }
+  return incoming;
 }
 
 void Communication::showNewData()
@@ -160,11 +161,10 @@ void JointArmClassRight::SETUP()
   servoRight.setJointSpeed(thumbRight, 1023);
 }
 
-void JointArmClassRight::RESET(/*char LastCase*/)
+void JointArmClassRight::RESET(char LastCase)
 {
   Serial.println(LastCase);
-  //shoulderRightPitch.setPosition(initPosArm, playtime);
-  //shoulderRightYaw.setPosition(initPosArm, playtime);
+  
 
   //if (!ran)
   //{
@@ -177,7 +177,7 @@ void JointArmClassRight::RESET(/*char LastCase*/)
 
     intervallTimeElbow = 10;
 
-    initPosSSP = 160;
+    initPosSSP = 300;
     initPosArm = 0;
 
     for (int pos = initPosSSP; pos >= initPosArm; pos -= 4) //Reset av armen
@@ -202,7 +202,7 @@ void JointArmClassRight::RESET(/*char LastCase*/)
     intervallTime = 10;
     intervallTimeElbow = 10;
     initPosHand = 0;
-    initPosSSP = 160;
+    initPosSSP = 300;
     initPosArm = 0;
 
     for (int pos = initPosSSP; pos >= initPosArm; pos -= 4) //reset av armen
@@ -260,7 +260,7 @@ void JointArmClassRight::RESET(/*char LastCase*/)
     intervallTime = 10;
     intervallTimeElbow = 10;
     initPosHand = 0;
-    initPosSSP = 160;
+    initPosSSP = 300;
     initPosArm = 0;
 
     for (int pos = initPosSSP; pos >= initPosArm; pos -= 4) //Reset av armen
@@ -361,11 +361,14 @@ void JointArmClassRight::RESET(/*char LastCase*/)
     intervallTime = 10;
 
     intervallTimeElbow = 10;
-    stopPosArm = 160;
+    stopPosArm = 300;
     initPosArm = 0;
 
-    initPosShoulderYaw = 0;
-    stopPosShoulderYaw = 180;
+    initPosShoulderRoll = 800;
+    stopPosShoulderRoll = 500;
+
+    initPosShoulderPitch = 500;
+    stopPosShoulderPitch = 650;
 
     for (int pos = stopPosArm; pos >= initPosArm; pos -= 4)
     {
@@ -378,9 +381,20 @@ void JointArmClassRight::RESET(/*char LastCase*/)
         currentMillis = millis();
       }
     }
-    for (int k = stopPosShoulderYaw; k >= initPosShoulderYaw; k -= 4)
+    for (int k = stopPosShoulderRoll; k <= initPosShoulderRoll; k += 4)
     {
-      shoulderRightYaw.setPosition(k, intervallTimeElbow);
+      shoulderRightRoll.setPosition(k, intervallTimeElbow);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTimeElbow)
+      {
+        currentMillis = millis();
+      }
+    }
+    for (int i = stopPosShoulderPitch; i >= initPosShoulderPitch; i -= 4)
+    {
+      shoulderRightPitch.setPosition(i, intervallTimeElbow);
 
       revMillis = millis();
       currentMillis = millis();
@@ -390,8 +404,11 @@ void JointArmClassRight::RESET(/*char LastCase*/)
       }
     }
 
+
+
     break;
   case 'f': //fack färdig
+
     stopPosHand = 800;
     initPosHand = 0;
     revMillis = 0;
@@ -440,6 +457,26 @@ void JointArmClassRight::RESET(/*char LastCase*/)
     }
     ran = true;
     break;
+
+  case 'g': //test
+    intervallTimeElbow = 10;
+    
+
+    initPosShoulderRoll = 0;
+    stopPosShoulderRoll = 100;
+    for (int k = stopPosShoulderRoll; k >= initPosShoulderRoll; k -= 1)
+    {
+      shoulderRightRoll.setPosition(k, intervallTimeElbow);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTimeElbow)
+      {
+        currentMillis = millis();
+      }
+    }
+
+    break; 
   }
   //}
 }
@@ -448,8 +485,8 @@ void JointArmClassRight::armMotionSSP() //färdig
 {
 
   initPosArm = 0;
-  stopPosArm = 330;
-  initPosSSP = 160;
+  stopPosArm = 500;
+  initPosSSP = 300;
 
   revMillis = 0;
   currentMillis = millis();
@@ -515,20 +552,20 @@ void JointArmClassRight::armMotionSSP() //färdig
   //}
 }
 
-void JointArmClassRight::dab() //skriven, behövs testas. Kanske kan skrivas om. Utan armbågsböj. kan kanske ersättas med perpendicular
+void JointArmClassRight::dab() //färdig, LastCase = e
 {
   revMillis = 0;
   currentMillis = millis();
   intervallTime = 10;
 
   intervallTimeElbow = 10;
-  stopPosArm = 160;
   initPosArm = 0;
+  stopPosArm = 300;
+ 
+  initPosShoulderPitch = 500;
+  stopPosShoulderPitch = 650;
 
-  initPosShoulderYaw = 0;
-  stopPosShoulderYaw = 180;
-
-  for (int pos = initPosArm, k = initPosShoulderYaw; pos <= stopPosArm, k <= stopPosShoulderYaw; pos += 4, k += 4) //Gå ner så det bara är 8 varv kvar till initPosSSP
+  for (int pos = initPosArm, k = initPosShoulderPitch; pos <= stopPosArm, k <= stopPosShoulderPitch; pos += 2, k += 1) //Gå ner så det bara är 8 varv kvar till initPosSSP
   {
     elbowRight.setPosition(pos, intervallTimeElbow);
 
@@ -538,7 +575,8 @@ void JointArmClassRight::dab() //skriven, behövs testas. Kanske kan skrivas om.
     {
       currentMillis = millis();
     }
-    shoulderRightYaw.setPosition(k, intervallTimeElbow);
+    
+    shoulderRightPitch.setPosition(k, intervallTimeElbow);
 
     revMillis = millis();
     currentMillis = millis();
@@ -547,6 +585,7 @@ void JointArmClassRight::dab() //skriven, behövs testas. Kanske kan skrivas om.
       currentMillis = millis();
     }
   }
+  
 }
 
 void JointArmClassRight::maxElbow() //skriven, ej testad
@@ -595,6 +634,54 @@ void JointArmClassRight::perpendicular() //skriven, ej testad. inte säker på a
   }
 }
 
+void JointArmClassRight::ShoulderPitchPerp()
+{
+  revMillis = 0;
+  currentMillis = millis();
+  intervallTime = 10;
+
+  intervallTimeElbow = 10;
+
+  initPosShoulderPitch = 500;
+  stopPosShoulderPitch = 800;
+  
+  for (int pos = initPosShoulderPitch; pos <= stopPosShoulderPitch; pos += 1) //Gå ner så det bara är 8 varv kvar till initPosSSP
+  {
+    shoulderRightPitch.setPosition(pos, intervallTimeElbow);
+
+    revMillis = millis();
+    currentMillis = millis();
+    while (currentMillis - revMillis <= intervallTimeElbow)
+    {
+      currentMillis = millis();
+    }
+  }
+}
+
+void JointArmClassRight::ShoulderRollPerp()
+{
+  revMillis = 0;
+  currentMillis = millis();
+  intervallTime = 10;
+
+  intervallTimeElbow = 10;
+
+  initPosShoulderRoll = 800;
+  stopPosShoulderRoll = 500;
+
+  for (int k = initPosShoulderRoll; k >= stopPosShoulderRoll; k -= 1) //Gå ner så det bara är 8 varv kvar till initPosSSP
+  {
+        
+    shoulderRightRoll.setPosition(k, intervallTimeElbow);
+
+    revMillis = millis();
+    currentMillis = millis();
+    while (currentMillis - revMillis <= intervallTimeElbow)
+    {
+      currentMillis = millis();
+    }
+  }
+}
 //---------------------------------HandRight-------------------------------------------------//
 void JointArmClassRight::rock() // lastCase = c färdig
 {
@@ -605,8 +692,8 @@ void JointArmClassRight::rock() // lastCase = c färdig
   currentMillis = millis();
 
   intervallTimeElbow = 10;
-  stopPosArm = 330;
-  initPosSSP = 160;
+  stopPosArm = 500;
+  initPosSSP = 300;
 
   for (int pos = stopPosArm; pos >= initPosSSP; pos -= 4) //Gå ner hela vägen utan att röra handen eftersom den redan är en näve
   {
@@ -636,8 +723,8 @@ void JointArmClassRight::scissor() //lastCase = b färdig
   intervallTime = 10;
 
   intervallTimeElbow = 10;
-  stopPosArm = 330;
-  initPosSSP = 160;
+  stopPosArm = 500;
+  initPosSSP = 300;
 
   for (int pos = stopPosArm; pos >= initPosSSP + 32; pos -= 4) //Gå ner så det bara är 8 varv kvar till initPosSSP
   {
@@ -701,8 +788,8 @@ void JointArmClassRight::paper() // lastCase = a färdig
   intervallTime = 10;
 
   intervallTimeElbow = 10;
-  stopPosArm = 330;
-  initPosSSP = 160;
+  stopPosArm = 500;
+  initPosSSP = 300;
 
   for (int pos = stopPosArm; pos >= initPosSSP + 32; pos -= 4) //Gå ner så det bara är 8 varv kvar till initPosSSP
   {
@@ -1025,7 +1112,7 @@ void JointArmClassLeft::armMotionSSP()
 {
 }
 
-void JointArmClassLeft::RESET()
+void JointArmClassLeft::RESET(char LastCase)
 {
   switch (LastCase)
   {
@@ -1036,13 +1123,13 @@ void JointArmClassLeft::RESET()
 
     intervallTimeShoulder = 10;
 
-    initPosShoulderYaw = 0;
-    stopPosShoulderYaw = 180;
+    initPosShoulderRoll = 0;
+    stopPosShoulderRoll = 180;
 
-    for (int k = stopPosShoulderYaw; k >= initPosShoulderYaw; k -= 4)
+    for (int k = stopPosShoulderRoll; k >= initPosShoulderRoll; k -= 4)
     {
 
-      shoulderLeftYaw.setPosition(k, intervallTimeShoulder);
+      shoulderLeftRoll.setPosition(k, intervallTimeShoulder);
 
       revMillis = millis();
       currentMillis = millis();
@@ -1123,13 +1210,13 @@ void JointArmClassLeft::dab() //skriven ,ej testad
 
   intervallTimeShoulder = 10;
 
-  initPosShoulderYaw = 0;
-  stopPosShoulderYaw = 180;
+  initPosShoulderRoll = 0;
+  stopPosShoulderRoll = 180;
 
-  for (int k = initPosShoulderYaw; k <= stopPosShoulderYaw; k += 4)
+  for (int k = initPosShoulderRoll; k <= stopPosShoulderRoll; k += 4)
   {
 
-    shoulderLeftYaw.setPosition(k, intervallTimeShoulder);
+    shoulderLeftRoll.setPosition(k, intervallTimeShoulder);
 
     revMillis = millis();
     currentMillis = millis();
@@ -1299,7 +1386,7 @@ void JointNeckClass::SETUP()
   XL320servo3Serial.begin(115200);
   servoNeck.begin(XL320servo3Serial);
 }
-void JointNeckClass::RESET()
+void JointNeckClass::RESET(char LastCase)
 {
   switch (LastCase)
   {

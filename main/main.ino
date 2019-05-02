@@ -2,8 +2,8 @@
 #include "Arduino.h"
 #include "robot.h"
 
-char input = 'f';
-//char LastCase;
+char input='g';
+char LastCase='f';
 
 void setup()
 {
@@ -26,7 +26,7 @@ void setup()
     jointArmRight.close();
     jointArmRight.armMotionSSP();
     jointArmRight.scissor();
-
+    //LastCase=input;
     break;
 
   case 'c': // sten
@@ -43,10 +43,16 @@ void setup()
     jointNeck.dab();
     jointArmLeft.dab();
     jointArmRight.dab();
+    jointArmRight.ShoulderRollPerp();
     break;
 
   case 'f': // fuck
     jointArmRight.fack();
+    //LastCase=input;
+    break;
+
+  case 'g': //test
+    jointArmRight.maxElbow();
     break;
 
   case 'o':
@@ -58,16 +64,22 @@ void setup()
     break;
 
   case 'r': //reset högerarm
-    jointArmRight.RESET(/*lastCase*/);
+    jointArmRight.RESET(LastCase);
     break;
 
   case 's': //reset nacke
-    jointNeck.RESET();
+    jointNeck.RESET(LastCase);
+    break;
+
+  case 't':
+    jointArmLeft.RESET(LastCase);
     break;
   }
+  
   
 }
 
 void loop()
 {
+  //input=communication.readSerial();
 }
