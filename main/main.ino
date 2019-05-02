@@ -2,8 +2,8 @@
 #include "Arduino.h"
 #include "robot.h"
 
-char input='r';
-char LastCase='g';
+char input='e';
+char LastCase='f';
 
 void setup()
 {
@@ -52,7 +52,7 @@ void setup()
     break;
 
   case 'g': //test
-    jointArmRight.perpendicular();
+    jointArmRight.ShoulderPitchPerp();
     break;
 
   case 'o':

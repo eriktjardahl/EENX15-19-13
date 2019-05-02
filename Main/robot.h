@@ -40,7 +40,7 @@
 
 
 #ifndef neckYaw 
-#define neckYaw 11
+#define neckYaw 17
 #endif
 
 #ifndef neckPich 

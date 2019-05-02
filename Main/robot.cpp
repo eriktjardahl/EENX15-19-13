@@ -647,7 +647,7 @@ void JointArmClassRight::ShoulderPitchPerp()
   initPosShoulderPitch = 500;
   stopPosShoulderPitch = 800;
   
-  for (int pos = initPosShoulderPitch; pos <= stopPosShoulderPitch; pos += 1) //Gå ner så det bara är 8 varv kvar till initPosSSP
+  for (int pos = initPosShoulderPitch; pos <= stopPosShoulderPitch; pos += 10) //Gå ner så det bara är 8 varv kvar till initPosSSP
   {
     shoulderRightPitch.setPosition(pos, intervallTimeElbow);
 
@@ -1502,6 +1502,8 @@ void JointNeckClass::dab() //behövs testas. är skriven
   revMillis = 0;
   currentMillis = millis();
   intervallTime = 10;
+  servoNeck.LED(16, &rgb[2]);
+  /*
 
   for (int i = initPosNeckYaw; i <= stopPosNeckYaw; i++)
   {
@@ -1515,7 +1517,7 @@ void JointNeckClass::dab() //behövs testas. är skriven
       currentMillis = millis();
     }
   }
-
+/*
   for (int k = initPosNeckPitch; k >= stopPosNeckPitch; k--)
   {
     servoNeck.moveJoint(neckPitch, k);
@@ -1528,6 +1530,7 @@ void JointNeckClass::dab() //behövs testas. är skriven
       currentMillis = millis();
     }
   }
+  */
 }
 
 //-------------------------------------Skriv nackfunktioner över------------------------------------------------//
