@@ -459,23 +459,25 @@ void JointArmClassRight::RESET(char LastCase)
     break;
 
   case 'g': //test
+    initPosArm = 0;
+   stopPosArm = 330;
+
+    revMillis = 0;
+    currentMillis = millis();
     intervallTimeElbow = 10;
-    
 
-    initPosShoulderRoll = 0;
-    stopPosShoulderRoll = 100;
-    for (int k = stopPosShoulderRoll; k >= initPosShoulderRoll; k -= 1)
+    for (int pos = stopPosArm; pos >= initPosArm; pos -= 4)
     {
-      shoulderRightRoll.setPosition(k, intervallTimeElbow);
 
-      revMillis = millis();
+    elbowRight.setPosition(pos, intervallTimeElbow);
+
+    revMillis = millis();
+    currentMillis = millis();
+    while (currentMillis - revMillis <= intervallTimeElbow)
+    {
       currentMillis = millis();
-      while (currentMillis - revMillis <= intervallTimeElbow)
-      {
-        currentMillis = millis();
-      }
     }
-
+    }
     break; 
   }
   //}
@@ -591,7 +593,7 @@ void JointArmClassRight::dab() //färdig, LastCase = e
 void JointArmClassRight::maxElbow() //skriven, ej testad
 {
   initPosArm = 0;
-  stopPosArm = 330;
+  stopPosArm = 500;
 
   revMillis = 0;
   currentMillis = millis();
@@ -614,7 +616,7 @@ void JointArmClassRight::maxElbow() //skriven, ej testad
 void JointArmClassRight::perpendicular() //skriven, ej testad. inte säker på att det är 90 grader, men typ.
 {
   initPosArm = 0;
-  stopPosArm = 160;
+  stopPosArm = 330;
 
   revMillis = 0;
   currentMillis = millis();
