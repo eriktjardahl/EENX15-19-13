@@ -2,7 +2,7 @@
 #include "Arduino.h"
 #include "robot.h"
 
-char input='g';
+char input='e';
 char LastCase='e';
 
 void setup()
