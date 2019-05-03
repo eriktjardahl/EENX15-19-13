@@ -2,7 +2,7 @@
 #include "Arduino.h"
 #include "robot.h"
 
-char input='e';
+char input='s';
 char LastCase='e';
 
 void setup()
@@ -40,11 +40,13 @@ void setup()
     break;
 
   case 'e': // DAB
-    jointNeck.dab();
-    //jointArmLeft.dab();
+    multiPart.dab();
+    //jointArmLeft.dabPart1();
     //jointArmLeft.ShoulderRollPerp();
     //jointArmRight.dab();
     //jointArmRight.ShoulderRollPerp();
+    //jointArmLeft.dabPart2();
+    //jointNeck.dab();
     
     break;
 
@@ -54,8 +56,7 @@ void setup()
     break;
 
   case 'g': //test
-    jointArmRight.dab();
-    jointArmRight.ShoulderRollPerp();
+    
     break;
 
   case 'o':

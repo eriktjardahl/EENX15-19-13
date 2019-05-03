@@ -169,12 +169,13 @@ class JointArmClassLeft
     void scissor(); 
     void paper();  
     void armMotionSSP();
-    void dab();
-    void test();
+    void dabPart1();
+    void dabPart2();
     void open();
     void close();
     void ShoulderRollPerp();
     void ShoulderPitchPerp();
+    
     
 
 };
@@ -201,38 +202,21 @@ class JointNeckClass{
 extern JointNeckClass jointNeck;
 
 #endif
-/*
+
 //---------------------------------Hand_LEFT--------------------------------------------------//
 
-#ifndef JOINTHANDCLASS_LEFT
-#define JOINTHANDCLASS_LEFT
+#ifndef MULTIPARTCLASS
+#define MULTIPARTCLASS
 
-class JointHandClassLeft {
+class MultiPartClass{
   public:
-    JointHandClassLeft();
-    void SETUP();
-    void SSP();    
-
+  MultiPartClass();
+  
+  void RESET(char LastCase);
+  
+  void dab();
 };
 
-extern JointHandClassLeft jointHandLeft;
+extern MultiPartClass multiPart;
 
 #endif
-
-//---------------------------------Hand_RIGHT--------------------------------------------------//
-
-#ifndef JOINTHANDCLASS_RIGHT
-#define JOINTHANDCLASS_RIGHT
-
-class JointHandClassRight {
-  public:
-    JointHandClassRight();
-    void SETUP();
-    void SSP();    
-
-};
-
-extern JointHandClassRight jointHandRight;
-
-#endif
- */
