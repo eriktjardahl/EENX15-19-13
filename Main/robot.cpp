@@ -1150,8 +1150,6 @@ void MultiPartClass::dab()
     revCurMillis();
 
     servoNeck.moveJoint(neckPitchRight, i);
-    revMillis = millis();
-    currentMillis = millis();
     revCurMillis();
 
     servoNeck.moveJoint(neckPitchLeft, j);
@@ -1166,7 +1164,6 @@ void MultiPartClass::dab()
     servoNeck.moveJoint(neckYaw, i);
     revCurMillis();
   }
-
   //Neck
 }
 
