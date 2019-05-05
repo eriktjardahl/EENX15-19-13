@@ -1277,8 +1277,6 @@ void JointArmClassLeft::maxElbow()
 }
 //---------------------------------HandLeft--------------------------------------------------//
 
-
-
 void JointArmClassLeft::open() //skriven, ej testad. LastCase = o.
 {
 
@@ -1664,11 +1662,10 @@ void MultiPartClass::dab()
       currentMillis = millis();
     }
   }
-  
- 
-  for (int pos = stopPosArm, i = initPosNeckYaw; pos >= initPosArm ,i >= stopPosNeckYaw; pos -= 1 ,i -= 1)
+
+  for (int pos = stopPosArm, i = initPosNeckYaw; pos >= initPosArm, i >= stopPosNeckYaw; pos -= 1, i -= 1)
   {
-    
+
     elbowLeft.setPosition(pos, intervallTimeElbow);
 
     revMillis = millis();
@@ -1677,8 +1674,7 @@ void MultiPartClass::dab()
     {
       currentMillis = millis();
     }
-    
-    
+
     servoNeck.moveJoint(neckYaw, i);
 
     revMillis = millis();
@@ -1687,9 +1683,7 @@ void MultiPartClass::dab()
     {
       currentMillis = millis();
     }
-    
   }
-  
 
   //Neck
 }
