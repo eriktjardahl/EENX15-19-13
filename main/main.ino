@@ -75,7 +75,11 @@ void selectCommand(char command)
     break;
 
   case 'g': //test
+<<<<<<< HEAD
     jointArmRight.ShoulderRollPerp();
+=======
+    
+>>>>>>> parent of f6b50c2... update
     break;
 
   case 'o':
