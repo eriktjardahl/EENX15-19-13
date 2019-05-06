@@ -1,6 +1,6 @@
 {
-    "port": "COM6",
-    "board": "arduino:avr:micro",
+    "port": "COM9",
+    "board": "arduino:avr:uno",
     "programmer": "AVRISP mkII",
-    "sketch": "examples\\A1-16\\DetectServos\\DetectServos.ino"
+    "sketch": "main\\main.ino"
 }
