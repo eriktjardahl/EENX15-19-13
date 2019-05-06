@@ -164,14 +164,17 @@ class JointArmClassLeft
   public:
     JointArmClassLeft();
     void SETUP();
-    void RESET(char LastCase);  
+    void RESET(char LastCase);
+    void rock(); 
+    void scissor(); 
+    void paper();  
+    void armMotionSSP();
     void dabPart1();
     void dabPart2();
     void open();
     void close();
     void ShoulderRollPerp();
     void ShoulderPitchPerp();
-    void maxElbow();
     
     
 

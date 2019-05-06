@@ -14,8 +14,8 @@ XYZrobotServo shoulderRightPitch(A116servoSerial, 4);
 //XYZrobotServo servo3(A116servoSerial,3);
 XYZrobotServo shoulderRightRoll(A116servoSerial, 5);
 XYZrobotServo elbowLeft(A116servo2Serial, 2);
-XYZrobotServo shoulderLeftPitch(A116servo2Serial, 6); //Spegelvänd mot högersidan
-XYZrobotServo shoulderLeftRoll(A116servo2Serial, 7);  //spegelvänd mot högersidan
+XYZrobotServo shoulderLeftPitch(A116servo2Serial, 6);
+XYZrobotServo shoulderLeftRoll(A116servo2Serial, 7);
 
 // Declaration of init variables
 int initPosHand;
@@ -41,9 +41,6 @@ int stopPosShoulderRoll;
 int stopPosShoulderPitch;
 
 int posNeckPitchDiff;
-int posShoulderPitchDiff;
-int posShoulderRollDiff;
-
 XL320 servoLeft;
 /*
   Vänster hand alla öppna vid position 0. alla stängda vid 800 typ
@@ -281,7 +278,8 @@ void JointArmClassRight::RESET(char LastCase)
     break;
 
   case 'd': //ok färdig
-
+            //if (!ran)
+            //{
     stopPosHand = 800;
     initPosHand = 0;
     revMillis = 0;
@@ -310,8 +308,8 @@ void JointArmClassRight::RESET(char LastCase)
     initPosShoulderPitch = 500;
     stopPosShoulderPitch = 700;
 
-    initPosShoulderRoll = 500;
-    stopPosShoulderRoll = 200;
+    initPosShoulderRoll = 800;
+    stopPosShoulderRoll = 500;
 
     for (int k = stopPosShoulderRoll; k <= initPosShoulderRoll; k += 5)
     {
@@ -319,7 +317,7 @@ void JointArmClassRight::RESET(char LastCase)
       revCurMillis();
     }
 
-    for (int pos = stopPosArm, k = stopPosShoulderPitch; pos >= initPosArm, k >= initPosShoulderPitch; pos -= 8, k -= 4) //Gå ner så det bara är 8 varv kvar till initPosSSP
+    for (int pos = stopPosArm, k = stopPosShoulderPitch; pos >= initPosArm, k >= initPosShoulderPitch; pos -= 4, k -= 2) //Gå ner så det bara är 8 varv kvar till initPosSSP
     {
       elbowRight.setPosition(pos, intervallTimeElbow);
       revCurMillis();
@@ -439,7 +437,7 @@ void JointArmClassRight::dab() //färdig, LastCase = e
   initPosShoulderPitch = 500;
   stopPosShoulderPitch = 700;
 
-  for (int pos = initPosArm, k = initPosShoulderPitch; pos <= stopPosArm, k <= stopPosShoulderPitch; pos += 8, k += 4) //Gå ner så det bara är 8 varv kvar till initPosSSP
+  for (int pos = initPosArm, k = initPosShoulderPitch; pos <= stopPosArm, k <= stopPosShoulderPitch; pos += 4, k += 2) //Gå ner så det bara är 8 varv kvar till initPosSSP
   {
     elbowRight.setPosition(pos, intervallTimeElbow);
     revCurMillis();
@@ -492,7 +490,7 @@ void JointArmClassRight::ShoulderPitchPerp() //färdig
   initPosShoulderPitch = 500;
   stopPosShoulderPitch = 800;
 
-  for (int pos = initPosShoulderPitch; pos <= stopPosShoulderPitch; pos += 10)
+  for (int pos = initPosShoulderPitch; pos <= stopPosShoulderPitch; pos += 10) //Gå ner så det bara är 8 varv kvar till initPosSSP
   {
     shoulderRightPitch.setPosition(pos, intervallTimeElbow);
     revCurMillis();
@@ -507,8 +505,8 @@ void JointArmClassRight::ShoulderRollPerp() //färdig
 
   intervallTimeElbow = 10;
 
-  initPosShoulderRoll = 500;
-  stopPosShoulderRoll = 200;
+  initPosShoulderRoll = 800;
+  stopPosShoulderRoll = 500;
 
   for (int k = initPosShoulderRoll; k >= stopPosShoulderRoll; k -= 5)
   {
@@ -787,6 +785,10 @@ void JointArmClassLeft::SETUP()
   servoLeft.setJointSpeed(thumbLeft, 1023);
 }
 
+void JointArmClassLeft::armMotionSSP()
+{
+}
+
 void JointArmClassLeft::RESET(char LastCase)
 {
   switch (LastCase)
@@ -794,20 +796,25 @@ void JointArmClassLeft::RESET(char LastCase)
   case 'e': //
     jointArmLeft.dabPart1();
 
-    revMillis = 0;
-    currentMillis = millis();
-    intervallTime = 10;
+    initPosShoulderRoll = 800;
+    stopPosShoulderRoll = 500;
 
-    intervallTimeElbow = 10;
-
-    initPosShoulderRoll = 500;
-    stopPosShoulderRoll = 100;
-    posShoulderRollDiff = stopPosShoulderRoll - initPosShoulderRoll;
-
-    for (int k = 800; k >= initPosShoulderRoll; k -= 5)
+    for (int k = stopPosShoulderRoll; k <= initPosShoulderRoll; k += 5)
     {
+<<<<<<< HEAD
       shoulderLeftRoll.setPosition(k, intervallTimeElbow);
       revCurMillis();
+=======
+
+      shoulderRightRoll.setPosition(k, intervallTimeElbow);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTimeElbow)
+      {
+        currentMillis = millis();
+      }
+>>>>>>> parent of f6b50c2... update
     }
 
     jointArmLeft.dabPart2();
@@ -827,13 +834,12 @@ void JointArmClassLeft::dabPart1() //skriven ,ej testad
 
   intervallTimeElbow = 10;
   initPosArm = 0;
-  stopPosArm = 350;
+  stopPosArm = 400;
 
   initPosShoulderPitch = 500;
   stopPosShoulderPitch = 700;
-  posShoulderPitchDiff = stopPosShoulderPitch - initPosShoulderPitch;
 
-  for (int pos = initPosArm, k = initPosShoulderPitch; pos <= stopPosArm, k >= initPosShoulderPitch - posShoulderPitchDiff; pos += 8, k -= 4) //Gå ner så det bara är 8 varv kvar till initPosSSP
+  for (int pos = initPosArm, k = initPosShoulderPitch; pos <= stopPosArm, k <= stopPosShoulderPitch; pos += 4, k += 2) //Gå ner så det bara är 8 varv kvar till initPosSSP
   {
     elbowLeft.setPosition(pos, intervallTimeElbow);
     revCurMillis();
@@ -851,11 +857,10 @@ void JointArmClassLeft::ShoulderRollPerp()
 
   intervallTimeElbow = 10;
 
-  initPosShoulderRoll = 500;
-  stopPosShoulderRoll = 100;
-  posShoulderRollDiff = stopPosShoulderRoll - initPosShoulderRoll;
+  initPosShoulderRoll = 800;
+  stopPosShoulderRoll = 500;
 
-  for (int k = initPosShoulderRoll; k <= 800; k += 5)
+  for (int k = initPosShoulderRoll; k >= stopPosShoulderRoll; k -= 5)
   {
     shoulderLeftRoll.setPosition(k, intervallTimeElbow);
     revCurMillis();
@@ -870,12 +875,12 @@ void JointArmClassLeft::dabPart2()
 
   intervallTimeElbow = 10;
   initPosArm = 0;
-  stopPosArm = 350;
+  stopPosArm = 400;
 
   initPosShoulderPitch = 500;
   stopPosShoulderPitch = 700;
-  posShoulderPitchDiff = stopPosShoulderPitch - initPosShoulderPitch;
 
+<<<<<<< HEAD
   for (int k = initPosShoulderPitch - posShoulderPitchDiff; k <= initPosShoulderPitch; k += 2) //Gå ner så det bara är 8 varv kvar till initPosSSP
   {
     shoulderLeftPitch.setPosition(k, intervallTimeElbow);
@@ -902,10 +907,46 @@ void JointArmClassLeft::maxElbow()
   {
     elbowLeft.setPosition(pos, intervallTimeElbow);
     revCurMillis();
+=======
+  for (int pos = stopPosArm, k = stopPosShoulderPitch; pos >= initPosArm, k >= initPosShoulderPitch; pos -= 4, k -= 2) 
+  {
+    elbowLeft.setPosition(pos, intervallTimeElbow);
+
+    revMillis = millis();
+    currentMillis = millis();
+    while (currentMillis - revMillis <= intervallTimeElbow)
+    {
+      currentMillis = millis();
+    }
+
+    shoulderLeftPitch.setPosition(k, intervallTimeElbow);
+
+    revMillis = millis();
+    currentMillis = millis();
+    while (currentMillis - revMillis <= intervallTimeElbow)
+    {
+      currentMillis = millis();
+    }
+>>>>>>> parent of f6b50c2... update
   }
+  
 }
 //---------------------------------HandLeft--------------------------------------------------//
 
+<<<<<<< HEAD
+=======
+void JointArmClassLeft::rock()
+{
+}
+void JointArmClassLeft::scissor()
+{
+}
+
+void JointArmClassLeft::paper()
+{
+}
+
+>>>>>>> parent of f6b50c2... update
 void JointArmClassLeft::open() //skriven, ej testad. LastCase = o.
 {
 
@@ -1006,34 +1047,62 @@ void JointNeckClass::RESET(char LastCase)
 
     break;
   case 'e': //färdig
-    initPosNeckYaw = 520;
-    stopPosNeckYaw = 300;
+    initPosNeckYaw = 500;
+    stopPosNeckYaw = 350;
     initPosNeckPitch = 500;
     stopPosNeckPitch = 600;
     posNeckPitchDiff = stopPosNeckPitch - initPosNeckPitch;
     revMillis = 0;
     currentMillis = millis();
-    intervallTime = 10;
-    servoNeck.LED(neckPitchRight, &rgb[3]);
-    servoNeck.LED(neckPitchLeft, &rgb[3]);
-    servoNeck.LED(neckYaw, &rgb[3]);
+      intervallTime = 10;
+      servoNeck.LED(neckPitchRight, &rgb[3]);
+      servoNeck.LED(neckPitchLeft, &rgb[3]);
+      servoNeck.LED(neckYaw, &rgb[3]);
 
+<<<<<<< HEAD
     for (int i = stopPosNeckPitch, k = initPosNeckPitch - posNeckPitchDiff; i >= initPosNeckPitch, k <= initPosNeckPitch; i -= 1, k += 1)
     {
+=======
+      for (int i = stopPosNeckPitch, k = initPosNeckPitch - posNeckPitchDiff; i >= initPosNeckPitch, k <= initPosNeckPitch; i -= 1, k += 1)
+      {
+
+>>>>>>> parent of f6b50c2... update
       servoNeck.moveJoint(neckPitchRight, i);
       revCurMillis();
 
       servoNeck.moveJoint(neckPitchLeft, k);
+<<<<<<< HEAD
       revCurMillis();
     }
+=======
 
-    for (int i = stopPosNeckYaw; i <= initPosNeckYaw; i += 1)
-    {
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
+      }
+>>>>>>> parent of f6b50c2... update
+
+      for (int i = stopPosNeckYaw; i <= initPosNeckYaw; i += 1)
+      {
       servoNeck.moveJoint(neckYaw, i);
+<<<<<<< HEAD
       revCurMillis();
     }
+=======
 
-    break;
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
+      }
+>>>>>>> parent of f6b50c2... update
+
+  break;
   }
 }
 
@@ -1078,6 +1147,7 @@ void JointNeckClass::nod() //färdig
 
 void JointNeckClass::dab() // färdig
 {
+<<<<<<< HEAD
   initPosNeckYaw = 520;
   stopPosNeckYaw = 300;
   initPosNeckPitch = 500;
@@ -1095,12 +1165,59 @@ void JointNeckClass::dab() // färdig
     servoNeck.moveJoint(neckPitchLeft, k);
     revCurMillis();
   }
+=======
+  initPosNeckYaw = 500;
+    stopPosNeckYaw = 350;
+    initPosNeckPitch = 500;
+    stopPosNeckPitch = 600;
+    posNeckPitchDiff = stopPosNeckPitch - initPosNeckPitch;
 
-  for (int i = initPosNeckYaw; i >= stopPosNeckYaw; i -= 1)
-  {
+    revMillis = 0;
+    currentMillis = millis();
+    intervallTime = 10;
+    servoNeck.LED(neckPitchRight, &rgb[2]);
+    servoNeck.LED(neckPitchLeft, &rgb[2]);
+    servoNeck.LED(neckYaw, &rgb[2]);
+
+    for (int i = initPosNeckPitch, k = initPosNeckPitch; i <= stopPosNeckPitch, k >= initPosNeckPitch - posNeckPitchDiff; i += 1, k -= 1)
+    {
+
+      servoNeck.moveJoint(neckPitchRight, i);
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
+
+      servoNeck.moveJoint(neckPitchLeft, k);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
+    }
+>>>>>>> parent of f6b50c2... update
+
+    for (int i = initPosNeckYaw; i >= stopPosNeckYaw; i -= 1)
+    {
     servoNeck.moveJoint(neckYaw, i);
+<<<<<<< HEAD
     revCurMillis();
   }
+=======
+
+    revMillis = millis();
+    currentMillis = millis();
+    while (currentMillis - revMillis <= intervallTime)
+    {
+      currentMillis = millis();
+    }
+    }
+  
+>>>>>>> parent of f6b50c2... update
 }
 
 //-------------------------------------Skriv nackfunktioner över------------------------------------------------//
@@ -1118,32 +1235,131 @@ void MultiPartClass::RESET(char LastCase)
   switch (LastCase)
   {
   case 'e':
+    //Nacke 
+      initPosNeckYaw = 500;
+      stopPosNeckYaw = 350;
+      initPosNeckPitch = 500;
+      stopPosNeckPitch = 600;
+      posNeckPitchDiff = stopPosNeckPitch - initPosNeckPitch;
+      revMillis = 0;
+      currentMillis = millis();
+      intervallTime = 10;
+      servoNeck.LED(neckPitchRight, &rgb[3]);
+      servoNeck.LED(neckPitchLeft, &rgb[3]);
+      servoNeck.LED(neckYaw, &rgb[3]);
 
+      for (int i = stopPosNeckPitch, k = initPosNeckPitch - posNeckPitchDiff; i >= initPosNeckPitch, k <= initPosNeckPitch; i -= 1, k += 1)
+      {
+
+      servoNeck.moveJoint(neckPitchRight, i);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
+
+      servoNeck.moveJoint(neckPitchLeft, k);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
+      }
+
+      for (int i = stopPosNeckYaw; i <= initPosNeckYaw; i += 1)
+      {
+      servoNeck.moveJoint(neckYaw, i);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
+      }
+
+    //Höger arm
+      revMillis = 0;
+      currentMillis = millis();
+      intervallTime = 10;
+
+      intervallTimeElbow = 10;
+      initPosArm = 0;
+      stopPosArm = 400;
+
+      initPosShoulderPitch = 500;
+      stopPosShoulderPitch = 700;
+
+      initPosShoulderRoll = 800;
+      stopPosShoulderRoll = 500;
+
+      for (int k = stopPosShoulderRoll; k <= initPosShoulderRoll; k += 5)
+      {
+
+      shoulderRightRoll.setPosition(k, intervallTimeElbow);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTimeElbow)
+      {
+        currentMillis = millis();
+      }
+      }
+
+      for (int pos = stopPosArm, k = stopPosShoulderPitch; pos >= initPosArm, k >= initPosShoulderPitch; pos -= 4, k -= 2) //Gå ner så det bara är 8 varv kvar till initPosSSP
+      {
+      elbowRight.setPosition(pos, intervallTimeElbow);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTimeElbow)
+      {
+        currentMillis = millis();
+      }
+
+      shoulderRightPitch.setPosition(k, intervallTimeElbow);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTimeElbow)
+      {
+        currentMillis = millis();
+      }
+      }
+
+
+    //Vänster arm
+    
     break;
+
   }
+
 }
 
 void MultiPartClass::dab()
 {
 
-  revMillis = 0;
-  currentMillis = millis();
-  intervallTime = 10;
+  //Höger arm dab
+    revMillis = 0;
+    currentMillis = millis();
+    intervallTime = 10;
 
-  intervallTimeElbow = 10;
-  initPosArm = 0;
-  stopPosArm = 350;
+    intervallTimeElbow = 10;
+    initPosArm = 0;
+    stopPosArm = 400;
 
-  initPosShoulderPitch = 500;
-  stopPosShoulderPitch = 700;
-  posShoulderPitchDiff = stopPosShoulderPitch - initPosShoulderPitch;
+    initPosShoulderPitch = 500;
+    stopPosShoulderPitch = 700;
 
-  initPosNeckYaw = 500;
-  stopPosNeckYaw = 300;
-  initPosNeckPitch = 500;
-  stopPosNeckPitch = 600;
-  posNeckPitchDiff = stopPosNeckPitch - initPosNeckPitch;
+    for (int pos = initPosArm, k = initPosShoulderPitch; pos <= stopPosArm, k <= stopPosShoulderPitch; pos += 4, k += 2) //Gå ner så det bara är 8 varv kvar till initPosSSP
+    {
+    elbowRight.setPosition(pos, intervallTimeElbow);
 
+<<<<<<< HEAD
   for (int k = initPosShoulderPitch - posShoulderPitchDiff, i = initPosNeckPitch, j = initPosNeckPitch; k <= initPosShoulderPitch, i <= stopPosNeckPitch, j >= initPosNeckPitch - posNeckPitchDiff; k += 2, i += 1, j -= 1) //Gå ner så det bara är 8 varv kvar till initPosSSP
   {
     shoulderLeftPitch.setPosition(k, intervallTimeElbow);
@@ -1158,6 +1374,127 @@ void MultiPartClass::dab()
 
   for (int pos = stopPosArm, i = initPosNeckYaw; pos >= initPosArm, i >= stopPosNeckYaw; pos -= 1, i -= 1)
   {
+=======
+    revMillis = millis();
+    currentMillis = millis();
+    while (currentMillis - revMillis <= intervallTimeElbow)
+    {
+      currentMillis = millis();
+    }
+
+    shoulderRightPitch.setPosition(k, intervallTimeElbow);
+
+    revMillis = millis();
+    currentMillis = millis();
+    while (currentMillis - revMillis <= intervallTimeElbow)
+    {
+      currentMillis = millis();
+    }
+    }
+
+  //Höger arm ShoulderRollPerp
+
+    revMillis = 0;
+    currentMillis = millis();
+    intervallTime = 10;
+
+    intervallTimeElbow = 10;
+
+    initPosShoulderRoll = 800;
+    stopPosShoulderRoll = 500;
+
+    for (int k = initPosShoulderRoll; k >= stopPosShoulderRoll; k -= 5)
+    {
+
+    shoulderRightRoll.setPosition(k, intervallTimeElbow);
+
+    revMillis = millis();
+    currentMillis = millis();
+    while (currentMillis - revMillis <= intervallTimeElbow)
+    {
+      currentMillis = millis();
+    }
+    }
+
+  //Vänster arm dabPart1
+    revMillis = 0;
+    currentMillis = millis();
+    intervallTime = 10;
+
+    intervallTimeElbow = 10;
+    initPosArm = 0;
+    stopPosArm = 400;
+
+    initPosShoulderPitch = 500;
+    stopPosShoulderPitch = 700;
+
+    for (int pos = initPosArm, k = initPosShoulderPitch; pos <= stopPosArm, k <= stopPosShoulderPitch; pos += 4, k += 2) //Gå ner så det bara är 8 varv kvar till initPosSSP
+    {
+    elbowLeft.setPosition(pos, intervallTimeElbow);
+
+    revMillis = millis();
+    currentMillis = millis();
+    while (currentMillis - revMillis <= intervallTimeElbow)
+    {
+      currentMillis = millis();
+    }
+
+    shoulderLeftPitch.setPosition(k, intervallTimeElbow);
+
+    revMillis = millis();
+    currentMillis = millis();
+    while (currentMillis - revMillis <= intervallTimeElbow)
+    {
+      currentMillis = millis();
+    }
+    }
+
+  //Vänster arm ShoulderRollPerp
+    revMillis = 0;
+    currentMillis = millis();
+    intervallTime = 10;
+
+    intervallTimeElbow = 10;
+
+    initPosShoulderRoll = 800;
+    stopPosShoulderRoll = 500;
+
+    for (int k = initPosShoulderRoll; k >= stopPosShoulderRoll; k -= 5)
+    {
+
+    shoulderLeftRoll.setPosition(k, intervallTimeElbow);
+
+    revMillis = millis();
+    currentMillis = millis();
+    while (currentMillis - revMillis <= intervallTimeElbow)
+    {
+      currentMillis = millis();
+    }
+    }
+
+  //Vänster arm dabPart2, kanske samtidigt som Nacken
+    
+    initPosNeckYaw = 500;
+    stopPosNeckYaw = 350;
+    initPosNeckPitch = 500;
+    stopPosNeckPitch = 600;
+    posNeckPitchDiff = stopPosNeckPitch - initPosNeckPitch;
+
+    intervallTimeElbow = 10;
+    initPosArm = 0;
+    stopPosArm = 400;
+
+    initPosShoulderPitch = 500;
+    stopPosShoulderPitch = 700;
+    revMillis = 0;
+    currentMillis = millis();
+    intervallTime = 10;
+
+
+    //Nacke pitch och vänster dab part 2 merge
+    for (int pos = stopPosArm, k = stopPosShoulderPitch, i = initPosNeckPitch, j = initPosNeckPitch; pos >= initPosArm, k >= initPosShoulderPitch, i <= stopPosNeckPitch, j >= initPosNeckPitch - posNeckPitchDiff; pos -= 4, k -= 2, i += 2, j -= 2) 
+    {
+>>>>>>> parent of f6b50c2... update
     elbowLeft.setPosition(pos, intervallTimeElbow);
     revCurMillis();
 
@@ -1168,6 +1505,68 @@ void MultiPartClass::dab()
       currentMillis = millis();
     }
 
+<<<<<<< HEAD
+=======
+    shoulderLeftPitch.setPosition(k, intervallTimeElbow);
+
+    revMillis = millis();
+    currentMillis = millis();
+    while (currentMillis - revMillis <= intervallTimeElbow)
+    {
+      currentMillis = millis();
+    }
+    servoNeck.moveJoint(neckPitchRight, i);
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
+
+      servoNeck.moveJoint(neckPitchLeft, j);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
+    }
+
+
+  //Nack röresler gamla exemplet
+     /*
+      revMillis = 0;
+      currentMillis = millis();
+      intervallTime = 10;
+      servoNeck.LED(neckPitchRight, &rgb[2]);
+      servoNeck.LED(neckPitchLeft, &rgb[2]);
+      servoNeck.LED(neckYaw, &rgb[2]);
+
+      for (int i = initPosNeckPitch, j = initPosNeckPitch; i <= stopPosNeckPitch, j >= initPosNeckPitch - posNeckPitchDiff; i += 1, j -= 1)
+      {
+
+      servoNeck.moveJoint(neckPitchRight, i);
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
+
+      servoNeck.moveJoint(neckPitchLeft, j);
+
+      revMillis = millis();
+      currentMillis = millis();
+      while (currentMillis - revMillis <= intervallTime)
+      {
+        currentMillis = millis();
+      }
+      }
+    */
+    for (int i = initPosNeckYaw; i >= stopPosNeckYaw; i -= 2)
+    {
+>>>>>>> parent of f6b50c2... update
     servoNeck.moveJoint(neckYaw, i);
 
     revMillis = millis();
@@ -1176,9 +1575,13 @@ void MultiPartClass::dab()
     {
       currentMillis = millis();
     }
+<<<<<<< HEAD
   }
+=======
+    }
 
-  //Neck
+>>>>>>> parent of f6b50c2... update
+
 }
 
 //-------------------------------------Skriv Multi parts funktioner över------------------------------------------------//
