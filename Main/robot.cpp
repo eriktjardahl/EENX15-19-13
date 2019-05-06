@@ -393,11 +393,14 @@ void JointArmClassRight::ShoulderPitchPerp() //färdig
   initPosShoulderPitch = 500;
   stopPosShoulderPitch = 800;
 
+  shoulderRightPitch.setPosition(800, intervallTimeElbow);
+  /*
   for (int pos = initPosShoulderPitch; pos <= stopPosShoulderPitch; pos += 10) //Gå ner så det bara är 8 varv kvar till initPosSSP
   {
     shoulderRightPitch.setPosition(pos, intervallTimeElbow);
     internalTimer();
   }
+  */
 }
 
 void JointArmClassRight::ShoulderRollPerp() //färdig

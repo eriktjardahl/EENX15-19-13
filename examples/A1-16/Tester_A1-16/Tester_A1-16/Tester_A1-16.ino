@@ -109,7 +109,7 @@ void setup()
   servoRight.setJointSpeed(9, 1023);
   servoRight.setJointSpeed(10, 1023);
 
-  Serial.begin(115200);
+  Serial.begin(9600);
 }
 
 void loop()
@@ -121,23 +121,16 @@ void loop()
   unsigned long revMillis = 0;
   unsigned long currentMillis = millis();
 
-   int intervallTime = 1000;
+   int intervallTime = 100;
   int intervallTimeElbow = 10;
 
   int initPosShoulderPitch = 500;
   int stopPosShoulderPitch = 800;
 
-  for (int pos = initPosShoulderPitch; pos <= stopPosShoulderPitch; pos += 10) 
-  {
-  servo4.setPosition(pos, intervallTime);
   
-  revMillis = millis();
-  currentMillis = millis();
-  while (currentMillis - revMillis <= intervallTime)
-  {
-    currentMillis = millis();
-  }
-  }
+  servo4.setPosition(500, intervallTime);
+  
+  
 }
 
   /*
