@@ -17,7 +17,6 @@ void setup()
   jointArmLeft.SETUP();
   jointArmRight.SETUP();
   jointNeck.SETUP();
-  jointArmRight.ShoulderRollPerp();
   Serial.begin(9600);
 }
 
@@ -34,7 +33,7 @@ void loop()
 void selectCommand(char command)
 {
   //Show what command was sent
-  newData = false;
+  showNewData();
   switch (command)
   {
   case 'a': //Påse
@@ -60,12 +59,7 @@ void selectCommand(char command)
     break;
 
   case 'e': // DAB
-    //jointArmLeft.dabPart1();
-    //jointArmLeft.ShoulderRollPerp();
-    //jointArmRight.dab();
-    //jointArmRight.ShoulderRollPerp();
-    //jointArmLeft.dabPart2();
-    //jointNeck.dab();
+
     break;
 
   case 'f': // fuck
@@ -73,7 +67,7 @@ void selectCommand(char command)
     break;
 
   case 'g': //test
-    jointArmRight.ShoulderRollPerp();
+    jointArmRight.ShoulderPitchPerp();
     break;
 
   case 'o':
@@ -107,7 +101,6 @@ void selectCommand(char command)
     //Serial.println("Unknown command or wrong format!");
     break;
   }
-  Serial.println(command);
   lastCommand = command;
 }
 

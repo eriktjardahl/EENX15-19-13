@@ -403,16 +403,18 @@ void JointArmClassRight::ShoulderPitchPerp() //färdig
 void JointArmClassRight::ShoulderRollPerp() //färdig
 {
   intervallTime = 10;
-  intervallTimeElbow = 10;
+  intervallTimeElbow = 100;
 
-  initPosShoulderRoll = 800;
-  stopPosShoulderRoll = 500;
-
+  initPosShoulderRoll = 500;
+  stopPosShoulderRoll = 200;
+  shoulderRightRoll.setPosition(200, intervallTimeElbow);
+  /*
   for (int k = initPosShoulderRoll; k >= stopPosShoulderRoll; k -= 5)
   {
     shoulderRightRoll.setPosition(200, intervallTimeElbow);
     internalTimer();
   }
+  */
 }
 //---------------------------------HandRight-------------------------------------------------//
 void JointArmClassRight::rock() // lastCase = c färdig
@@ -920,9 +922,7 @@ void JointNeckClass::dab() // färdig
 
     servoNeck.moveJoint(neckPitchLeft, k);
     internalTimer();
-  }
- 
-  
+  } 
 }
 
 //-------------------------------------Skriv nackfunktioner över------------------------------------------------//
@@ -939,8 +939,6 @@ void MultiPartClass::RESET(char LastCase)
 {
 
 }
-
-
 
 //----------------------------------------------------------------------------------------------------------------
 MultiPartClass multiPart = MultiPartClass();

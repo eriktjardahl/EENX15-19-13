@@ -7,8 +7,8 @@
 
 #define SERVO_COUNT 6
 
-#define rxPin0 1
-#define txPin1 2
+#define rxPin0 12
+#define txPin1 13
 
 #define rxPin3 3
 #define txPin4 4
@@ -22,9 +22,6 @@
 #define rxPin10 10
 #define txPin11 11
 
-
-
-
 SoftwareSerial A116servoSerial = SoftwareSerial(rxPin0, txPin1);
 
 SoftwareSerial A116servo2Serial = SoftwareSerial(rxPin10, txPin11);
@@ -34,7 +31,6 @@ SoftwareSerial XL320servoSerial = SoftwareSerial(rxPin3, txPin4);
 SoftwareSerial XL320servo2Serial = SoftwareSerial(rxPin6, txPin7);
 
 SoftwareSerial XL320servo3Serial = SoftwareSerial(rxPin8, txPin9);
-
 
 XYZrobotServo servo1(A116servoSerial, 1);
 
@@ -49,7 +45,6 @@ XYZrobotServo servo5(A116servo2Serial, 5);
 XYZrobotServo servo6(A116servo2Serial, 6);
 
 XYZrobotServo servo7(A116servo2Serial, 7);
-
 
 XL320 servoLeft;
 /*
@@ -68,22 +63,15 @@ XL320 servoNeck;
 
 //Servo Elbow;
 
-
-
-
-XYZrobotServo * servos[SERVO_COUNT] = {
-  &servo1, &servo2, &servo7, &servo4, &servo5, &servo6
-};
-
+XYZrobotServo *servos[SERVO_COUNT] = {
+    &servo1, &servo2, &servo7, &servo4, &servo5, &servo6};
 
 char rgb[] = "rgbypcwo";
 
-
 int moveIntervall;
 
-
-
-void setup() {
+void setup()
+{
 
   pinMode(rxPin0, INPUT);
   pinMode(txPin1, OUTPUT);
@@ -97,11 +85,8 @@ void setup() {
   pinMode(rxPin8, INPUT);
   pinMode(txPin9, OUTPUT);
 
-
   pinMode(rxPin10, INPUT);
   pinMode(txPin11, OUTPUT);
-
-
 
   A116servoSerial.begin(115200);
   A116servo2Serial.begin(115200);
@@ -114,7 +99,6 @@ void setup() {
 
   //Elbow.attach(txPin12);
 
-
   servoRight.LED(9, &rgb[6]); //vit
   servoRight.LED(10, &rgb[6]);
   servoRight.LED(8, &rgb[6]);
@@ -126,55 +110,37 @@ void setup() {
   servoRight.setJointSpeed(10, 1023);
 
   Serial.begin(115200);
-
 }
 
-void loop() {
+void loop()
+{
 
   int initPos = 0;
   int stopPos = 330;
 
   unsigned long revMillis = 0;
   unsigned long currentMillis = millis();
-  int intervallTime = 10;
 
-  for (int i = 0; i <= 3; i++) {
+   int intervallTime = 1000;
+  int intervallTimeElbow = 10;
 
-    if (i == 0 || i == 2) {
+  int initPosShoulderPitch = 500;
+  int stopPosShoulderPitch = 800;
 
-      for (int pos = initPos; pos <= stopPos; pos += 1) {
-
-        servo1.setPosition(pos, intervallTime);
-
-        revMillis = millis();
-        currentMillis = millis();
-        while (currentMillis - revMillis <= intervallTime) {
-          currentMillis = millis();
-        }
-
-      }
-    }
-
-    if (i==1||i==3) {
-
-      for (int pos = stopPos; pos >= initPos; pos -= 1) {
-
-        servo1.setPosition(pos, intervallTime);
-
-        revMillis = millis();
-        currentMillis = millis();
-        while (currentMillis - revMillis <= intervallTime) {
-          currentMillis = millis();
-        }
-
-      }
-    }
-
+  for (int pos = initPosShoulderPitch; pos <= stopPosShoulderPitch; pos += 10) 
+  {
+  servo4.setPosition(pos, intervallTime);
+  
+  revMillis = millis();
+  currentMillis = millis();
+  while (currentMillis - revMillis <= intervallTime)
+  {
+    currentMillis = millis();
   }
-
+  }
 }
 
-/*
+  /*
   servoRight.LED(9, &rgb[6]); //vit
   servoRight.LED(10, &rgb[6]);
   servoRight.LED(8, &rgb[6]);
@@ -280,14 +246,9 @@ void loop() {
 
   }*/
 
+  //}
 
-
-//}
-
-
-
-
-/*
+  /*
   int i;
 
 
@@ -325,8 +286,7 @@ void loop() {
    //Elbow.write(j);
 */
 
-
-/*
+  /*
 
   servo1.setPosition(0,10);
   servo2.setPosition(0,10);

@@ -1,13 +1,14 @@
-#include <dxl_pro.h>
-#include <XL320.h>
 #include <XYZrobotServo.h>
 #include <SoftwareSerial.h>
+#include <dxl_pro.h>
+#include <XL320.h>
+
 
 #ifndef rxPin1 
-#define rxPin1 1
+#define rxPin1 12
 #endif
 #ifndef txPin2 
-#define txPin2 2
+#define txPin2 13
 #endif
 
 #ifndef rxPin3 
