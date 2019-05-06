@@ -282,11 +282,6 @@ void JointArmClassRight::RESET(char LastCase)
     break;
 
   case 'd': //ok färdig
-<<<<<<< HEAD
-=======
-            //if (!ran)
-            //{
->>>>>>> e236630f6da3a63b6904343ab5085f5a053fde02
     stopPosHand = 800;
     initPosHand = 0;
     intervallTime = 10;
@@ -871,27 +866,11 @@ void JointArmClassLeft::maxElbow()
     {
       currentMillis = millis();
     }
->>>>>>> parent of f6b50c2... update
->>>>>>> e236630f6da3a63b6904343ab5085f5a053fde02
   }
   
 }
 //---------------------------------HandLeft--------------------------------------------------//
 
-<<<<<<< HEAD
-=======
-void JointArmClassLeft::rock()
-{
-}
-void JointArmClassLeft::scissor()
-{
-}
-
-void JointArmClassLeft::paper()
-{
-}
-
->>>>>>> parent of f6b50c2... update
 void JointArmClassLeft::open() //skriven, ej testad. LastCase = o.
 {
   //if (!ran)
@@ -1000,14 +979,11 @@ void JointNeckClass::RESET(char LastCase)
       servoNeck.LED(neckPitchLeft, &rgb[3]);
       servoNeck.LED(neckYaw, &rgb[3]);
 
-<<<<<<< HEAD
     for (int i = stopPosNeckPitch, k = initPosNeckPitch - posNeckPitchDiff; i >= initPosNeckPitch, k <= initPosNeckPitch; i -= 1, k += 1)
     {
-=======
       for (int i = stopPosNeckPitch, k = initPosNeckPitch - posNeckPitchDiff; i >= initPosNeckPitch, k <= initPosNeckPitch; i -= 1, k += 1)
       {
 
->>>>>>> parent of f6b50c2... update
       servoNeck.moveJoint(neckPitchRight, i);
       internalTimer();
 
