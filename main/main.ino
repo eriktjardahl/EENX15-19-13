@@ -61,11 +61,11 @@ void selectCommand(char command)
     break;
 
   case 'e': // DAB
-    jointArmLeft.dabPart1();
-    jointArmLeft.ShoulderRollPerp();
-    jointArmRight.dab();
-    jointArmRight.ShoulderRollPerp();
-    //multiPart.dab();
+    multiPart.dab();
+    //jointArmLeft.dabPart1();
+    //jointArmLeft.ShoulderRollPerp();
+    //jointArmRight.dab();
+    //jointArmRight.ShoulderRollPerp();
     //jointArmLeft.dabPart2();
     //jointNeck.dab();
     break;

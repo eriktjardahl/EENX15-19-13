@@ -274,6 +274,11 @@ void JointArmClassRight::RESET(char LastCase)
     break;
 
   case 'd': //ok färdig
+<<<<<<< HEAD
+=======
+            //if (!ran)
+            //{
+>>>>>>> parent of f6b50c2... update
     stopPosHand = 800;
     initPosHand = 0;
     intervallTime = 10;
@@ -787,6 +792,7 @@ void JointArmClassLeft::maxElbow()
     shoulderLeftPitch.setPosition(k, intervallTimeElbow);
     internalTimer();
   }
+  
 }
 //---------------------------------HandLeft--------------------------------------------------//
 
@@ -897,8 +903,8 @@ void JointNeckClass::RESET(char LastCase)
       internalTimer();
     }
 
-    for (int i = stopPosNeckYaw; i <= initPosNeckYaw; i += 1)
-    {
+      for (int i = stopPosNeckYaw; i <= initPosNeckYaw; i += 1)
+      {
       servoNeck.moveJoint(neckYaw, i);
       internalTimer();
     }
@@ -964,8 +970,8 @@ void JointNeckClass::dab() // färdig
     internalTimer();
   }
 
-  for (int i = initPosNeckYaw; i >= stopPosNeckYaw; i -= 1)
-  {
+    for (int i = initPosNeckYaw; i >= stopPosNeckYaw; i -= 1)
+    {
     servoNeck.moveJoint(neckYaw, i);
     internalTimer();
   }
@@ -1006,6 +1012,23 @@ void MultiPartClass::RESET(char LastCase)
       servoNeck.moveJoint(neckPitchLeft, k);
       internalTimer();
     }
+    }
+
+  //Höger arm ShoulderRollPerp
+
+    revMillis = 0;
+    currentMillis = millis();
+    intervallTime = 10;
+
+    intervallTimeElbow = 10;
+
+    initPosShoulderRoll = 800;
+    stopPosShoulderRoll = 500;
+
+    for (int k = initPosShoulderRoll; k >= stopPosShoulderRoll; k -= 5)
+    {
+
+    shoulderRightRoll.setPosition(k, intervallTimeElbow);
 
     for (int i = stopPosNeckYaw; i <= initPosNeckYaw; i += 1)
     {
