@@ -41,6 +41,7 @@ int stopPosShoulderRoll;
 int stopPosShoulderPitch;
 
 int posNeckPitchDiff;
+int posShoulderPitchDiff;
 XL320 servoLeft;
 /*
   Vänster hand alla öppna vid position 0. alla stängda vid 800 typ

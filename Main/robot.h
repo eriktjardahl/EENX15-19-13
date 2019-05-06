@@ -168,19 +168,20 @@ class JointArmClassLeft
     JointArmClassLeft();
     void SETUP();
     void RESET(char LastCase);
-    void rock(); 
-    void scissor(); 
-    void paper();  
+    void scissor();
+    void rock();   
+    void paper(); 
     void armMotionSSP();
     void dabPart1();
     void dabPart2();
+    void ok();
     void open();
+    void fack();
     void close();
+    void maxElbow();
+    void perpendicular();
     void ShoulderRollPerp();
     void ShoulderPitchPerp();
-    
-    
-
 };
 
 extern JointArmClassLeft jointArmLeft;

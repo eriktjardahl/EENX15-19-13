@@ -23,13 +23,12 @@ void setup()
 
 void loop()
 {
-  //input=communication.readSerial();
   // Read the serial data sent to the arduino and chose command based on var sent
-  //readSerial();
-  //if (newData)
-  //{
-  //selectCommand('g');
-  //}
+  readSerial();
+  if (newData)
+  {
+  selectCommand(incoming);
+  }
 }
 
 void selectCommand(char command)
@@ -113,7 +112,7 @@ void selectCommand(char command)
     //Serial.println("Unknown command or wrong format!");
     break;
   }
-  //Serial.println(command);
+  Serial.println(command);
   lastCommand = command;
 }
 
