@@ -1,13 +1,21 @@
 #include "Arduino.h"
 #include "robot.h"
 
+<<<<<<< HEAD
 //char input = 'e';
 //char LastCase = 'e';
 //int a;
 //char dataString[50];
 char lastCommand;
+<<<<<<< HEAD
 char incoming;
 boolean newData = false;
+=======
+=======
+char input='s';
+char LastCase='e';
+>>>>>>> parent of f6b50c2... update
+>>>>>>> e236630f6da3a63b6904343ab5085f5a053fde02
 
 void setup()
 {
@@ -45,11 +53,11 @@ void setup()
     break;
 
   case 'e': // DAB
-    jointArmLeft.dabPart1();
-    jointArmLeft.ShoulderRollPerp();
-    jointArmRight.dab();
-    jointArmRight.ShoulderRollPerp();
-    //multiPart.dab();
+    multiPart.dab();
+    //jointArmLeft.dabPart1();
+    //jointArmLeft.ShoulderRollPerp();
+    //jointArmRight.dab();
+    //jointArmRight.ShoulderRollPerp();
     //jointArmLeft.dabPart2();
     //jointNeck.dab();
     break;
@@ -60,7 +68,11 @@ void setup()
     break;
 
   case 'g': //test
+<<<<<<< HEAD
     jointNeck.dab();
+=======
+    
+>>>>>>> parent of f6b50c2... update
     break;
 
   case 'o':
@@ -79,7 +91,7 @@ void setup()
     jointNeck.RESET(LastCase);
     break;
 
-  case 't': //reset vänsterarm
+  case 't':
     jointArmLeft.RESET(LastCase);
     break;
   } 
