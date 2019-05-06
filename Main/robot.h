@@ -218,7 +218,7 @@ class MultiPartClass{
   
   void RESET(char LastCase);
   
-  void dab();
+ // void dab();
 };
 
 extern MultiPartClass multiPart;

@@ -1,21 +1,15 @@
 #include "Arduino.h"
 #include "robot.h"
 
-<<<<<<< HEAD
+
 //char input = 'e';
 //char LastCase = 'e';
 //int a;
 //char dataString[50];
 char lastCommand;
-<<<<<<< HEAD
+
 char incoming;
 boolean newData = false;
-=======
-=======
-char input='s';
-char LastCase='e';
->>>>>>> parent of f6b50c2... update
->>>>>>> e236630f6da3a63b6904343ab5085f5a053fde02
 
 void setup()
 {
@@ -25,77 +19,6 @@ void setup()
   jointNeck.SETUP();
   jointArmRight.ShoulderRollPerp();
   Serial.begin(9600);
-  /*
-  switch (input)
-  {
-  case 'a': //Påse
-    jointArmRight.close();
-    jointArmRight.armMotionSSP();
-    jointArmRight.paper();
-    //lastCase = input;
-    break;
-
-  case 'b': //sax
-    jointArmRight.close();
-    jointArmRight.armMotionSSP();
-    jointArmRight.scissor();
-    //LastCase=input;
-    break;
-
-  case 'c': // sten
-    jointArmRight.close();
-    jointArmRight.armMotionSSP();
-    jointArmRight.rock();
-    break;
-
-  case 'd': //ok
-    jointArmRight.ok();
-    break;
-
-  case 'e': // DAB
-    multiPart.dab();
-    //jointArmLeft.dabPart1();
-    //jointArmLeft.ShoulderRollPerp();
-    //jointArmRight.dab();
-    //jointArmRight.ShoulderRollPerp();
-    //jointArmLeft.dabPart2();
-    //jointNeck.dab();
-    break;
-
-  case 'f': // fuck
-    jointArmRight.fack();
-    //LastCase=input;
-    break;
-
-  case 'g': //test
-<<<<<<< HEAD
-    jointNeck.dab();
-=======
-    
->>>>>>> parent of f6b50c2... update
-    break;
-
-  case 'o':
-    jointArmRight.open();
-    break;
-
-  case 'p':
-    jointArmRight.close();
-    break;
-
-  case 'r': //reset högerarm
-    jointArmRight.RESET(LastCase);
-    break;
-
-  case 's': //reset nacke
-    jointNeck.RESET(LastCase);
-    break;
-
-  case 't':
-    jointArmLeft.RESET(LastCase);
-    break;
-  } 
-  */
 }
 
 void loop()
@@ -104,7 +27,7 @@ void loop()
   readSerial();
   if (newData)
   {
-  selectCommand(incoming);
+    selectCommand(incoming);
   }
 }
 
@@ -137,7 +60,6 @@ void selectCommand(char command)
     break;
 
   case 'e': // DAB
-    multiPart.dab();
     //jointArmLeft.dabPart1();
     //jointArmLeft.ShoulderRollPerp();
     //jointArmRight.dab();
@@ -151,11 +73,7 @@ void selectCommand(char command)
     break;
 
   case 'g': //test
-<<<<<<< HEAD
     jointArmRight.ShoulderRollPerp();
-=======
-    
->>>>>>> parent of f6b50c2... update
     break;
 
   case 'o':
