@@ -114,7 +114,16 @@ void setup()
 
 void loop()
 {
+  servoNeck.LED(16,&rgb[1]);
+  //servoRight.moveJoint(8,300);
 
+  //servoNeck.moveJoint(16,300);
+  servoNeck.moveJoint(15,300);
+  
+  
+}
+
+/*
   int initPos = 0;
   int stopPos = 330;
 
@@ -129,9 +138,7 @@ void loop()
 
   
   servo4.setPosition(500, intervallTime);
-  
-  
-}
+  */
 
   /*
   servoRight.LED(9, &rgb[6]); //vit

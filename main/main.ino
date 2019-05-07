@@ -55,8 +55,8 @@ void selectCommand(char command)
     break;
 
   case 'd': //ok
-    jointArmRight.perpendicular();
-    jointArmRight.ShoulderPitchPerp();
+    //jointArmRight.perpendicular();
+    //jointArmRight.ShoulderPitchPerp();
     jointArmRight.ok();
     break;
 
@@ -72,7 +72,7 @@ void selectCommand(char command)
 
   case 'g': //test
     jointNeck.nod();
-    //jointArmLeft.ShoulderRollPerp();
+    
     break;
 
   case 'o':
@@ -84,7 +84,7 @@ void selectCommand(char command)
     break;
 
   case 'r': //reset högerarm
-    lastCommand='g';
+    lastCommand='a';
     jointArmRight.RESET(lastCommand);
     break;
 
