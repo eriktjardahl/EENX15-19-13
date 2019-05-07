@@ -308,34 +308,46 @@ void JointArmClassRight::armMotionSSP() //färdig
   initPosSSP = 300;
   intervallTimeElbow = 10;
 
-  for (int j = 0; j <= 5; j++) //armMotionSSP
-  {
-    if (j == 0)
-    {
+  //for (int j = 0; j <= 5; j++) //armMotionSSP
+  //{
+    //if (j == 0)
+    //{
       for (int pos = initPosArm; pos <= initPosSSP; pos += 4)
       {
         elbowRight.setPosition(pos, intervallTimeElbow);
         internalTimer();
       }
-    }
+    //}
 
-    if (j == 1 || j == 3 || j == 5)
-    {
+    //if (j == 1 || j == 3 || j == 5)
+    //{
       for (int pos = initPosSSP; pos <= stopPosArm; pos += 4)
       {
         elbowRight.setPosition(pos, intervallTimeElbow);
         internalTimer();
       }
-    }
-    if (j == 2 || j == 4)
-    {
+    //}
+    //if (j == 2 || j == 4)
+    //{
       for (int pos = stopPosArm; pos >= initPosSSP; pos -= 4)
       {
         elbowRight.setPosition(pos, intervallTimeElbow);
         internalTimer();
       }
-    }
-  }
+
+      for (int pos = initPosSSP; pos <= stopPosArm; pos += 4)
+      {
+        elbowRight.setPosition(pos, intervallTimeElbow);
+        internalTimer();
+      }
+
+      for (int pos = stopPosArm; pos >= initPosSSP; pos -= 4)
+      {
+        elbowRight.setPosition(pos, intervallTimeElbow);
+        internalTimer();
+      }
+    //}
+  //}
 }
 
 void JointArmClassRight::dab() //färdig, LastCase = e
@@ -393,7 +405,7 @@ void JointArmClassRight::ShoulderPitchPerp() //färdig
   initPosShoulderPitch = 500;
   stopPosShoulderPitch = 800;
 
-  shoulderRightPitch.setPosition(800, intervallTimeElbow);
+  shoulderRightPitch.setPosition(500, intervallTimeElbow);
   /*
   for (int pos = initPosShoulderPitch; pos <= stopPosShoulderPitch; pos += 10) //Gå ner så det bara är 8 varv kvar till initPosSSP
   {

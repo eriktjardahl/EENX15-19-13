@@ -7,8 +7,8 @@
 
 #define SERVO_COUNT 6
 
-#define rxPin0 12
-#define txPin1 13
+#define rxPin0 15
+#define txPin1 14
 
 #define rxPin3 3
 #define txPin4 4

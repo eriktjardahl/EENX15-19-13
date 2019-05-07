@@ -5,10 +5,10 @@
 
 
 #ifndef rxPin1 
-#define rxPin1 12
+#define rxPin1 15
 #endif
 #ifndef txPin2 
-#define txPin2 13
+#define txPin2 14
 #endif
 
 #ifndef rxPin3 
