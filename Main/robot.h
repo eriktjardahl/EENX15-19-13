@@ -105,28 +105,8 @@
 #define SERVO_COUNT 6
 #endif
 
-
-
-//---------------------------------Communication--------------------------------------------------//
-/*
-#ifndef COMMUNICATION_
-#define COMMUNICATION_
-
-class Communication {
-  public:
-  Communication();
-  char readSerial();
-  void showNewData();
-  void sendSerial();
-
-};
-extern Communication communication; 
-
-#endif
-*/
-//---------------------------------Communication--------------------------------------------------//
-
-
+void internalTimer();
+void stepFunc(XYZrobotServo A1_16_servo, int Start, int Stop, int Inc, int interval);
 
 //---------------------------------Arm_RIGHT--------------------------------------------------//
 
