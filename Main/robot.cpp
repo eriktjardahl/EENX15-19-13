@@ -92,18 +92,22 @@ void internalTimer()
   }
 }
 
-void stepFunc(int Start, int Stop, int Inc)
+void stepFunc(XYZrobotServo A1_16_servo, int Start, int Stop, int Inc, int interval)
 {
   if (Start < Stop)
   {
     for (int pos = Start; pos <= Stop; pos + Inc)
     {
+      A1_16_servo.setPosition(pos, interval)
+      internalTimer();
     }
   }
   else
   {
     for (int pos = Start; pos >= Stop; pos - Inc)
     {
+      A1_16_servo.setPosition(pos, interval)
+      internalTimer();
     }
   }
 }
