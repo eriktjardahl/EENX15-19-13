@@ -35,8 +35,8 @@
 #ifndef rxPin17 
 #define rxPin17 17
 #endif
-#ifndef rxPin16 
-#define rxPin16 16
+#ifndef txPin16 
+#define txPin16 16
 #endif
 
 
@@ -149,12 +149,9 @@ class JointArmClassLeft
     JointArmClassLeft();
     void SETUP();
     void RESET(char LastCase);
-    
     void dabPart1();
     void dabPart2();
-    void ok();
     void open();
-    void fack();
     void close();
     void maxElbow();
     void perpendicular();

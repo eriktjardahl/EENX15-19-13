@@ -71,7 +71,8 @@ void selectCommand(char command)
     break;
 
   case 'g': //test
-    jointArmRight.maxElbow();
+    jointNeck.nod();
+    //jointArmLeft.ShoulderRollPerp();
     break;
 
   case 'o':
@@ -92,10 +93,12 @@ void selectCommand(char command)
     break;
 
   case 't': //reset vänsterarm
+    lastCommand='g';
     jointArmLeft.RESET(lastCommand);
     break;
 
   case 'R': // Full reset
+  //lastCommand='g';
     jointArmRight.RESET(lastCommand);
     jointNeck.RESET(lastCommand);
     jointArmLeft.RESET(lastCommand);

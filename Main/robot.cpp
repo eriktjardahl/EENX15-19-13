@@ -112,6 +112,13 @@ void stepFunc(XYZrobotServo A1_16_servo, int Start, int Stop, int Inc, int inter
   }
 }
 
+/*
+void stepFuncXL320(XL320 servo, int nrOfServos, int servoNr)
+{
+
+}
+*/
+
 //---------------------------------Arm_RIGHT-------------------------------------------------//
 
 JointArmClassRight::JointArmClassRight()
@@ -391,14 +398,9 @@ void JointArmClassRight::ShoulderRollPerp() //färdig
 
   initPosShoulderRoll = 500;
   stopPosShoulderRoll = 200;
-  shoulderRightRoll.setPosition(200, intervallTimeElbow);
-  /*
-  for (int k = initPosShoulderRoll; k >= stopPosShoulderRoll; k -= 5)
-  {
-    shoulderRightRoll.setPosition(200, intervallTimeElbow);
-    internalTimer();
-  }
-  */
+
+  stepFunc(shoulderRightRoll, initPosShoulderRoll, stopPosShoulderRoll, 4, intervallTimeElbow);
+
 }
 //---------------------------------HandRight-------------------------------------------------//
 void JointArmClassRight::rock() // lastCase = c färdig
@@ -497,6 +499,8 @@ void JointArmClassRight::open() //färdig lastCase = o
 
   intervallTime = 10;
   initPosHand = 0;
+
+  servoRight.LED(middleFingerRight, &rgb[2]);
 
   for (int i = stopPosHand; i >= initPosHand; i -= 100)
   {
@@ -609,9 +613,6 @@ void JointArmClassLeft::SETUP()
   servoLeft.setJointSpeed(thumbLeft, 1023);
 }
 
-void JointArmClassLeft::armMotionSSP()
-{
-}
 
 void JointArmClassLeft::RESET(char LastCase)
 {
@@ -633,13 +634,17 @@ void JointArmClassLeft::RESET(char LastCase)
     jointArmLeft.dabPart2();
 
     break;
-  case 'p': //
+  case 'g': //
+    initPosArm = 0;
+    stopPosArm = 450;
+    intervallTimeElbow = 50;
 
+    stepFunc(elbowLeft, stopPosArm, initPosArm, 4, intervallTimeElbow);
     break;
   }
 }
 
-void JointArmClassLeft::dabPart1() //skriven ,ej testad
+void JointArmClassLeft::dabPart1() 
 {
 
   intervallTime = 10;
@@ -657,22 +662,6 @@ void JointArmClassLeft::dabPart1() //skriven ,ej testad
     internalTimer();
 
     shoulderLeftPitch.setPosition(k, intervallTimeElbow);
-    internalTimer();
-  }
-}
-
-void JointArmClassLeft::ShoulderRollPerp()
-{
-  intervallTime = 10;
-
-  intervallTimeElbow = 10;
-
-  initPosShoulderRoll = 800;
-  stopPosShoulderRoll = 500;
-
-  for (int k = initPosShoulderRoll; k >= stopPosShoulderRoll; k -= 5)
-  {
-    shoulderLeftRoll.setPosition(k, intervallTimeElbow);
     internalTimer();
   }
 }
@@ -699,28 +688,55 @@ void JointArmClassLeft::dabPart2()
   }
 }
 
-void JointArmClassLeft::maxElbow()
+void JointArmClassLeft::maxElbow() //färdig
 {
   initPosArm = 0;
-  stopPosArm = 400;
-
-  revMillis = 0;
-  currentMillis = millis();
+  stopPosArm = 450;
   intervallTimeElbow = 10;
 
-  for (int pos = initPosArm; pos <= stopPosArm; pos += 4)
-  {
-    elbowLeft.setPosition(pos, intervallTimeElbow);
-    internalTimer();
-  }
+  stepFunc(elbowLeft, initPosArm, stopPosArm, 4, intervallTimeElbow);
 }
+
+void JointArmClassLeft::perpendicular() //färdig
+{
+  initPosArm = 0;
+  stopPosArm = 330;
+  intervallTimeElbow = 10;
+
+  stepFunc(elbowLeft, initPosArm, stopPosArm, 4, intervallTimeElbow);
+}
+
+void JointArmClassLeft::ShoulderPitchPerp() //färdig
+{
+  intervallTime = 10;
+  intervallTimeElbow = 10;
+  initPosShoulderPitch = 500;
+  stopPosShoulderPitch = 200;
+
+  stepFunc(shoulderLeftPitch, initPosShoulderPitch, stopPosShoulderPitch, 4, intervallTimeElbow);
+
+}
+
+void JointArmClassLeft::ShoulderRollPerp() //färdig
+{
+  intervallTime = 10;
+  intervallTimeElbow = 10;
+
+  initPosShoulderRoll = 500;
+  stopPosShoulderRoll = 800;
+
+  stepFunc(shoulderLeftRoll, initPosShoulderRoll, stopPosShoulderRoll, 4, intervallTimeElbow);
+
+}
+
+
+
 //---------------------------------HandLeft--------------------------------------------------//
 
 void JointArmClassLeft::open() //skriven, ej testad. LastCase = o.
 {
   stopPosHand = 800;
-  revMillis = 0;
-  currentMillis = millis();
+  
   intervallTime = 10;
   initPosHand = 0;
 
@@ -752,8 +768,7 @@ void JointArmClassLeft::open() //skriven, ej testad. LastCase = o.
 void JointArmClassLeft::close() //skriven, ej testad. lastCase = p.
 {
   stopPosHand = 800;
-  revMillis = 0;
-  currentMillis = millis();
+ 
   intervallTime = 10;
   initPosHand = 0;
 
@@ -841,11 +856,11 @@ void JointNeckClass::RESET(char LastCase)
 
 void JointNeckClass::nod() //färdig
 {
-  initPosNeckPitch = 500;
+  initPosNeckPitch = 400;
   stopPosNeckPitch = 650;
   posNeckPitchDiff = stopPosNeckPitch - initPosNeckPitch;
 
-  intervallTime = 10;
+  intervallTime = 1;
 
   servoNeck.LED(neckPitchRight, &rgb[4]);
   servoNeck.LED(neckPitchLeft, &rgb[4]);
