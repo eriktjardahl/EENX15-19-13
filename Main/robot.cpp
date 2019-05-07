@@ -3,7 +3,7 @@
 
 //-------------------------------------Initiera alla motorer------------------------------------------------//
 
-SoftwareSerial A116servoSerial = SoftwareSerial(rxPin15, txPin14);    //Höger arm, typ max pos armbåge = 300
+SoftwareSerial A116servoSerial = SoftwareSerial(rxPin15, txPin14);  //Höger arm, typ max pos armbåge = 300
 SoftwareSerial A116servo2Serial = SoftwareSerial(rxPin17, txPin16); //Vänster arm
 SoftwareSerial XL320servoSerial = SoftwareSerial(rxPin3, txPin4);   //Vänster hand
 SoftwareSerial XL320servo2Serial = SoftwareSerial(rxPin6, txPin7);  //Höger hand, typ max pos finger 850
@@ -112,12 +112,30 @@ void stepFunc(XYZrobotServo A1_16_servo, int Start, int Stop, int Inc, int inter
   }
 }
 
-/*
-void stepFuncXL320(XL320 servo, int nrOfServos, int servoNr)
+void stepFuncXL320(XL320 servo, int nrOfServos, int servoNr1, int servoNr2, int initPos, int stopPos, int posDiff)
 {
-
+  for (int i = 0; i <= 3; i++)
+  {
+    if (i % 2)
+    {
+      for (int i = initPos, k = initPos; i <= stopPos, k >= initPos - posDiff; i += 1, k -= 1)
+      {
+        servo.moveJoint(servoNr1, i);
+        servo.moveJoint(servoNr2, k);
+        internalTimer();
+      }
+    }
+    else
+    {
+      for (int i = stopPos, k = initPos - posDiff; i >= initPos, k <= initPos; i -= 1, k += 1)
+      {
+        servo.moveJoint(servoNr1, i);
+        servo.moveJoint(servoNr2, k);
+        internalTimer();
+      }
+    }
+  }
 }
-*/
 
 //---------------------------------Arm_RIGHT-------------------------------------------------//
 
@@ -153,8 +171,8 @@ void JointArmClassRight::RESET(char LastCase)
     intervallTimeElbow = 10;
     initPosSSP = 300;
     initPosArm = 0;
-    stepFunc(elbowRight,initPosSSP,initPosArm,1,intervallTimeElbow);
-    
+    stepFunc(elbowRight, initPosSSP, initPosArm, 1, intervallTimeElbow);
+
     break;
 
   case 'b': //sax färdig
@@ -165,7 +183,7 @@ void JointArmClassRight::RESET(char LastCase)
     initPosSSP = 300;
     initPosArm = 0;
 
-    stepFunc(elbowRight,initPosSSP,initPosArm,1,intervallTimeElbow);
+    stepFunc(elbowRight, initPosSSP, initPosArm, 1, intervallTimeElbow);
 
     for (int i = stopPosHand; i >= initPosHand; i -= 100) //reset av handen
     {
@@ -191,7 +209,7 @@ void JointArmClassRight::RESET(char LastCase)
     initPosSSP = 300;
     initPosArm = 0;
 
-    stepFunc(elbowRight,initPosSSP,initPosArm,1,intervallTimeElbow);
+    stepFunc(elbowRight, initPosSSP, initPosArm, 1, intervallTimeElbow);
 
     for (int i = stopPosHand; i >= initPosHand; i -= 100) //reset av handen
     {
@@ -228,7 +246,7 @@ void JointArmClassRight::RESET(char LastCase)
     stopPosShoulderPitch = 800;
 
     stepFunc(shoulderRightPitch, stopPosShoulderPitch, initPosShoulderPitch, 4, intervallTimeElbow);
-  
+
     stepFunc(elbowRight, stopPosArm, initPosArm, 4, intervallTimeElbow);
 
     stopPosHand = 800;
@@ -284,10 +302,8 @@ void JointArmClassRight::RESET(char LastCase)
     stopPosShoulderPitch = 800;
 
     stepFunc(shoulderRightPitch, stopPosShoulderPitch, initPosShoulderPitch, 4, intervallTimeElbow);
-  
-    stepFunc(elbowRight, stopPosArm, initPosArm, 4, intervallTimeElbow);
 
-    
+    stepFunc(elbowRight, stopPosArm, initPosArm, 4, intervallTimeElbow);
 
     for (int i = stopPosHand; i >= initPosHand; i -= 100) //knytnäven
     {
@@ -326,7 +342,6 @@ void JointArmClassRight::armMotionSSP() //färdig
   stopPosArm = 500;
   initPosSSP = 300;
   intervallTimeElbow = 10;
-
 
   stepFunc(elbowRight, initPosArm, stopPosArm, 4, intervallTimeElbow);
 
@@ -388,7 +403,6 @@ void JointArmClassRight::ShoulderPitchPerp() //färdig
   stopPosShoulderPitch = 800;
 
   stepFunc(shoulderRightPitch, initPosShoulderPitch, stopPosShoulderPitch, 4, intervallTimeElbow);
-
 }
 
 void JointArmClassRight::ShoulderRollPerp() //färdig
@@ -400,7 +414,6 @@ void JointArmClassRight::ShoulderRollPerp() //färdig
   stopPosShoulderRoll = 200;
 
   stepFunc(shoulderRightRoll, initPosShoulderRoll, stopPosShoulderRoll, 4, intervallTimeElbow);
-
 }
 //---------------------------------HandRight-------------------------------------------------//
 void JointArmClassRight::rock() // lastCase = c färdig
@@ -613,7 +626,6 @@ void JointArmClassLeft::SETUP()
   servoLeft.setJointSpeed(thumbLeft, 1023);
 }
 
-
 void JointArmClassLeft::RESET(char LastCase)
 {
   switch (LastCase)
@@ -644,7 +656,7 @@ void JointArmClassLeft::RESET(char LastCase)
   }
 }
 
-void JointArmClassLeft::dabPart1() 
+void JointArmClassLeft::dabPart1()
 {
 
   intervallTime = 10;
@@ -714,7 +726,6 @@ void JointArmClassLeft::ShoulderPitchPerp() //färdig
   stopPosShoulderPitch = 200;
 
   stepFunc(shoulderLeftPitch, initPosShoulderPitch, stopPosShoulderPitch, 4, intervallTimeElbow);
-
 }
 
 void JointArmClassLeft::ShoulderRollPerp() //färdig
@@ -726,17 +737,14 @@ void JointArmClassLeft::ShoulderRollPerp() //färdig
   stopPosShoulderRoll = 800;
 
   stepFunc(shoulderLeftRoll, initPosShoulderRoll, stopPosShoulderRoll, 4, intervallTimeElbow);
-
 }
-
-
 
 //---------------------------------HandLeft--------------------------------------------------//
 
 void JointArmClassLeft::open() //skriven, ej testad. LastCase = o.
 {
   stopPosHand = 800;
-  
+
   intervallTime = 10;
   initPosHand = 0;
 
@@ -768,7 +776,7 @@ void JointArmClassLeft::open() //skriven, ej testad. LastCase = o.
 void JointArmClassLeft::close() //skriven, ej testad. lastCase = p.
 {
   stopPosHand = 800;
- 
+
   intervallTime = 10;
   initPosHand = 0;
 
@@ -856,15 +864,15 @@ void JointNeckClass::RESET(char LastCase)
 
 void JointNeckClass::nod() //färdig
 {
+  //intervallTime = 1;
   initPosNeckPitch = 400;
   stopPosNeckPitch = 650;
   posNeckPitchDiff = stopPosNeckPitch - initPosNeckPitch;
-
-  intervallTime = 1;
-
   servoNeck.LED(neckPitchRight, &rgb[4]);
   servoNeck.LED(neckPitchLeft, &rgb[4]);
 
+  stepFuncXL320(servoNeck, 2, neckPitchRight, neckPitchLeft, initPosNeckPitch, stopPosNeckPitch, posNeckPitchDiff);
+  /*
   for (int i = 0; i <= 3; i++)
   {
     if (i == 0 || i == 2)
@@ -890,6 +898,7 @@ void JointNeckClass::nod() //färdig
       }
     }
   }
+  */
 }
 
 void JointNeckClass::dab() // färdig
