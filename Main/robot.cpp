@@ -33,14 +33,16 @@ int initPosShoulderPitch;
 int stopPosArm;
 int stopPosHand;
 
-int stopPosNeckPitch;
+int stopPosNeckPitchDown;
+int stopPosNeckPitchUp;
 int stopPosNeckYaw;
 int stopPosNeckRoll;
 
 int stopPosShoulderRoll;
 int stopPosShoulderPitch;
 
-int posNeckPitchDiff;
+int posNeckPitchDiffInit;
+int posNeckPitchDiffMove;
 int posShoulderPitchDiff;
 XL320 servoLeft;
 /*
@@ -112,27 +114,24 @@ void stepFunc(XYZrobotServo A1_16_servo, int Start, int Stop, int Inc, int inter
   }
 }
 
-void stepFuncXL320(XL320 servo, int nrOfServos, int servoNr1, int servoNr2, int initPos, int stopPos, int posDiff)
+void stepFuncXL320(XL320 servo, int servoNr1, int servoNr2, int initPos, int stopPos, int posDiff)
 {
-  for (int i = 0; i <= 3; i++)
+  if (initPos < stopPos)
   {
-    if (i % 2)
+    for (int i = initPos, k = initPos; i <= stopPos, k >= initPos - posDiff; i += 1, k -= 1)
     {
-      for (int i = initPos, k = initPos; i <= stopPos, k >= initPos - posDiff; i += 1, k -= 1)
-      {
-        servo.moveJoint(servoNr1, i);
-        servo.moveJoint(servoNr2, k);
-        internalTimer();
-      }
+      servo.moveJoint(servoNr1, i);
+      servo.moveJoint(servoNr2, k);
+      internalTimer();
     }
-    else
+  }
+  else
+  {
+    for (int i = initPos, k = initPos - posDiff; i >= stopPos, k <= initPos; i -= 1, k += 1)
     {
-      for (int i = stopPos, k = initPos - posDiff; i >= initPos, k <= initPos; i -= 1, k += 1)
-      {
-        servo.moveJoint(servoNr1, i);
-        servo.moveJoint(servoNr2, k);
-        internalTimer();
-      }
+      servo.moveJoint(servoNr1, i);
+      servo.moveJoint(servoNr2, k);
+      internalTimer();
     }
   }
 }
@@ -824,7 +823,7 @@ void JointNeckClass::SETUP()
 }
 void JointNeckClass::RESET(char LastCase)
 {
-
+/*
   switch (LastCase)
   {
   case 'x': //
@@ -859,50 +858,29 @@ void JointNeckClass::RESET(char LastCase)
       internalTimer();
     }
     break;
-  }
+  }*/
 }
 
 void JointNeckClass::nod() //färdig
 {
-  //intervallTime = 1;
-  initPosNeckPitch = 400;
-  stopPosNeckPitch = 650;
-  posNeckPitchDiff = stopPosNeckPitch - initPosNeckPitch;
+  initPosNeckPitch = 500;
+  stopPosNeckPitchDown = 600;
+  stopPosNeckPitchUp = 400;
+  posNeckPitchDiffInit = stopPosNeckPitchDown - initPosNeckPitch;
+  posNeckPitchDiffMove = stopPosNeckPitchDown - stopPosNeckPitchUp;
   servoNeck.LED(neckPitchRight, &rgb[4]);
   servoNeck.LED(neckPitchLeft, &rgb[4]);
 
-  stepFuncXL320(servoNeck, 2, neckPitchRight, neckPitchLeft, initPosNeckPitch, stopPosNeckPitch, posNeckPitchDiff);
-  /*
-  for (int i = 0; i <= 3; i++)
-  {
-    if (i == 0 || i == 2)
-    {
-      for (int i = initPosNeckPitch, k = initPosNeckPitch; i <= stopPosNeckPitch, k >= initPosNeckPitch - posNeckPitchDiff; i += 1, k -= 1)
-      {
-        servoNeck.moveJoint(neckPitchRight, i);
-        internalTimer();
-
-        servoNeck.moveJoint(neckPitchLeft, k);
-        internalTimer();
-      }
-    }
-    else if (i == 1 || i == 3)
-    {
-      for (int i = stopPosNeckPitch, k = initPosNeckPitch - posNeckPitchDiff; i >= initPosNeckPitch, k <= initPosNeckPitch; i -= 1, k += 1)
-      {
-        servoNeck.moveJoint(neckPitchRight, i);
-        internalTimer();
-
-        servoNeck.moveJoint(neckPitchLeft, k);
-        internalTimer();
-      }
-    }
-  }
-  */
+  //stepFuncXL320(servoNeck, neckPitchRight, neckPitchLeft, initPosNeckPitch, stopPosNeckPitchDown, posNeckPitchDiffInit);
+  //stepFuncXL320(servoNeck, neckPitchRight, neckPitchLeft, stopPosNeckPitchDown, stopPosNeckPitchUp, posNeckPitchDiffMove);
+ stepFuncXL320(servoNeck, neckPitchRight, neckPitchLeft, stopPosNeckPitchUp, stopPosNeckPitchDown, posNeckPitchDiffMove);
+  //stepFuncXL320(servoNeck, neckPitchRight, neckPitchLeft, stopPosNeckPitchDown, stopPosNeckPitchUp, posNeckPitchDiffMove);
+  //stepFuncXL320(servoNeck, neckPitchRight, neckPitchLeft, stopPosNeckPitchUp, initPosNeckPitch, posNeckPitchDiffInit);
+  
 }
 
 void JointNeckClass::dab() // färdig
-{
+{/*
   initPosNeckYaw = 520;
   stopPosNeckYaw = 300;
   initPosNeckPitch = 500;
@@ -919,7 +897,7 @@ void JointNeckClass::dab() // färdig
 
     servoNeck.moveJoint(neckPitchLeft, k);
     internalTimer();
-  }
+  }*/
 }
 
 //-------------------------------------Skriv nackfunktioner över------------------------------------------------//
