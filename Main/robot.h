@@ -4,11 +4,11 @@
 #include <XL320.h>
 
 
-#ifndef rxPin1 
-#define rxPin1 15
+#ifndef rxPin15 
+#define rxPin15 15
 #endif
-#ifndef txPin2 
-#define txPin2 14
+#ifndef txPin14 
+#define txPin14 14
 #endif
 
 #ifndef rxPin3 
@@ -32,11 +32,11 @@
 #define txPin9 9
 #endif
 
-#ifndef rxPin10 
-#define rxPin10 10
+#ifndef rxPin17 
+#define rxPin17 17
 #endif
-#ifndef txPin11 
-#define txPin11 11
+#ifndef rxPin16 
+#define rxPin16 16
 #endif
 
 
@@ -149,10 +149,7 @@ class JointArmClassLeft
     JointArmClassLeft();
     void SETUP();
     void RESET(char LastCase);
-    void scissor();
-    void rock();   
-    void paper(); 
-    void armMotionSSP();
+    
     void dabPart1();
     void dabPart2();
     void ok();

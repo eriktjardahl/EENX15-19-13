@@ -55,6 +55,8 @@ void selectCommand(char command)
     break;
 
   case 'd': //ok
+    jointArmRight.perpendicular();
+    jointArmRight.ShoulderPitchPerp();
     jointArmRight.ok();
     break;
 
@@ -63,11 +65,13 @@ void selectCommand(char command)
     break;
 
   case 'f': // fuck
+    jointArmRight.perpendicular();
+    jointArmRight.ShoulderPitchPerp();
     jointArmRight.fack();
     break;
 
   case 'g': //test
-    jointArmRight.ShoulderPitchPerp();
+    jointArmRight.maxElbow();
     break;
 
   case 'o':
@@ -79,7 +83,7 @@ void selectCommand(char command)
     break;
 
   case 'r': //reset högerarm
-    //Serial.println(lastCommand);
+    lastCommand='g';
     jointArmRight.RESET(lastCommand);
     break;
 
