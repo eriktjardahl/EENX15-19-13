@@ -65,10 +65,12 @@ void selectCommand(char command)
     break;
 
   case 'e': // DAB
+    
     jointArmRight.dab();
     jointArmRight.ShoulderRollPerp();
     jointArmLeft.maxElbow();
     jointArmLeft.ShoulderRollPerp();
+    multiPart.dab();
     lastCommand='e';
     break;
 

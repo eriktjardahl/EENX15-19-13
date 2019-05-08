@@ -105,8 +105,9 @@
 #define SERVO_COUNT 6
 #endif
 
-void internalTimer();
+void internalTimer(int intervall);
 void stepFunc(XYZrobotServo A1_16_servo, int Start, int Stop, int Inc, int interval);
+void stepFuncXL320(XL320 servo, int joint, int initPos, int stopPos, int Inc);
 
 //---------------------------------Arm_RIGHT--------------------------------------------------//
 

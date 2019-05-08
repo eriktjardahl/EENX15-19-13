@@ -88,11 +88,11 @@ int intervallTime;
 int intervallTimeElbow;
 int intervallTimeShoulder;
 
-void internalTimer()
+void internalTimer(int intervall)
 {
   revMillis = millis();
   currentMillis = millis();
-  while (currentMillis - revMillis <= intervallTime)
+  while (currentMillis - revMillis <= intervall)
   {
     currentMillis = millis();
   }
@@ -105,7 +105,7 @@ void stepFunc(XYZrobotServo A1_16_servo, int Start, int Stop, int Inc, int inter
     for (int pos = Start; pos <= Stop; pos += Inc)
     {
       A1_16_servo.setPosition(pos, interval);
-      internalTimer();
+      internalTimer(interval);
     }
   }
   else
@@ -113,7 +113,7 @@ void stepFunc(XYZrobotServo A1_16_servo, int Start, int Stop, int Inc, int inter
     for (int pos = Start; pos >= Stop; pos -= Inc)
     {
       A1_16_servo.setPosition(pos, interval);
-      internalTimer();
+      internalTimer(interval);
     }
   }
 }
@@ -126,7 +126,7 @@ void stepFuncXL320(XL320 servo, int joint, int initPos, int stopPos, int Inc)
     {
       servo.moveJoint(joint, i);
 
-      internalTimer();
+      internalTimer(10);
     }
   }
   else
@@ -135,7 +135,7 @@ void stepFuncXL320(XL320 servo, int joint, int initPos, int stopPos, int Inc)
     {
       servo.moveJoint(joint, i);
 
-      internalTimer();
+      internalTimer(10);
     }
   }
 }
@@ -192,15 +192,15 @@ void JointArmClassRight::RESET(char LastCase)
     {
       servoRight.moveJoint(thumbRight, i);
       servoRight.LED(thumbRight, &rgb[5]);
-      internalTimer();
+      internalTimer(intervallTime);
 
       servoRight.moveJoint(littleFingerRight, i);
       servoRight.LED(littleFingerRight, &rgb[5]);
-      internalTimer();
+      internalTimer(intervallTime);
 
       servoRight.moveJoint(ringFingerRight, i);
       servoRight.LED(ringFingerRight, &rgb[5]);
-      internalTimer();
+      internalTimer(intervallTime);
     }
     break;
 
@@ -219,35 +219,37 @@ void JointArmClassRight::RESET(char LastCase)
 
       servoRight.moveJoint(middleFingerRight, i);
       servoRight.LED(middleFingerRight, &rgb[5]);
-      internalTimer();
+      internalTimer(intervallTime);
 
       servoRight.moveJoint(ringFingerRight, i);
       servoRight.LED(ringFingerRight, &rgb[5]);
-      internalTimer();
+      internalTimer(intervallTime);
 
       servoRight.moveJoint(littleFingerRight, i);
       servoRight.LED(littleFingerRight, &rgb[5]);
-      internalTimer();
+      internalTimer(intervallTime);
 
       servoRight.moveJoint(thumbRight, i);
       servoRight.LED(thumbRight, &rgb[5]);
-      internalTimer();
+      internalTimer(intervallTime);
 
       servoRight.moveJoint(indexFingerRight, i);
       servoRight.LED(indexFingerRight, &rgb[5]);
-      internalTimer();
+      internalTimer(intervallTime);
     }
     break;
 
   case 'd': //ok färdig
 
     initPosArm = 0;
-    stopPosArm = 330;
+    stopPosArm = 350;
     intervallTimeElbow = 50;
 
     initPosShoulderPitch = 500;
     stopPosShoulderPitch = 800;
 
+    intervallTime= 10;
+    
     stepFunc(shoulderRightPitch, stopPosShoulderPitch, initPosShoulderPitch, 4, intervallTimeElbow);
 
     stepFunc(elbowRight, stopPosArm, initPosArm, 4, intervallTimeElbow);
@@ -260,11 +262,11 @@ void JointArmClassRight::RESET(char LastCase)
     {
       servoRight.moveJoint(indexFingerRight, i);
       servoRight.LED(indexFingerRight, &rgb[5]);
-      internalTimer();
+      internalTimer(intervallTime);
     }
     break;
   case 'e': // dab,
-    intervallTime = 20;
+    intervallTimeElbow = 20;
     initPosArm = 0;
     stopPosArm = 300;
 
@@ -274,11 +276,11 @@ void JointArmClassRight::RESET(char LastCase)
     initPosShoulderRoll = 500;
     stopPosShoulderRoll = 200;
 
-    stepFunc(shoulderRightRoll, stopPosShoulderRoll, initPosShoulderRoll, 4, intervallTime);
+    stepFunc(shoulderRightRoll, stopPosShoulderRoll, initPosShoulderRoll, 4, intervallTimeElbow);
 
-    stepFunc(shoulderRightPitch, stopPosShoulderPitch, initPosShoulderPitch, 2, intervallTime);
+    stepFunc(shoulderRightPitch, stopPosShoulderPitch, initPosShoulderPitch, 2, intervallTimeElbow);
 
-    stepFunc(elbowRight, stopPosArm, initPosArm, 4, intervallTime);
+    stepFunc(elbowRight, stopPosArm, initPosArm, 4, intervallTimeElbow);
 
     break;
   case 'f': //fack färdig
@@ -288,7 +290,7 @@ void JointArmClassRight::RESET(char LastCase)
     intervallTime = 10;
 
     initPosArm = 0;
-    stopPosArm = 330;
+    stopPosArm = 350;
     intervallTimeElbow = 50;
 
     initPosShoulderPitch = 500;
@@ -303,19 +305,19 @@ void JointArmClassRight::RESET(char LastCase)
 
       servoRight.moveJoint(thumbRight, i);
       servoRight.LED(thumbRight, &rgb[5]);
-      internalTimer();
+      internalTimer(intervallTime);
 
       servoRight.moveJoint(indexFingerRight, i);
       servoRight.LED(indexFingerRight, &rgb[5]);
-      internalTimer();
+      internalTimer(intervallTime);
 
       servoRight.moveJoint(ringFingerRight, i);
       servoRight.LED(ringFingerRight, &rgb[5]);
-      internalTimer();
+      internalTimer(intervallTime);
 
       servoRight.moveJoint(littleFingerRight, i);
       servoRight.LED(littleFingerRight, &rgb[5]);
-      internalTimer();
+      internalTimer(intervallTime);
     }
     break;
 
@@ -392,7 +394,7 @@ void JointArmClassRight::maxElbow() //färdig
 void JointArmClassRight::perpendicular() //färdig.
 {
   initPosArm = 0;
-  stopPosArm = 330;
+  stopPosArm = 350;
   intervallTimeElbow = 10;
 
   stepFunc(elbowRight, initPosArm, stopPosArm, 4, intervallTimeElbow);
@@ -400,11 +402,11 @@ void JointArmClassRight::perpendicular() //färdig.
 
 void JointArmClassRight::ShoulderPitchPerp() //färdig
 {
-  intervallTimeElbow = 20;
+  intervallTimeElbow = 10;
   initPosShoulderPitch = 500;
   stopPosShoulderPitch = 850;
 
-  stepFunc(shoulderRightPitch, initPosShoulderPitch, stopPosShoulderPitch, 4, intervallTimeElbow);
+  stepFunc(shoulderRightPitch, initPosShoulderPitch, stopPosShoulderPitch, 5, intervallTimeElbow);
 }
 
 void JointArmClassRight::ShoulderRollPerp() //färdig
@@ -434,21 +436,20 @@ void JointArmClassRight::scissor() //lastCase = b färdig
   intervallTimeElbow = 10;
   stopPosArm = 500;
   initPosSSP = 300;
+  intervallTime = 10;
 
   stepFunc(elbowRight, stopPosArm, initPosSSP + 32, 4, intervallTimeElbow); //gå ner så det är 8 varv kvar.
 
   for (int k = stopPosHand, pos = initPosSSP + 32; k >= initPosHand, pos >= initPosSSP; k -= 100, pos -= 4) //När det är 8 varv kvar så börjar handen röra på sig
   {
     elbowRight.setPosition(pos, intervallTimeElbow);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoRight.moveJoint(indexFingerRight, k);
-    servoRight.LED(indexFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoRight.moveJoint(middleFingerRight, k);
-    servoRight.LED(middleFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
   }
 }
 
@@ -461,32 +462,29 @@ void JointArmClassRight::paper() // lastCase = a färdig
   stopPosArm = 500;
   initPosSSP = 300;
 
+  intervallTime= 10;
+
   stepFunc(elbowRight, stopPosArm, initPosSSP + 32, 4, intervallTimeElbow); //gå ner så det är 8 varv kvar.
 
   for (int i = stopPosHand, pos = initPosSSP + 32; i >= initPosHand, pos >= initPosSSP; i -= 100, pos -= 4) //när det bara är 8 loopar kvar börjar handen röra på sig
   {
     elbowRight.setPosition(pos, intervallTimeElbow);
-    internalTimer();
+    internalTimer(intervallTimeElbow);
 
     servoRight.moveJoint(middleFingerRight, i);
-    servoRight.LED(middleFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoRight.moveJoint(ringFingerRight, i);
-    servoRight.LED(ringFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoRight.moveJoint(littleFingerRight, i);
-    servoRight.LED(littleFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoRight.moveJoint(thumbRight, i);
-    servoRight.LED(thumbRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoRight.moveJoint(indexFingerRight, i);
-    servoRight.LED(indexFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
   }
 }
 
@@ -502,8 +500,7 @@ void JointArmClassRight::ok() // färdig lastCase = d
   for (int i = initPosHand; i <= stopPosHand; i += 100) //knytnäven
   {
     servoRight.moveJoint(indexFingerRight, i);
-    servoRight.LED(indexFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
   }
 }
 
@@ -519,24 +516,19 @@ void JointArmClassRight::open() //färdig lastCase = o
   for (int i = stopPosHand; i >= initPosHand; i -= 100)
   {
     servoRight.moveJoint(middleFingerRight, i);
-    servoRight.LED(middleFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoRight.moveJoint(ringFingerRight, i);
-    servoRight.LED(ringFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoRight.moveJoint(littleFingerRight, i);
-    servoRight.LED(littleFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoRight.moveJoint(thumbRight, i);
-    servoRight.LED(thumbRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoRight.moveJoint(indexFingerRight, i);
-    servoRight.LED(indexFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
   }
 }
 
@@ -551,20 +543,16 @@ void JointArmClassRight::fack() //färdig lastCase = f
   for (int i = initPosHand; i <= stopPosHand; i += 100) //knytnäven
   {
     servoRight.moveJoint(thumbRight, i);
-    servoRight.LED(thumbRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoRight.moveJoint(indexFingerRight, i);
-    servoRight.LED(indexFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoRight.moveJoint(ringFingerRight, i);
-    servoRight.LED(ringFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoRight.moveJoint(littleFingerRight, i);
-    servoRight.LED(littleFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
   }
 }
 
@@ -578,24 +566,19 @@ void JointArmClassRight::close() //färdig lastCase = p
   for (int i = initPosHand; i <= stopPosHand; i += 100)
   {
     servoRight.moveJoint(middleFingerRight, i);
-    servoRight.LED(middleFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoRight.moveJoint(ringFingerRight, i);
-    servoRight.LED(ringFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoRight.moveJoint(littleFingerRight, i);
-    servoRight.LED(littleFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoRight.moveJoint(thumbRight, i);
-    servoRight.LED(thumbRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoRight.moveJoint(indexFingerRight, i);
-    servoRight.LED(indexFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
   }
 }
 
@@ -641,7 +624,9 @@ void JointArmClassLeft::RESET(char LastCase)
     initPosArm = 0;
     stopPosArm = 450;
 
-    //maxElbow();
+    stepFunc(shoulderLeftPitch,499,500,1,intervallTimeElbow);
+
+    maxElbow();
 
     stepFunc(shoulderLeftRoll, stopPosShoulderRoll, initPosShoulderRoll, 4, intervallTimeElbow);
 
@@ -665,23 +650,6 @@ void JointArmClassLeft::dabPart1()
 void JointArmClassLeft::dabPart2()
 {
 
-  intervallTimeElbow = 10;
-  initPosArm = 0;
-  stopPosArm = 400;
-
-  initPosShoulderPitch = 500;
-  stopPosShoulderPitch = 700;
-  for (int k = initPosShoulderPitch - posShoulderPitchDiff; k <= initPosShoulderPitch; k += 2) //Gå ner så det bara är 8 varv kvar till initPosSSP
-  {
-    shoulderLeftPitch.setPosition(k, intervallTimeElbow);
-    internalTimer();
-  }
-
-  for (int pos = stopPosArm; pos >= initPosArm; pos -= 4)
-  {
-    elbowLeft.setPosition(pos, intervallTimeElbow);
-    internalTimer();
-  }
 }
 
 void JointArmClassLeft::maxElbow() //färdig
@@ -736,24 +704,19 @@ void JointArmClassLeft::open() //skriven, ej testad. LastCase = o.
   for (int i = stopPosHand; i >= initPosHand; i -= 100)
   {
     servoLeft.moveJoint(middleFingerLeft, i);
-    servoLeft.LED(middleFingerLeft, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoLeft.moveJoint(ringFingerLeft, i);
-    servoLeft.LED(ringFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoLeft.moveJoint(littleFingerLeft, i);
-    servoLeft.LED(littleFingerLeft, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoLeft.moveJoint(thumbLeft, i);
-    servoLeft.LED(thumbLeft, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoLeft.moveJoint(indexFingerLeft, i);
-    servoLeft.LED(indexFingerLeft, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
   }
 }
 
@@ -767,24 +730,19 @@ void JointArmClassLeft::close() //skriven, ej testad. lastCase = p.
   for (int i = initPosHand; i <= stopPosHand; i += 100)
   {
     servoLeft.moveJoint(middleFingerLeft, i);
-    servoLeft.LED(middleFingerLeft, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoLeft.moveJoint(ringFingerLeft, i);
-    servoLeft.LED(ringFingerLeft, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoLeft.moveJoint(littleFingerLeft, i);
-    servoLeft.LED(littleFingerLeft, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoLeft.moveJoint(thumbLeft, i);
-    servoLeft.LED(thumbLeft, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoLeft.moveJoint(indexFingerRight, i);
-    servoLeft.LED(indexFingerRight, &rgb[1]);
-    internalTimer();
+    internalTimer(intervallTime);
   }
 }
 
@@ -818,19 +776,20 @@ void JointNeckClass::RESET(char LastCase)
     initPosNeckPitch = 500;
     posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
     posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
+    intervallTime=10;
 
     //Titta frammåt från att titta uppåt
     for (int i = stopPosNeckPitchDown, k = stopPosNeckPitchDown + posNeckPitchDiffMove; i <= initPosNeckPitch, k >= initPosNeckPitch; i++, k--)
     {
       servoNeck.moveJoint(neckPitchLeft, k);
       servoNeck.moveJoint(neckPitchRight, i);
-      internalTimer();
+      internalTimer(intervallTime);
     }
     break;
   case 'i': //skaka på huvudet färdig
-    initPosNeckYaw = 500;
-    stopPosNeckYawLeft = 800;
-    stopPosNeckYawRight = 200;
+    initPosNeckYaw = 520;
+    stopPosNeckYawLeft = 700;
+    stopPosNeckYawRight = 300;
 
     stepFuncXL320(servoNeck, neckYaw, stopPosNeckYawLeft, initPosNeckYaw, 1);
     break;
@@ -841,14 +800,15 @@ void JointNeckClass::RESET(char LastCase)
     initPosNeckPitch = 500;
     posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
     posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
+    intervallTime=10;
 
     // frammåt från neråt tittande
 
-    for (int i = stopPosNeckPitchUp, k = stopPosNeckPitchDown; i >= initPosNeckPitch, k <= initPosNeckPitch; i--, k++)
+    for (int i = stopPosNeckPitchUp, k = stopPosNeckPitchDown; i >= initPosNeckPitch, k <= initPosNeckPitch; i-=2, k+=2)
     {
       servoNeck.moveJoint(neckPitchLeft, k);
       servoNeck.moveJoint(neckPitchRight, i);
-      internalTimer();
+      internalTimer(intervallTime);
     }
 
     break;
@@ -860,6 +820,27 @@ void JointNeckClass::RESET(char LastCase)
     stepFuncXL320(servoNeck, neckYaw, stopPosNeckYaw, initPosNeckYaw, 1);
     break;
   case 'e': //dab
+    stopPosNeckPitchUp = 600;
+    stopPosNeckPitchDown = 400;
+    initPosNeckPitch = 500;
+    posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
+    posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
+
+    initPosNeckYaw = 500;
+    stopPosNeckYaw = 400;
+
+    intervallTime= 10;
+
+    // frammåt från neråt tittande
+
+    for (int i = stopPosNeckPitchUp, k = stopPosNeckPitchDown; i >= initPosNeckPitch, k <= initPosNeckPitch; i--, k++)
+    {
+      servoNeck.moveJoint(neckPitchLeft, k);
+      servoNeck.moveJoint(neckPitchRight, i);
+      internalTimer(intervallTime);
+    }
+
+    stepFuncXL320(servoNeck,neckYaw,stopPosNeckYaw,initPosNeckYaw,1);
 
     break;
   }
@@ -873,13 +854,15 @@ void JointNeckClass::nod() //färdig
   posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
   posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
 
+  intervallTime=10;
+
   // neråt från frammåt tittande
 
   for (int i = initPosNeckPitch, k = initPosNeckPitch; i <= stopPosNeckPitchUp, k >= stopPosNeckPitchDown; i++, k--)
   {
     servoNeck.moveJoint(neckPitchLeft, k);
     servoNeck.moveJoint(neckPitchRight, i);
-    internalTimer();
+    internalTimer(intervallTime);
   }
 
   //Uppåt
@@ -888,7 +871,7 @@ void JointNeckClass::nod() //färdig
   {
     servoNeck.moveJoint(neckPitchLeft, i);
     servoNeck.moveJoint(neckPitchRight, k);
-    internalTimer();
+    internalTimer(intervallTime);
   }
 
   //Neråt
@@ -896,7 +879,7 @@ void JointNeckClass::nod() //färdig
   {
     servoNeck.moveJoint(neckPitchLeft, k);
     servoNeck.moveJoint(neckPitchRight, i);
-    internalTimer();
+    internalTimer(intervallTime);
   }
 
   //Uppåt
@@ -904,7 +887,7 @@ void JointNeckClass::nod() //färdig
   {
     servoNeck.moveJoint(neckPitchLeft, i);
     servoNeck.moveJoint(neckPitchRight, k);
-    internalTimer();
+    internalTimer(intervallTime);
   }
 }
 
@@ -916,13 +899,15 @@ void JointNeckClass::neckPitchDown() //färdig
   posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
   posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
 
+  intervallTime=10;
+
   // neråt från frammåt tittande
 
   for (int i = initPosNeckPitch, k = initPosNeckPitch; i <= stopPosNeckPitchUp, k >= stopPosNeckPitchDown; i++, k--)
   {
     servoNeck.moveJoint(neckPitchLeft, k);
     servoNeck.moveJoint(neckPitchRight, i);
-    internalTimer();
+    internalTimer(intervallTime);
   }
 }
 
@@ -934,12 +919,14 @@ void JointNeckClass::neckPitchUp() //färdig
   posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
   posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
 
+  intervallTime=10;
+
   //Uppåt från titta frammåt
   for (int i = initPosNeckPitch, k = initPosNeckPitch; i <= stopPosNeckPitchUp, k >= stopPosNeckPitchDown; i++, k--)
   {
     servoNeck.moveJoint(neckPitchLeft, i);
     servoNeck.moveJoint(neckPitchRight, k);
-    internalTimer();
+    internalTimer(intervallTime);
   }
 }
 
@@ -960,9 +947,9 @@ void JointNeckClass::neckYawLookRight() //färdig
 
 void JointNeckClass::shake() //färdig
 {
-  initPosNeckYaw = 500;
-  stopPosNeckYawLeft = 800;
-  stopPosNeckYawRight = 200;
+  initPosNeckYaw = 520;
+  stopPosNeckYawLeft = 700;
+  stopPosNeckYawRight = 300;
 
   stepFuncXL320(servoNeck, neckYaw, initPosNeckYaw, stopPosNeckYawLeft, 1);
 
@@ -1026,20 +1013,24 @@ void MultiPartClass::dab()
   initPosNeckYaw = 500;
   stopPosNeckYaw = 400;
 
+  intervallTime= 10;
+
+  stepFunc(shoulderLeftPitch,500,499,1,intervallTimeElbow);
+
   stepFunc(elbowLeft, stopPosArm, initPosArmLeftDab, 4, intervallTimeElbow);
 
   // neråt från frammåt tittande
 
-  for (int i = initPosNeckPitch, k = initPosNeckPitch, j = initPosNeckYaw, l = initPosArmLeftDab; i <= stopPosNeckPitchUp, k >= stopPosNeckPitchDown, j >= stopPosNeckYaw, l >= initPosArm; i++, k--, j--, l -= 4)
+  for (int i = initPosNeckPitch, k = initPosNeckPitch, j = initPosNeckYaw, l = initPosArmLeftDab; i <= stopPosNeckPitchUp, k >= stopPosNeckPitchDown, j >= stopPosNeckYaw, l >= initPosArm; i+=2, k-=2, j-=2, l -= 8)
   {
     servoNeck.moveJoint(neckPitchLeft, k);
     servoNeck.moveJoint(neckPitchRight, i);
-    internalTimer();
+    internalTimer(intervallTime);
 
     servoNeck.moveJoint(neckYaw, j);
-    internalTimer();
+    internalTimer(intervallTime);
     elbowLeft.setPosition(l, intervallTimeElbow);
-    internalTimer();
+    internalTimer(intervallTimeElbow);
   }
 }
 
