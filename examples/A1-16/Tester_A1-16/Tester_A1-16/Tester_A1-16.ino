@@ -118,7 +118,7 @@ void loop()
   //servoRight.moveJoint(8,300);
 
   //servoNeck.moveJoint(16,300);
-  servoNeck.moveJoint(15,300);
+    servoNeck.moveJoint(15,300);
   
   
 }

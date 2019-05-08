@@ -176,6 +176,13 @@ class JointNeckClass{
   void RESET(char LastCase);
   void nod();
   void dab();
+  void neckYawLookLeft();
+  void neckYawLookRight();
+  void neckRollTiltLeft();
+  void neckRollTiltRight();
+  void neckPitchUp();
+  void neckPitchDown();
+  void shake();
 };
 
 extern JointNeckClass jointNeck;
@@ -192,6 +199,7 @@ class MultiPartClass{
   MultiPartClass();
   
   void RESET(char LastCase);
+  void dab();
   
  // void dab();
 };

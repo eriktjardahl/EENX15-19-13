@@ -40,65 +40,85 @@ void selectCommand(char command)
     jointArmRight.close();
     jointArmRight.armMotionSSP();
     jointArmRight.paper();
+    lastCommand='a';
     break;
 
   case 'b': //sax
     jointArmRight.close();
     jointArmRight.armMotionSSP();
     jointArmRight.scissor();
+    lastCommand='b';
     break;
 
   case 'c': // sten
     jointArmRight.close();
     jointArmRight.armMotionSSP();
     jointArmRight.rock();
+    lastCommand='c';
     break;
 
   case 'd': //ok
-    //jointArmRight.perpendicular();
-    //jointArmRight.ShoulderPitchPerp();
+    jointArmRight.perpendicular();
+    jointArmRight.ShoulderPitchPerp();
     jointArmRight.ok();
+    lastCommand='d';
     break;
 
   case 'e': // DAB
-
+    jointArmRight.dab();
+    jointArmRight.ShoulderRollPerp();
+    jointArmLeft.maxElbow();
+    jointArmLeft.ShoulderRollPerp();
+    lastCommand='e';
     break;
 
   case 'f': // fuck
+
     jointArmRight.perpendicular();
     jointArmRight.ShoulderPitchPerp();
     jointArmRight.fack();
+    jointNeck.neckYawLookRight();
+    lastCommand='f';
     break;
 
   case 'g': //test
-    jointNeck.nod();
-    
+    jointNeck.neckPitchDown();
+    lastCommand = 'g';
     break;
 
+  case 'h':
+    jointNeck.nod();
+    lastCommand='h';
+    break;
+
+  case 'i':
+    jointNeck.shake();
+    lastCommand='i';
+    break;
   case 'o':
     jointArmRight.open();
+    lastCommand='o';
     break;
 
   case 'p':
     jointArmRight.close();
+    lastCommand='p';
     break;
 
   case 'r': //reset högerarm
-    lastCommand='a';
     jointArmRight.RESET(lastCommand);
     break;
 
   case 's': //reset nacke
+    
     jointNeck.RESET(lastCommand);
     break;
 
   case 't': //reset vänsterarm
-    lastCommand='g';
     jointArmLeft.RESET(lastCommand);
     break;
 
   case 'R': // Full reset
-  //lastCommand='g';
     jointArmRight.RESET(lastCommand);
     jointNeck.RESET(lastCommand);
     jointArmLeft.RESET(lastCommand);
@@ -108,7 +128,7 @@ void selectCommand(char command)
     //Serial.println("Unknown command or wrong format!");
     break;
   }
-  lastCommand = command;
+  //lastCommand = command;
 }
 
 char readSerial()
