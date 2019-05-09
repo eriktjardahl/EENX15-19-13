@@ -763,6 +763,34 @@ void JointNeckClass::SETUP()
 
   XL320servo3Serial.begin(115200);
   servoNeck.begin(XL320servo3Serial);
+
+  
+  initPosNeckRoll = 500;
+  stopPosNeckRoll = 520;
+
+  initPosNeckYaw = 499;
+  stopPosNeckYaw = 500;
+
+  stepFuncXL320(servoNeck, neckRoll, initPosNeckRoll, stopPosNeckRoll, 1);
+
+  stepFuncXL320(servoNeck, neckYaw, initPosNeckYaw, stopPosNeckYaw, 1);
+  
+  stopPosNeckPitchUp = 600;
+    stopPosNeckPitchDown = 400;
+    initPosNeckPitch = 500;
+    posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
+    posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
+    intervallTime=10;
+
+    // frammåt från neråt tittande
+
+    for (int i = stopPosNeckPitchUp, k = stopPosNeckPitchDown; i >= initPosNeckPitch, k <= initPosNeckPitch; i-=2, k+=2)
+    {
+      servoNeck.moveJoint(neckPitchLeft, k);
+      servoNeck.moveJoint(neckPitchRight, i);
+      internalTimer(intervallTime);
+    }
+
 }
 
 void JointNeckClass::RESET(char LastCase)
@@ -795,22 +823,10 @@ void JointNeckClass::RESET(char LastCase)
     break;
 
   case 'g':
-    stopPosNeckPitchUp = 600;
-    stopPosNeckPitchDown = 400;
-    initPosNeckPitch = 500;
-    posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
-    posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
-    intervallTime=10;
 
-    // frammåt från neråt tittande
-
-    for (int i = stopPosNeckPitchUp, k = stopPosNeckPitchDown; i >= initPosNeckPitch, k <= initPosNeckPitch; i-=2, k+=2)
-    {
-      servoNeck.moveJoint(neckPitchLeft, k);
-      servoNeck.moveJoint(neckPitchRight, i);
-      internalTimer(intervallTime);
-    }
-
+    initPosNeckYaw = 500;
+  stopPosNeckYaw = 200;
+  stepFuncXL320(servoNeck, neckYaw, stopPosNeckYaw, initPosNeckYaw, 1);
     break;
 
   case 'f': //fuck färdig
@@ -959,7 +975,7 @@ void JointNeckClass::shake() //färdig
 
 void JointNeckClass::neckRollTiltLeft() //färdig
 {
-  initPosNeckRoll = 500;
+  initPosNeckRoll = 520;
   stopPosNeckRoll = 200;
 
   stepFuncXL320(servoNeck, neckRoll, initPosNeckRoll, stopPosNeckRoll, 1);
@@ -967,10 +983,29 @@ void JointNeckClass::neckRollTiltLeft() //färdig
 
 void JointNeckClass::neckRollTiltRight() //färdig
 {
-  initPosNeckRoll = 500;
+  initPosNeckRoll = 520;
   stopPosNeckRoll = 800;
 
   stepFuncXL320(servoNeck, neckRoll, initPosNeckRoll, stopPosNeckRoll, 1);
+}
+
+void JointNeckClass::wakeUp()
+{
+  stopPosNeckPitchUp = 600;
+    stopPosNeckPitchDown = 400;
+    initPosNeckPitch = 500;
+    posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
+    posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
+    intervallTime=10;
+
+    // frammåt från neråt tittande
+
+    for (int i = stopPosNeckPitchUp, k = stopPosNeckPitchDown; i >= initPosNeckPitch, k <= initPosNeckPitch; i-=2, k+=2)
+    {
+      servoNeck.moveJoint(neckPitchLeft, k);
+      servoNeck.moveJoint(neckPitchRight, i);
+      internalTimer(intervallTime);
+    }
 }
 
 //-------------------------------------Skriv nackfunktioner över------------------------------------------------//

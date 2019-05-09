@@ -84,7 +84,7 @@ void selectCommand(char command)
     break;
 
   case 'g': //test
-    jointNeck.neckPitchDown();
+    jointNeck.neckYawLookRight();
     lastCommand = 'g';
     break;
 
@@ -97,6 +97,16 @@ void selectCommand(char command)
     jointNeck.shake();
     lastCommand='i';
     break;
+
+  case 'k':
+    jointNeck.neckPitchDown();
+    lastCommand = 'k';
+    break;  
+
+  case 'l':
+    jointNeck.wakeUp();
+    break;
+
   case 'o':
     jointArmRight.open();
     lastCommand='o';

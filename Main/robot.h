@@ -184,6 +184,7 @@ class JointNeckClass{
   void neckPitchUp();
   void neckPitchDown();
   void shake();
+  void wakeUp();
 };
 
 extern JointNeckClass jointNeck;
