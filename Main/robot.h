@@ -3,43 +3,49 @@
 #include <dxl_pro.h>
 #include <XL320.h>
 
-
-#ifndef rxPin15 
-#define rxPin15 15
-#endif
-#ifndef txPin14 
-#define txPin14 14
-#endif
-
+// RX pins
 #ifndef rxPin3 
 #define rxPin3 3
-#endif
-#ifndef txPin4 
-#define txPin4 4
 #endif
 
 #ifndef rxPin6 
 #define rxPin6 6
 #endif
-#ifndef txPin7 
-#define txPin7 7
-#endif
 
 #ifndef rxPin8 
 #define rxPin8 8
 #endif
-#ifndef txPin9 
-#define txPin9 9
+
+#ifndef rxPin15 
+#define rxPin15 15
 #endif
 
 #ifndef rxPin17 
 #define rxPin17 17
 #endif
+
+// TX pins
+#ifndef txPin4 
+#define txPin4 4
+#endif
+
+#ifndef txPin7 
+#define txPin7 7
+#endif
+
+#ifndef txPin9 
+#define txPin9 9
+#endif
+
+#ifndef txPin14 
+#define txPin14 14
+#endif
+
 #ifndef txPin16 
 #define txPin16 16
 #endif
 
-
+// Servo indentifiers
 #ifndef neckYaw 
 #define neckYaw 16
 #endif
@@ -47,7 +53,6 @@
 #ifndef neckPichLeft 
 #define neckPitchLeft 14
 #endif
-
 #ifndef neckPichRight 
 #define neckPitchRight 13
 #endif
@@ -59,40 +64,34 @@
 #ifndef littleFingerLeft
 #define littleFingerLeft 1
 #endif
+#ifndef littleFingerRight
+#define littleFingerRight 8
+#endif
 
 #ifndef ringFingerLeft
 #define ringFingerLeft 2
+#endif
+#ifndef ringFingerRight
+#define ringFingerRight 9
 #endif
 
 #ifndef middleFingerLeft
 #define middleFingerLeft 3
 #endif
-
-#ifndef indexFingerLeft
-#define indexFingerLeft 4
-#endif
-
-
-#ifndef thumbLeft
-#define thumbLeft 5
-#endif
-
-#ifndef littleFingerRight
-#define littleFingerRight 8
-#endif
-
-#ifndef ringFingerRight
-#define ringFingerRight 9
-#endif
-
 #ifndef middleFingerRight
 #define middleFingerRight 10
 #endif
 
+#ifndef indexFingerLeft
+#define indexFingerLeft 4
+#endif
 #ifndef indexFingerRight
 #define indexFingerRight 6
 #endif
 
+#ifndef thumbLeft
+#define thumbLeft 5
+#endif
 #ifndef thumbRight
 #define thumbRight 7
 #endif
@@ -105,10 +104,9 @@
 #define SERVO_COUNT 6
 #endif
 
-void internalTimer(int intervall);
-void stepFunc(XYZrobotServo A1_16_servo, int Start, int Stop, int Inc, int interval);
-void stepFuncXL320(XL320 servo, int joint, int initPos, int stopPos, int Inc);
-
+//int FINGERS_LEFT[] = {littleFingerLeft, ringFingerLeft, middleFingerLeft, indexFingerLeft, thumbLeft};
+//int FINGERS_RIGHT[] = {littleFingerRight, ringFingerRight, middleFingerRight, indexFingerRight, thumbRight};
+//int NECK[] = {neckYaw, neckPitchLeft, neckPitchRight, neckRoll};
 //---------------------------------Arm_RIGHT--------------------------------------------------//
 
  
