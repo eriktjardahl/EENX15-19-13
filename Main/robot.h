@@ -57,7 +57,7 @@
 #endif
 
 #ifndef littleFingerLeft
-#define littleFingerLeft 1
+#define littleFingerLeft 3
 #endif
 
 #ifndef ringFingerLeft
@@ -65,16 +65,15 @@
 #endif
 
 #ifndef middleFingerLeft
-#define middleFingerLeft 3
+#define middleFingerLeft 1
 #endif
 
 #ifndef indexFingerLeft
-#define indexFingerLeft 4
+#define indexFingerLeft 5
 #endif
 
-
 #ifndef thumbLeft
-#define thumbLeft 5
+#define thumbLeft 4
 #endif
 
 #ifndef littleFingerRight

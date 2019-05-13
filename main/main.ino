@@ -109,11 +109,13 @@ void selectCommand(char command)
 
   case 'o':
     jointArmRight.open();
+    //jointArmLeft.open();
     lastCommand='o';
     break;
 
   case 'p':
     jointArmRight.close();
+    //jointArmLeft.close();
     lastCommand='p';
     break;
 
