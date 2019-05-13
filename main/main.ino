@@ -1,6 +1,6 @@
 #include "Arduino.h"
 #include "robot.h"
-#include "servoFunctions.h"
+
 
 //char input = 'e';
 //char LastCase = 'e';
@@ -40,38 +40,38 @@ void selectCommand(char command)
     jointArmRight.close();
     jointArmRight.armMotionSSP();
     jointArmRight.paper();
-    lastCommand = 'a';
+    lastCommand='a';
     break;
 
   case 'b': //sax
     jointArmRight.close();
     jointArmRight.armMotionSSP();
     jointArmRight.scissor();
-    lastCommand = 'b';
+    lastCommand='b';
     break;
 
   case 'c': // sten
     jointArmRight.close();
     jointArmRight.armMotionSSP();
     jointArmRight.rock();
-    lastCommand = 'c';
+    lastCommand='c';
     break;
 
   case 'd': //ok
     jointArmRight.perpendicular();
     jointArmRight.ShoulderPitchPerp();
     jointArmRight.ok();
-    lastCommand = 'd';
+    lastCommand='d';
     break;
 
   case 'e': // DAB
-
+    
     jointArmRight.dab();
     jointArmRight.ShoulderRollPerp();
     jointArmLeft.maxElbow();
     jointArmLeft.ShoulderRollPerp();
     multiPart.dab();
-    lastCommand = 'e';
+    lastCommand='e';
     break;
 
   case 'f': // fuck
@@ -80,7 +80,7 @@ void selectCommand(char command)
     jointArmRight.ShoulderPitchPerp();
     jointArmRight.fack();
     jointNeck.neckYawLookRight();
-    lastCommand = 'f';
+    lastCommand='f';
     break;
 
   case 'g': //test
@@ -90,18 +90,18 @@ void selectCommand(char command)
 
   case 'h':
     jointNeck.nod();
-    lastCommand = 'h';
+    lastCommand='h';
     break;
 
   case 'i':
     jointNeck.shake();
-    lastCommand = 'i';
+    lastCommand='i';
     break;
 
   case 'k':
     jointNeck.neckPitchDown();
     lastCommand = 'k';
-    break;
+    break;  
 
   case 'l':
     jointNeck.wakeUp();
@@ -109,12 +109,12 @@ void selectCommand(char command)
 
   case 'o':
     jointArmRight.open();
-    lastCommand = 'o';
+    lastCommand='o';
     break;
 
   case 'p':
     jointArmRight.close();
-    lastCommand = 'p';
+    lastCommand='p';
     break;
 
   case 'r': //reset högerarm
@@ -122,7 +122,7 @@ void selectCommand(char command)
     break;
 
   case 's': //reset nacke
-
+    
     jointNeck.RESET(lastCommand);
     break;
 
@@ -140,6 +140,7 @@ void selectCommand(char command)
     //Serial.println("Unknown command or wrong format!");
     break;
   }
+  //lastCommand = command;
 }
 
 char readSerial()
