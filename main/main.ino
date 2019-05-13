@@ -69,7 +69,7 @@ void selectCommand(char command)
     jointArmRight.dab();
     jointArmRight.ShoulderRollPerp();
     jointArmLeft.maxElbow();
-    jointArmLeft.ShoulderRollPerp();
+    jointArmLeft.dabPart1();
     multiPart.dab();
     lastCommand='e';
     break;
@@ -117,6 +117,10 @@ void selectCommand(char command)
     lastCommand='p';
     break;
 
+  case 'q': //reset vänsterarm
+    jointArmLeft.RESET(lastCommand);
+    break;
+
   case 'r': //reset högerarm
     jointArmRight.RESET(lastCommand);
     break;
@@ -126,8 +130,29 @@ void selectCommand(char command)
     jointNeck.RESET(lastCommand);
     break;
 
-  case 't': //reset vänsterarm
-    jointArmLeft.RESET(lastCommand);
+  case 't': //titta uppåt
+    jointNeck.neckPitchUp();
+    lastCommand='t';
+    break;
+
+  case 'u':
+    jointNeck.neckYawLookLeft();
+    lastCommand='u';
+    break;
+
+  case 'v':
+    jointNeck.neckYawLookRight();
+    lastCommand='v';
+    break;
+
+  case 'w':
+    jointNeck.neckRollTiltLeft();
+    lastCommand='w';
+   break;
+
+  case 'x':
+    jointNeck.neckRollTiltRight();
+    lastCommand='x';
     break;
 
   case 'R': // Full reset
