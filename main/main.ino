@@ -67,7 +67,6 @@ void selectCommand(char command)
   case 'e': // DAB
     
     jointArmRight.dab();
-    jointArmRight.ShoulderRollPerp();
     jointArmLeft.maxElbow();
     jointArmLeft.dabPart1();
     multiPart.dab();
@@ -84,8 +83,7 @@ void selectCommand(char command)
     break;
 
   case 'g': //test
-    jointNeck.neckYawLookRight();
-    lastCommand = 'g';
+    jointNeck.test();
     break;
 
   case 'h':

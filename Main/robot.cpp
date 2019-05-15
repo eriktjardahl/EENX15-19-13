@@ -267,13 +267,13 @@ void JointArmClassRight::RESET(char LastCase)
   case 'e': // dab,
     intervallTimeElbow = 20;
     initPosArm = 0;
-    stopPosArm = 300;
+    stopPosArm = 400;
 
     initPosShoulderPitch = 500;
     stopPosShoulderPitch = 600;
 
     initPosShoulderRoll = 500;
-    stopPosShoulderRoll = 200;
+    stopPosShoulderRoll = 300;
 
     stepFunc(shoulderRightRoll, stopPosShoulderRoll, initPosShoulderRoll, 4, intervallTimeElbow);
 
@@ -361,7 +361,12 @@ void JointArmClassRight::dab() //LastCase = e
 {
   intervallTimeElbow = 10;
   initPosArm = 0;
-  stopPosArm = 300;
+  stopPosArm = 400;
+
+  intervallTime = 10;
+
+  initPosShoulderRoll = 500;
+  stopPosShoulderRoll = 300;
 
   initPosShoulderPitch = 500;
   stopPosShoulderPitch = 600;
@@ -369,6 +374,10 @@ void JointArmClassRight::dab() //LastCase = e
   stepFunc(elbowRight, initPosArm, stopPosArm, 4, intervallTimeElbow);
 
   stepFunc(shoulderRightPitch, initPosShoulderPitch, stopPosShoulderPitch, 2, intervallTimeElbow);
+
+   
+
+  stepFunc(shoulderRightRoll, initPosShoulderRoll, stopPosShoulderRoll, 4, intervallTime);
   /*
   for (int pos = initPosArm, k = initPosShoulderPitch; pos <= stopPosArm, k <= stopPosShoulderPitch; pos += 4, k += 2)
   {
@@ -772,8 +781,8 @@ void JointNeckClass::SETUP()
   initPosNeckRoll = 500;
   stopPosNeckRoll = 520;
 
-  initPosNeckYaw = 499;
-  stopPosNeckYaw = 500;
+  initPosNeckYaw = 519;
+  stopPosNeckYaw = 520;
 
   stepFuncXL320(servoNeck, neckRoll, initPosNeckRoll, stopPosNeckRoll, 1);
 
@@ -789,6 +798,12 @@ void JointNeckClass::SETUP()
   // frammåt från neråt tittande
 
   //wakeUp();
+}
+
+void JointNeckClass::test()
+{
+  for(int i=10;i<=11;i++)
+  servoNeck.moveJoint(i,random(1,100));
 }
 
 void JointNeckClass::RESET(char LastCase)
@@ -845,7 +860,7 @@ void JointNeckClass::RESET(char LastCase)
     posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
     posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
 
-    initPosNeckYaw = 500;
+    initPosNeckYaw = 520;
     stopPosNeckYaw = 400;
 
     intervallTime = 10;
@@ -900,14 +915,14 @@ void JointNeckClass::RESET(char LastCase)
     break;
   case 'w': //titta fråmmåt från vänster roll färdig
     initPosNeckRoll = 520;
-    stopPosNeckRoll = 200;
+    stopPosNeckRoll = 450;
 
     stepFuncXL320(servoNeck, neckRoll, stopPosNeckRoll, initPosNeckRoll, 1);
     break;
 
   case 'x': //titta frammåt från höger roll färdig
     initPosNeckRoll = 520;
-    stopPosNeckRoll = 800;
+    stopPosNeckRoll = 690;
 
     stepFuncXL320(servoNeck, neckRoll, stopPosNeckRoll, initPosNeckRoll, 1);
     break;
@@ -922,8 +937,8 @@ void JointNeckClass::RESET(char LastCase)
 
 void JointNeckClass::nod() //färdig
 {
-  stopPosNeckPitchUp = 600;
-  stopPosNeckPitchDown = 400;
+  stopPosNeckPitchUp = 580;
+  stopPosNeckPitchDown = 420;
   initPosNeckPitch = 500;
   posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
   posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
@@ -1019,14 +1034,14 @@ void JointNeckClass::neckYawLookLeft() //färdig
   initPosNeckYaw = 500;
   stopPosNeckYaw = 800;
 
-  stepFuncXL320(servoNeck, neckYaw, initPosNeckYaw, stopPosNeckYaw, 1);
+  stepFuncXL320(servoNeck, neckYaw, initPosNeckYaw, stopPosNeckYaw, 2);
 }
 
 void JointNeckClass::neckYawLookRight() //färdig
 {
   initPosNeckYaw = 500;
   stopPosNeckYaw = 200;
-  stepFuncXL320(servoNeck, neckYaw, initPosNeckYaw, stopPosNeckYaw, 1);
+  stepFuncXL320(servoNeck, neckYaw, initPosNeckYaw, stopPosNeckYaw, 2);
 }
 
 void JointNeckClass::shake() //färdig
@@ -1047,7 +1062,7 @@ void JointNeckClass::shake() //färdig
 void JointNeckClass::neckRollTiltLeft() //färdig
 {
   initPosNeckRoll = 520;
-  stopPosNeckRoll = 200;
+  stopPosNeckRoll = 450;
 
   stepFuncXL320(servoNeck, neckRoll, initPosNeckRoll, stopPosNeckRoll, 1);
 }
@@ -1055,7 +1070,7 @@ void JointNeckClass::neckRollTiltLeft() //färdig
 void JointNeckClass::neckRollTiltRight() //färdig
 {
   initPosNeckRoll = 520;
-  stopPosNeckRoll = 800;
+  stopPosNeckRoll = 690;
 
   stepFuncXL320(servoNeck, neckRoll, initPosNeckRoll, stopPosNeckRoll, 1);
 }
@@ -1064,7 +1079,7 @@ void JointNeckClass::wakeUp()
 {
   stopPosNeckPitchUp = 600;
   stopPosNeckPitchDown = 400;
-  initPosNeckPitch = 500;
+  initPosNeckPitch = 520;
   posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
   posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
 
@@ -1117,7 +1132,7 @@ void MultiPartClass::dab()
   posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
   posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
 
-  initPosNeckYaw = 500;
+  initPosNeckYaw = 520;
   stopPosNeckYaw = 400;
 
   intervallTime = 10;
