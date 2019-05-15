@@ -41,7 +41,7 @@
 
 
 #ifndef neckYaw 
-#define neckYaw 16
+#define neckYaw 11
 #endif
 
 #ifndef neckPichLeft 

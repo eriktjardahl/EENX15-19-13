@@ -802,8 +802,8 @@ void JointNeckClass::SETUP()
 
 void JointNeckClass::test() //för att hitta rätt id. för yaw bör den vara över 10
 {
-  for(int i=15;i<=17;i++)
-  servoNeck.moveJoint(i,random(1,100));
+  for(int i=10;i<=11;i++)
+  servoNeck.moveJoint(i,random(499,500));
 }
 
 void JointNeckClass::RESET(char LastCase)
