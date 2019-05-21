@@ -1,5 +1,5 @@
 {
-    "port": "/dev/cu.usbserial-1410",
+    "port": "COM3",
     "board": "arduino:avr:uno",
     "programmer": "AVRISP mkII",
     "sketch": "main.ino"

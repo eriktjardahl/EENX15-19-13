@@ -1,13 +1,14 @@
-#include <dxl_pro.h>
-#include <XL320.h>
 #include <XYZrobotServo.h>
 #include <SoftwareSerial.h>
+#include <dxl_pro.h>
+#include <XL320.h>
 
-#ifndef rxPin1 
-#define rxPin1 1
+
+#ifndef rxPin15 
+#define rxPin15 15
 #endif
-#ifndef txPin2 
-#define txPin2 2
+#ifndef txPin14 
+#define txPin14 14
 #endif
 
 #ifndef rxPin3 
@@ -31,11 +32,11 @@
 #define txPin9 9
 #endif
 
-#ifndef rxPin10 
-#define rxPin10 10
+#ifndef rxPin17 
+#define rxPin17 17
 #endif
-#ifndef txPin11 
-#define txPin11 11
+#ifndef txPin16 
+#define txPin16 16
 #endif
 
 
@@ -43,16 +44,20 @@
 #define neckYaw 11
 #endif
 
-#ifndef neckPich 
-#define neckPitch 12
+#ifndef neckPichLeft 
+#define neckPitchLeft 14
+#endif
+
+#ifndef neckPichRight 
+#define neckPitchRight 13
 #endif
 
 #ifndef neckRoll 
-#define neckRoll 13
+#define neckRoll 15
 #endif
 
 #ifndef littleFingerLeft
-#define littleFingerLeft 1
+#define littleFingerLeft 3
 #endif
 
 #ifndef ringFingerLeft
@@ -60,16 +65,15 @@
 #endif
 
 #ifndef middleFingerLeft
-#define middleFingerLeft 3
+#define middleFingerLeft 1
 #endif
 
 #ifndef indexFingerLeft
-#define indexFingerLeft 4
+#define indexFingerLeft 5
 #endif
 
-
 #ifndef thumbLeft
-#define thumbLeft 5
+#define thumbLeft 4
 #endif
 
 #ifndef littleFingerRight
@@ -100,25 +104,9 @@
 #define SERVO_COUNT 6
 #endif
 
-
-//---------------------------------Communication--------------------------------------------------//
-#ifndef COMMUNICATION_
-#define COMMUNICATION_
-
-class Communication {
-  public:
-  Communication();
-  void readSerial();
-  void showNewData();
-  void sendSerial();
-
-};
-extern Communication communication; 
-
-#endif
-
-//---------------------------------Communication--------------------------------------------------//
-
+void internalTimer(int intervall);
+void stepFunc(XYZrobotServo A1_16_servo, int Start, int Stop, int Inc, int interval);
+void stepFuncXL320(XL320 servo, int joint, int initPos, int stopPos, int Inc);
 
 //---------------------------------Arm_RIGHT--------------------------------------------------//
 
@@ -131,7 +119,7 @@ class JointArmClassRight
   public:
     JointArmClassRight();
     void SETUP();
-    void RESET(/*char LastCase*/);
+    void RESET(char LastCase);
     void scissor();
     void rock();   
     void paper(); 
@@ -143,6 +131,8 @@ class JointArmClassRight
     void close();
     void maxElbow();
     void perpendicular();
+    void ShoulderRollPerp();
+    void ShoulderPitchPerp();
 };
 
 extern JointArmClassRight jointArmRight;
@@ -158,17 +148,15 @@ class JointArmClassLeft
   public:
     JointArmClassLeft();
     void SETUP();
-    void RESET();
-    void rock(); 
-    void scissor(); 
-    void paper();  
-    void armMotionSSP();
-    void dab();
-    void test();
+    void RESET(char LastCase);
+    void dabPart1();
+    void dabPart2();
     void open();
     void close();
-    
-
+    void maxElbow();
+    void perpendicular();
+    void ShoulderRollPerp();
+    void ShoulderPitchPerp();
 };
 
 extern JointArmClassLeft jointArmLeft;
@@ -185,46 +173,39 @@ class JointNeckClass{
   public:
   JointNeckClass();
   void SETUP();
-  void RESET();
+  void RESET(char LastCase);
   void nod();
   void dab();
+  void neckYawLookLeft();
+  void neckYawLookRight();
+  void neckRollTiltLeft();
+  void neckRollTiltRight();
+  void neckPitchUp();
+  void neckPitchDown();
+  void shake();
+  void wakeUp();
+  void test();
 };
 
 extern JointNeckClass jointNeck;
 
 #endif
-/*
+
 //---------------------------------Hand_LEFT--------------------------------------------------//
 
-#ifndef JOINTHANDCLASS_LEFT
-#define JOINTHANDCLASS_LEFT
+#ifndef MULTIPARTCLASS
+#define MULTIPARTCLASS
 
-class JointHandClassLeft {
+class MultiPartClass{
   public:
-    JointHandClassLeft();
-    void SETUP();
-    void SSP();    
-
+  MultiPartClass();
+  
+  void RESET(char LastCase);
+  void dab();
+  
+ // void dab();
 };
 
-extern JointHandClassLeft jointHandLeft;
+extern MultiPartClass multiPart;
 
 #endif
-
-//---------------------------------Hand_RIGHT--------------------------------------------------//
-
-#ifndef JOINTHANDCLASS_RIGHT
-#define JOINTHANDCLASS_RIGHT
-
-class JointHandClassRight {
-  public:
-    JointHandClassRight();
-    void SETUP();
-    void SSP();    
-
-};
-
-extern JointHandClassRight jointHandRight;
-
-#endif
- */

@@ -1,14 +1,15 @@
-
 #include "Arduino.h"
 #include "robot.h"
 
-<<<<<<< HEAD
-char input = 'b';
-//char lastCase ='a';
-=======
-char input = 'f';
-//char LastCase;
->>>>>>> e3ecda4350358b11c49de0e28e62623cec7d9630
+
+//char input = 'e';
+//char LastCase = 'e';
+//int a;
+//char dataString[50];
+char lastCommand;
+
+char incoming;
+boolean newData = false;
 
 void setup()
 {
@@ -16,75 +17,194 @@ void setup()
   jointArmLeft.SETUP();
   jointArmRight.SETUP();
   jointNeck.SETUP();
-  Serial.begin(115200);
+  Serial.begin(9600);
+}
 
-  switch (input)
+void loop()
+{
+  // Read the serial data sent to the arduino and chose command based on var sent
+  readSerial();
+  if (newData)
+  {
+    selectCommand(incoming);
+  }
+}
+
+void selectCommand(char command)
+{
+  //Show what command was sent
+  showNewData();
+  switch (command)
   {
   case 'a': //Påse
     jointArmRight.close();
     jointArmRight.armMotionSSP();
     jointArmRight.paper();
-    //lastCase = input;
+    lastCommand='a';
     break;
 
-<<<<<<< HEAD
-  case 'b': //Reset
-    jointArmLeft.RESET();
-    break;
-=======
   case 'b': //sax
     jointArmRight.close();
     jointArmRight.armMotionSSP();
     jointArmRight.scissor();
->>>>>>> e3ecda4350358b11c49de0e28e62623cec7d9630
-
+    lastCommand='b';
     break;
 
-<<<<<<< HEAD
-  case 'd': // sten
-    
-    jointArmLeft.scissor();
-=======
   case 'c': // sten
     jointArmRight.close();
     jointArmRight.armMotionSSP();
     jointArmRight.rock();
->>>>>>> e3ecda4350358b11c49de0e28e62623cec7d9630
+    lastCommand='c';
     break;
 
   case 'd': //ok
+    jointArmRight.perpendicular();
+    jointArmRight.ShoulderPitchPerp();
     jointArmRight.ok();
+    lastCommand='d';
     break;
 
   case 'e': // DAB
-    jointNeck.dab();
-    jointArmLeft.dab();
+    
     jointArmRight.dab();
+    jointArmLeft.maxElbow();
+    jointArmLeft.dabPart1();
+    multiPart.dab();
+    lastCommand='e';
     break;
 
   case 'f': // fuck
+
+    jointArmRight.perpendicular();
+    jointArmRight.ShoulderPitchPerp();
     jointArmRight.fack();
+    jointNeck.neckYawLookRight();
+    lastCommand='f';
+    break;
+
+  case 'g': //test
+    jointNeck.test();
+    break;
+
+  case 'h':
+    jointNeck.nod();
+    lastCommand='h';
+    break;
+
+  case 'i':
+    jointNeck.shake();
+    lastCommand='i';
+    break;
+
+  case 'k':
+    jointNeck.neckPitchDown();
+    lastCommand = 'k';
+    break;  
+
+  case 'l':
+    jointNeck.wakeUp();
     break;
 
   case 'o':
     jointArmRight.open();
+    //jointArmLeft.open();
+    lastCommand='o';
     break;
 
   case 'p':
     jointArmRight.close();
+    //jointArmLeft.close();
+    lastCommand='p';
+    break;
+
+  case 'q': //reset vänsterarm
+    jointArmLeft.RESET(lastCommand);
     break;
 
   case 'r': //reset högerarm
-    jointArmRight.RESET(/*lastCase*/);
+    jointArmRight.RESET(lastCommand);
     break;
 
   case 's': //reset nacke
-    jointNeck.RESET();
+    
+    jointNeck.RESET(lastCommand);
+    break;
+
+  case 't': //titta uppåt
+    jointNeck.neckPitchUp();
+    lastCommand='t';
+    break;
+
+  case 'u':
+    jointNeck.neckYawLookLeft();
+    lastCommand='u';
+    break;
+
+  case 'v':
+    jointNeck.neckYawLookRight();
+    lastCommand='v';
+    break;
+
+  case 'w':
+    jointNeck.neckRollTiltLeft();
+    lastCommand='w';
+   break;
+
+  case 'x':
+    jointNeck.neckRollTiltRight();
+    lastCommand='x';
+    break;
+
+  case 'R': // Full reset
+    jointArmRight.RESET(lastCommand);
+    jointNeck.RESET(lastCommand);
+    jointArmLeft.RESET(lastCommand);
+    break;
+
+  default: // If unknown command or not a character print the following message
+    //Serial.println("Unknown command or wrong format!");
     break;
   }
-  
+  //lastCommand = command;
 }
 
-void loop()
+char readSerial()
 {
+  // Send data only when you receive data:
+  while (Serial.available() > 0)
+  {
+    // Read the incoming byte and write to our variable incoming
+    incoming = Serial.read();
+    // Flag newData as true to enable showNewData to run
+    newData = true;
+  }
+  return incoming;
 }
+
+void showNewData()
+{
+  // Only run if there is new data in the Serial stream.
+  if (newData == true)
+  {
+    // Print current value sent from the raspberry pi
+    //Serial.print("This just in ... ");
+    Serial.println(incoming);
+    newData = false;
+  }
+  delay(10);
+}
+/*
+void sendSerial()
+{
+  a = 0;
+  dataString[50] = {0};
+  // Increment a every loop
+  a++;
+  // Convert a value to hexadecimal
+  sprintf(dataString, "%02X", a);
+  // Send the data to the serial stream
+  Serial.println(dataString);
+  // Delay before this method exits and can be ran again
+  //delay(1000);
+}
+*/
