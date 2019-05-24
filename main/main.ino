@@ -83,7 +83,7 @@ void selectCommand(char command)
     break;
 
   case 'g': //test
-    jointNeck.test();
+    jointArmLeft.test();
     break;
 
   case 'h':
@@ -91,7 +91,7 @@ void selectCommand(char command)
     lastCommand='h';
     break;
 
-  case 'i':
+  case 'i': 
     jointNeck.shake();
     lastCommand='i';
     break;
@@ -107,13 +107,13 @@ void selectCommand(char command)
 
   case 'o':
     jointArmRight.open();
-    //jointArmLeft.open();
+    jointArmLeft.open();
     lastCommand='o';
     break;
 
   case 'p':
     jointArmRight.close();
-    //jointArmLeft.close();
+    jointArmLeft.close();
     lastCommand='p';
     break;
 

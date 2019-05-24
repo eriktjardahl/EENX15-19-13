@@ -69,15 +69,15 @@
 #endif
 
 #ifndef indexFingerLeft
-#define indexFingerLeft 5
+#define indexFingerLeft 4
 #endif
 
 #ifndef thumbLeft
-#define thumbLeft 4
+#define thumbLeft 5
 #endif
 
 #ifndef littleFingerRight
-#define littleFingerRight 8
+#define littleFingerRight 10
 #endif
 
 #ifndef ringFingerRight
@@ -85,7 +85,7 @@
 #endif
 
 #ifndef middleFingerRight
-#define middleFingerRight 10
+#define middleFingerRight 8
 #endif
 
 #ifndef indexFingerRight
@@ -133,6 +133,7 @@ class JointArmClassRight
     void perpendicular();
     void ShoulderRollPerp();
     void ShoulderPitchPerp();
+    void test();
 };
 
 extern JointArmClassRight jointArmRight;
@@ -157,6 +158,7 @@ class JointArmClassLeft
     void perpendicular();
     void ShoulderRollPerp();
     void ShoulderPitchPerp();
+    void test();
 };
 
 extern JointArmClassLeft jointArmLeft;

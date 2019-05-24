@@ -454,8 +454,6 @@ void JointArmClassRight::scissor() //lastCase = b färdig
     internalTimer(intervallTime);
 
     servoRight.moveJoint(indexFingerRight, k);
-    internalTimer(intervallTime);
-
     servoRight.moveJoint(middleFingerRight, k);
     internalTimer(intervallTime);
   }
@@ -514,7 +512,7 @@ void JointArmClassRight::ok() // färdig lastCase = d
 
 void JointArmClassRight::open() //färdig lastCase = o
 {
-  stopPosHand = 800;
+  stopPosHand = 750;
 
   intervallTime = 10;
   initPosHand = 0;
@@ -566,7 +564,7 @@ void JointArmClassRight::fack() //färdig lastCase = f
 
 void JointArmClassRight::close() //färdig lastCase = p
 {
-  stopPosHand = 900;
+  stopPosHand = 750;
 
   intervallTime = 10;
   initPosHand = 0;
@@ -588,6 +586,16 @@ void JointArmClassRight::close() //färdig lastCase = p
     servoRight.moveJoint(indexFingerRight, i);
     internalTimer(intervallTime);
   }
+}
+
+void JointArmClassRight::test()
+{
+  stopPosHand = 750;
+
+  intervallTime = 10;
+  initPosHand = 0;
+
+  servoRight.moveJoint(thumbRight, stopPosHand);
 }
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
@@ -709,7 +717,7 @@ void JointArmClassLeft::ShoulderRollPerp() //färdig
 
 void JointArmClassLeft::open() //skriven, ej testad. LastCase = o.
 {
-  stopPosHand = 800;
+  stopPosHand = 750;
 
   intervallTime = 10;
   initPosHand = 0;
@@ -736,7 +744,7 @@ void JointArmClassLeft::open() //skriven, ej testad. LastCase = o.
 
 void JointArmClassLeft::close() //skriven, ej testad. lastCase = p.
 {
-  stopPosHand = 800;
+  stopPosHand = 750;
 
   intervallTime = 10;
   initPosHand = 0;
@@ -744,21 +752,35 @@ void JointArmClassLeft::close() //skriven, ej testad. lastCase = p.
   for (int i = initPosHand; i <= stopPosHand; i += 100)
   {
     servoLeft.moveJoint(middleFingerLeft, i);
-    internalTimer(intervallTime);
 
     servoLeft.moveJoint(ringFingerLeft, i);
-    internalTimer(intervallTime);
+    
 
     servoLeft.moveJoint(littleFingerLeft, i);
-    internalTimer(intervallTime);
+    
 
     servoLeft.moveJoint(thumbLeft, i);
-    internalTimer(intervallTime);
-
-    servoLeft.moveJoint(indexFingerRight, i);
+    
+    servoLeft.moveJoint(indexFingerLeft, i);
     internalTimer(intervallTime);
   }
 }
+
+void JointArmClassLeft::test()
+{
+  stopPosHand = 750;
+
+  intervallTime = 10;
+  initPosHand = 0;
+
+  
+    servoLeft.moveJoint(4, 750);
+  
+  
+  
+  //servoLeft.moveJoint(indexFingerRight, 750);
+}
+
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
 
