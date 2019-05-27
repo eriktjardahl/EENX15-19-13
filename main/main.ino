@@ -155,10 +155,16 @@ void selectCommand(char command)
     lastCommand='x';
     break;
 
+  case 'y':
+    jointNeck.wakeDown();
+    lastCommand='y';
+    break;
+
   case 'R': // Full reset
     jointArmRight.RESET(lastCommand);
-    jointNeck.RESET(lastCommand);
+    
     jointArmLeft.RESET(lastCommand);
+    jointNeck.RESET(lastCommand);
     break;
 
   default: // If unknown command or not a character print the following message

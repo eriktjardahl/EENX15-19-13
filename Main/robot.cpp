@@ -446,9 +446,9 @@ void JointArmClassRight::scissor() //lastCase = b färdig
   initPosSSP = 300;
   intervallTime = 10;
 
-  stepFunc(elbowRight, stopPosArm, initPosSSP + 32, 4, intervallTimeElbow); //gå ner så det är 8 varv kvar.
+  stepFunc(elbowRight, stopPosArm, initPosSSP + 64, 4, intervallTimeElbow); //gå ner så det är 8 varv kvar.
 
-  for (int k = stopPosHand, pos = initPosSSP + 32; k >= initPosHand, pos >= initPosSSP; k -= 100, pos -= 4) //När det är 8 varv kvar så börjar handen röra på sig
+  for (int k = stopPosHand, pos = initPosSSP + 64; k >= initPosHand, pos >= initPosSSP; k -= 50, pos -= 4) //När det är 8 varv kvar så börjar handen röra på sig
   {
     elbowRight.setPosition(pos, intervallTimeElbow);
     internalTimer(intervallTime);
@@ -470,9 +470,9 @@ void JointArmClassRight::paper() // lastCase = a färdig
 
   intervallTime = 10;
 
-  stepFunc(elbowRight, stopPosArm, initPosSSP + 32, 4, intervallTimeElbow); //gå ner så det är 8 varv kvar.
+  stepFunc(elbowRight, stopPosArm, initPosSSP + 64, 4, intervallTimeElbow); //gå ner så det är 8 varv kvar.
 
-  for (int i = stopPosHand, pos = initPosSSP + 32; i >= initPosHand, pos >= initPosSSP; i -= 100, pos -= 4) //när det bara är 8 loopar kvar börjar handen röra på sig
+  for (int i = stopPosHand, pos = initPosSSP + 64; i >= initPosHand, pos >= initPosSSP; i -= 50, pos -= 4) //när det bara är 8 loopar kvar börjar handen röra på sig
   {
     elbowRight.setPosition(pos, intervallTimeElbow);
     internalTimer(intervallTimeElbow);
@@ -752,14 +752,20 @@ void JointArmClassLeft::close() //skriven, ej testad. lastCase = p.
   for (int i = initPosHand; i <= stopPosHand; i += 100)
   {
     servoLeft.moveJoint(middleFingerLeft, i);
+    internalTimer(intervallTime);
+
 
     servoLeft.moveJoint(ringFingerLeft, i);
-    
+    internalTimer(intervallTime);
+
 
     servoLeft.moveJoint(littleFingerLeft, i);
-    
+    internalTimer(intervallTime);
+
 
     servoLeft.moveJoint(thumbLeft, i);
+    internalTimer(intervallTime);
+
     
     servoLeft.moveJoint(indexFingerLeft, i);
     internalTimer(intervallTime);
@@ -883,7 +889,7 @@ void JointNeckClass::RESET(char LastCase)
     posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
 
     initPosNeckYaw = 520;
-    stopPosNeckYaw = 400;
+    stopPosNeckYaw = 350;
 
     intervallTime = 10;
 
@@ -1047,7 +1053,6 @@ void JointNeckClass::neckPitchUp() //färdig
     servoNeck.moveJoint(neckPitchRight, k);
     internalTimer(intervallTime);
   }
-
  
 }
 
@@ -1117,6 +1122,27 @@ void JointNeckClass::wakeUp()
   }
 }
 
+void JointNeckClass::wakeDown()
+{
+  stopPosNeckPitchUp = 600;
+    stopPosNeckPitchDown = 400;
+    initPosNeckPitch = 500;
+    posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
+    posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
+
+    intervallTime = 10;
+
+    //Frammåt från titta uppåt
+    
+    for (int i = stopPosNeckPitchUp, k = stopPosNeckPitchDown; i >= initPosNeckPitch, k <= initPosNeckPitch; i--, k++)
+    {
+      servoNeck.moveJoint(neckPitchLeft, i);
+      servoNeck.moveJoint(neckPitchRight, k);
+      internalTimer(intervallTime);
+    }
+    
+}
+
 //-------------------------------------Skriv nackfunktioner över------------------------------------------------//
 
 JointNeckClass jointNeck = JointNeckClass();
@@ -1155,7 +1181,7 @@ void MultiPartClass::dab()
   posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
 
   initPosNeckYaw = 520;
-  stopPosNeckYaw = 400;
+  stopPosNeckYaw = 350;
 
   intervallTime = 10;
 
@@ -1165,7 +1191,7 @@ void MultiPartClass::dab()
 
   // neråt från frammåt tittande
 
-  for (int i = initPosNeckPitch, k = initPosNeckPitch, j = initPosNeckYaw, l = initPosArmLeftDab; i <= stopPosNeckPitchUp, k >= stopPosNeckPitchDown, j >= stopPosNeckYaw, l >= initPosArm; i += 2, k -= 2, j -= 2, l -= 8)
+  for (int i = initPosNeckPitch, k = initPosNeckPitch, j = initPosNeckYaw, l = initPosArmLeftDab; i <= stopPosNeckPitchUp, k >= stopPosNeckPitchDown, j >= stopPosNeckYaw, l >= initPosArm; i += 2, k -= 2, j -= 3, l -= 8)
   {
     servoNeck.moveJoint(neckPitchLeft, k);
     servoNeck.moveJoint(neckPitchRight, i);
