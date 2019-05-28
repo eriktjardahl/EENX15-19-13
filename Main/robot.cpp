@@ -11,11 +11,12 @@ SoftwareSerial XL320servo3Serial = SoftwareSerial(rxPin8, txPin9);  //Nacke
 
 XYZrobotServo elbowRight(A116servoSerial, 1);
 XYZrobotServo shoulderRightPitch(A116servoSerial, 4);
-//XYZrobotServo servo3(A116servoSerial,3);
 XYZrobotServo shoulderRightRoll(A116servoSerial, 5);
 XYZrobotServo elbowLeft(A116servo2Serial, 2);
 XYZrobotServo shoulderLeftPitch(A116servo2Serial, 6);
 XYZrobotServo shoulderLeftRoll(A116servo2Serial, 7);
+
+//--------------------------------------Declaration of init variables---------------------------------------//
 
 // Declaration of init variables
 int initPosHand;
@@ -30,7 +31,8 @@ int initPosNeckRoll;
 int initPosShoulderRoll;
 int initPosShoulderPitch;
 
-// Declaration of stop position variables
+//----------------------------------Declaration of stop position variables-----------------------------------//
+
 int stopPosArm;
 int stopPosHand;
 
@@ -44,40 +46,19 @@ int stopPosNeckRoll;
 int stopPosShoulderRoll;
 int stopPosShoulderPitch;
 
+//-----------------------------------------------------------------------------------------------------------//
+
 int posNeckPitchDiffInit;
 int posNeckPitchDiffMove;
 int posShoulderPitchDiff;
+
+//---------------------------------Declaration of XL320 servo-motor objects----------------------------------//
+
 XL320 servoLeft;
-/*
-  Vänster hand alla öppna vid position 0. alla stängda vid 800 typ
-  lillfinger .   ID:1
-  ringfinger     ID:2
-  långfinger    ID:3
-  pekfinger     ID:4
-  tummer        ID:5
- */
-
 XL320 servoRight;
-/*
-  Höger hand alla öppna vid position 0. alla stängda vid 800 typ
-  lillfinger .   ID:6
-  ringfinger     ID:7
-  långfinger    ID:8
-  pekfinger     ID:9
-  tummer        ID:10
- */
-
 XL320 servoNeck;
-/*
-  Id 11-14 Nack rotationer. 
-  Yaw tittar frammåt vid position 500
-  Pitch vänster och höger tittar frammåt vid position 500
-  Pich vänster mer än 500 går uppåt, mindre än 500 går neråt
-  Pitch höger åker tvärtemot vänster
-  Roll är rak vid position 520
- */
 
-
+//-----------------------------------------------------------------------------------------------------------//
 
 char rgb[] = "rgbypcwo";
 
@@ -87,22 +68,30 @@ int intervallTime;
 int intervallTimeElbow;
 int intervallTimeShoulder;
 
+// Internal timer used to ensure the physical movement finishes before sending the next command
 void internalTimer(int intervall)
 {
-  revMillis = millis();
+  revMillis = millis(); // Set revMillis and currentMillis to the current value returned from the millis() function
   currentMillis = millis();
+  /*
+    Compare the value of currentMillis subtracted with revMillis and 
+    continuse the loop as long as this value is LEQ than our input intervall
+  */
   while (currentMillis - revMillis <= intervall)
   {
-    currentMillis = millis();
+    currentMillis = millis(); // for each loop update the value of currentMillis with that from the millis() function
   }
 }
 
+// Function used to control an A1-16 servos motion from a start position to an end position
 void stepFunc(XYZrobotServo A1_16_servo, int Start, int Stop, int Inc, int interval)
 {
+  // Check if the motion is meant to be a positive or negative rotation
   if (Start < Stop)
   {
     for (int pos = Start; pos <= Stop; pos += Inc)
     {
+      // Tell the servo to move our input step amount for each microstep and wait for the motion to complete
       A1_16_servo.setPosition(pos, interval);
       internalTimer(interval);
     }
@@ -111,29 +100,31 @@ void stepFunc(XYZrobotServo A1_16_servo, int Start, int Stop, int Inc, int inter
   {
     for (int pos = Start; pos >= Stop; pos -= Inc)
     {
+      // Tell the servo to move our input step amount for each microstep and wait for the motion to complete
       A1_16_servo.setPosition(pos, interval);
       internalTimer(interval);
     }
   }
 }
 
+// Function used to control an XL-320 servos motion from a start position to an end position
 void stepFuncXL320(XL320 servo, int joint, int initPos, int stopPos, int Inc)
 {
   if (initPos < stopPos)
   {
+    // Tell the servo to move our input step amount for each microstep and wait for the motion to complete
     for (int i = initPos; i <= stopPos; i += Inc)
     {
       servo.moveJoint(joint, i);
-
       internalTimer(10);
     }
   }
   else
   {
+    // Tell the servo to move our input step amount for each microstep and wait for the motion to complete
     for (int i = initPos; i >= stopPos; i -= Inc)
     {
       servo.moveJoint(joint, i);
-
       internalTimer(10);
     }
   }
@@ -153,9 +144,11 @@ void JointArmClassRight::SETUP()
   pinMode(rxPin15, INPUT);
   pinMode(txPin14, OUTPUT);
 
-  A116servo2Serial.begin(115200);  // höger arm
-  XL320servo2Serial.begin(115200); // höger hand
+  // Set the baud-rate of the arm and finger servos
+  A116servo2Serial.begin(115200);  // Right arm
+  XL320servo2Serial.begin(115200); // Right hand
 
+  // Set the speed of each finger servo
   servoRight.begin(XL320servo2Serial);
   servoRight.setJointSpeed(littleFingerRight, 1023);
   servoRight.setJointSpeed(ringFingerRight, 1023);
@@ -169,12 +162,11 @@ void JointArmClassRight::RESET(char LastCase)
 
   switch (LastCase)
   {
-  case 'a': //påse färdig
+  case 'a': // påse färdig
     intervallTimeElbow = 10;
     initPosSSP = 300;
     initPosArm = 0;
     stepFunc(elbowRight, initPosSSP, initPosArm, 1, intervallTimeElbow);
-
     break;
 
   case 'b': //sax färdig
@@ -243,14 +235,11 @@ void JointArmClassRight::RESET(char LastCase)
     initPosArm = 0;
     stopPosArm = 350;
     intervallTimeElbow = 50;
-
     initPosShoulderPitch = 500;
     stopPosShoulderPitch = 800;
-
     intervallTime = 10;
 
     stepFunc(shoulderRightPitch, stopPosShoulderPitch, initPosShoulderPitch, 4, intervallTimeElbow);
-
     stepFunc(elbowRight, stopPosArm, initPosArm, 4, intervallTimeElbow);
 
     stopPosHand = 800;
@@ -264,39 +253,31 @@ void JointArmClassRight::RESET(char LastCase)
       internalTimer(intervallTime);
     }
     break;
+
   case 'e': // dab,
     intervallTimeElbow = 20;
     initPosArm = 0;
     stopPosArm = 400;
-
     initPosShoulderPitch = 500;
     stopPosShoulderPitch = 600;
-
     initPosShoulderRoll = 500;
     stopPosShoulderRoll = 300;
 
     stepFunc(shoulderRightRoll, stopPosShoulderRoll, initPosShoulderRoll, 4, intervallTimeElbow);
-
     stepFunc(shoulderRightPitch, stopPosShoulderPitch, initPosShoulderPitch, 2, intervallTimeElbow);
-
     stepFunc(elbowRight, stopPosArm, initPosArm, 4, intervallTimeElbow);
-
     break;
   case 'f': //fack färdig
-
     stopPosHand = 800;
     initPosHand = 0;
     intervallTime = 10;
-
     initPosArm = 0;
     stopPosArm = 350;
     intervallTimeElbow = 50;
-
     initPosShoulderPitch = 500;
     stopPosShoulderPitch = 800;
 
     stepFunc(shoulderRightPitch, stopPosShoulderPitch, initPosShoulderPitch, 4, intervallTimeElbow);
-
     stepFunc(elbowRight, stopPosArm, initPosArm, 4, intervallTimeElbow);
 
     for (int i = stopPosHand; i >= initPosHand; i -= 100) //knytnäven
@@ -324,14 +305,11 @@ void JointArmClassRight::RESET(char LastCase)
     initPosArm = 0;
     stopPosArm = 450;
     intervallTimeElbow = 50;
-
     initPosShoulderRoll = 500;
     stopPosShoulderRoll = 200;
 
     stepFunc(shoulderRightRoll, stopPosShoulderRoll, initPosShoulderRoll, 1, intervallTimeElbow);
-
     stepFunc(elbowRight, stopPosArm, initPosArm, 4, intervallTimeElbow);
-
     break;
   }
 }
@@ -344,17 +322,10 @@ void JointArmClassRight::armMotionSSP() //färdig
   intervallTimeElbow = 10;
 
   stepFunc(elbowRight, initPosArm, stopPosArm, 4, intervallTimeElbow);
-
   stepFunc(elbowRight, stopPosArm, initPosSSP, 4, intervallTimeElbow);
-
   stepFunc(elbowRight, initPosSSP, stopPosArm, 4, intervallTimeElbow);
-
   stepFunc(elbowRight, stopPosArm, initPosSSP, 4, intervallTimeElbow);
-
   stepFunc(elbowRight, initPosSSP, stopPosArm, 4, intervallTimeElbow);
-
-  //}
-  //}
 }
 
 void JointArmClassRight::dab() //LastCase = e
@@ -362,32 +333,15 @@ void JointArmClassRight::dab() //LastCase = e
   intervallTimeElbow = 10;
   initPosArm = 0;
   stopPosArm = 400;
-
   intervallTime = 10;
-
   initPosShoulderRoll = 500;
   stopPosShoulderRoll = 300;
-
   initPosShoulderPitch = 500;
   stopPosShoulderPitch = 600;
 
   stepFunc(elbowRight, initPosArm, stopPosArm, 4, intervallTimeElbow);
-
   stepFunc(shoulderRightPitch, initPosShoulderPitch, stopPosShoulderPitch, 2, intervallTimeElbow);
-
-   
-
   stepFunc(shoulderRightRoll, initPosShoulderRoll, stopPosShoulderRoll, 4, intervallTime);
-  /*
-  for (int pos = initPosArm, k = initPosShoulderPitch; pos <= stopPosArm, k <= stopPosShoulderPitch; pos += 4, k += 2)
-  {
-    elbowRight.setPosition(pos, intervallTimeElbow);
-    internalTimer();
-
-    shoulderRightPitch.setPosition(k, intervallTimeElbow);
-    internalTimer();
-  }
-  */
 }
 
 void JointArmClassRight::maxElbow() //färdig
@@ -420,7 +374,6 @@ void JointArmClassRight::ShoulderPitchPerp() //färdig
 void JointArmClassRight::ShoulderRollPerp() //färdig
 {
   intervallTime = 10;
-
   initPosShoulderRoll = 500;
   stopPosShoulderRoll = 200;
 
@@ -429,7 +382,6 @@ void JointArmClassRight::ShoulderRollPerp() //färdig
 //---------------------------------HandRight-------------------------------------------------//
 void JointArmClassRight::rock() // lastCase = c färdig
 {
-
   intervallTimeElbow = 10;
   stopPosArm = 500;
   initPosSSP = 300;
@@ -440,7 +392,6 @@ void JointArmClassRight::scissor() //lastCase = b färdig
 {
   stopPosHand = 800;
   initPosHand = 0;
-
   intervallTimeElbow = 10;
   stopPosArm = 500;
   initPosSSP = 300;
@@ -463,11 +414,9 @@ void JointArmClassRight::paper() // lastCase = a färdig
 {
   stopPosHand = 800;
   initPosHand = 0;
-
   intervallTimeElbow = 10;
   stopPosArm = 500;
   initPosSSP = 300;
-
   intervallTime = 10;
 
   stepFunc(elbowRight, stopPosArm, initPosSSP + 64, 4, intervallTimeElbow); //gå ner så det är 8 varv kvar.
@@ -500,7 +449,6 @@ void JointArmClassRight::ok() // färdig lastCase = d
   initPosHand = 0;
   initPosArm = 0;
   stopPosArm = 300;
-
   intervallTime = 10;
 
   for (int i = initPosHand; i <= stopPosHand; i += 100) //knytnäven
@@ -513,7 +461,6 @@ void JointArmClassRight::ok() // färdig lastCase = d
 void JointArmClassRight::open() //färdig lastCase = o
 {
   stopPosHand = 750;
-
   intervallTime = 10;
   initPosHand = 0;
 
@@ -540,10 +487,8 @@ void JointArmClassRight::open() //färdig lastCase = o
 
 void JointArmClassRight::fack() //färdig lastCase = f
 {
-
   stopPosHand = 800;
   initPosHand = 0;
-
   intervallTime = 10;
 
   for (int i = initPosHand; i <= stopPosHand; i += 100) //knytnäven
@@ -565,7 +510,6 @@ void JointArmClassRight::fack() //färdig lastCase = f
 void JointArmClassRight::close() //färdig lastCase = p
 {
   stopPosHand = 750;
-
   intervallTime = 10;
   initPosHand = 0;
 
@@ -591,7 +535,6 @@ void JointArmClassRight::close() //färdig lastCase = p
 void JointArmClassRight::test()
 {
   stopPosHand = 750;
-
   intervallTime = 10;
   initPosHand = 0;
 
@@ -631,29 +574,22 @@ void JointArmClassLeft::RESET(char LastCase)
   switch (LastCase)
   {
   case 'e': //
-
     intervallTimeElbow = 20;
-
     initPosShoulderRoll = 500;
     stopPosShoulderRoll = 950;
-
     initPosArm = 0;
     stopPosArm = 450;
 
     stepFunc(shoulderLeftPitch, 499, 500, 1, intervallTimeElbow);
-
     maxElbow();
-
     stepFunc(shoulderLeftRoll, stopPosShoulderRoll, initPosShoulderRoll, 4, intervallTimeElbow);
-
     stepFunc(elbowLeft, stopPosArm, initPosArm, 4, intervallTimeElbow);
-
     break;
+
   case 'g': //
     initPosArm = 0;
     stopPosArm = 450;
     intervallTimeElbow = 50;
-
     stepFunc(elbowLeft, stopPosArm, initPosArm, 4, intervallTimeElbow);
     break;
   }
@@ -663,7 +599,6 @@ void JointArmClassLeft::dabPart1()
 {
   intervallTime = 10;
   intervallTimeElbow = 10;
-
   initPosShoulderRoll = 500;
   stopPosShoulderRoll = 950;
 
@@ -706,7 +641,6 @@ void JointArmClassLeft::ShoulderRollPerp() //färdig
 {
   intervallTime = 10;
   intervallTimeElbow = 10;
-
   initPosShoulderRoll = 500;
   stopPosShoulderRoll = 850;
 
@@ -718,7 +652,6 @@ void JointArmClassLeft::ShoulderRollPerp() //färdig
 void JointArmClassLeft::open() //skriven, ej testad. LastCase = o.
 {
   stopPosHand = 750;
-
   intervallTime = 10;
   initPosHand = 0;
 
@@ -745,7 +678,6 @@ void JointArmClassLeft::open() //skriven, ej testad. LastCase = o.
 void JointArmClassLeft::close() //skriven, ej testad. lastCase = p.
 {
   stopPosHand = 750;
-
   intervallTime = 10;
   initPosHand = 0;
 
@@ -754,19 +686,15 @@ void JointArmClassLeft::close() //skriven, ej testad. lastCase = p.
     servoLeft.moveJoint(middleFingerLeft, i);
     internalTimer(intervallTime);
 
-
     servoLeft.moveJoint(ringFingerLeft, i);
     internalTimer(intervallTime);
-
 
     servoLeft.moveJoint(littleFingerLeft, i);
     internalTimer(intervallTime);
 
-
     servoLeft.moveJoint(thumbLeft, i);
     internalTimer(intervallTime);
 
-    
     servoLeft.moveJoint(indexFingerLeft, i);
     internalTimer(intervallTime);
   }
@@ -775,18 +703,11 @@ void JointArmClassLeft::close() //skriven, ej testad. lastCase = p.
 void JointArmClassLeft::test()
 {
   stopPosHand = 750;
-
   intervallTime = 10;
   initPosHand = 0;
 
-  
-    servoLeft.moveJoint(4, 750);
-  
-  
-  
-  //servoLeft.moveJoint(indexFingerRight, 750);
+  servoLeft.moveJoint(4, 750);
 }
-
 
 //-------------------------------------Skriv armfunktioner över------------------------------------------------//
 
@@ -807,31 +728,24 @@ void JointNeckClass::SETUP()
   servoNeck.begin(XL320servo3Serial);
 
   initPosNeckRoll = 500;
-  stopPosNeckRoll = 520;
-
+  initPosNeckPitch = 500;
   initPosNeckYaw = 519;
+  stopPosNeckRoll = 520;
   stopPosNeckYaw = 520;
-
-  stepFuncXL320(servoNeck, neckRoll, initPosNeckRoll, stopPosNeckRoll, 1);
-
-  stepFuncXL320(servoNeck, neckYaw, initPosNeckYaw, stopPosNeckYaw, 1);
-
   stopPosNeckPitchUp = 600;
   stopPosNeckPitchDown = 400;
-  initPosNeckPitch = 500;
   posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
   posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
   intervallTime = 10;
 
-  // frammåt från neråt tittande
-
-  //wakeUp();
+  stepFuncXL320(servoNeck, neckRoll, initPosNeckRoll, stopPosNeckRoll, 1);
+  stepFuncXL320(servoNeck, neckYaw, initPosNeckYaw, stopPosNeckYaw, 1);
 }
 
 void JointNeckClass::test() //för att hitta rätt id. för yaw bör den vara över 10
 {
-  for(int i=10;i<=11;i++)
-  servoNeck.moveJoint(i,random(499,500));
+  for (int i = 10; i <= 11; i++)
+    servoNeck.moveJoint(i, random(499, 500));
 }
 
 void JointNeckClass::RESET(char LastCase)
@@ -858,6 +772,7 @@ void JointNeckClass::RESET(char LastCase)
     }
     */
     break;
+
   case 'i': //skaka på huvudet färdig
     /*
     initPosNeckYaw = 520;
@@ -869,7 +784,6 @@ void JointNeckClass::RESET(char LastCase)
     break;
 
   case 'g':
-
     initPosNeckYaw = 500;
     stopPosNeckYaw = 200;
     stepFuncXL320(servoNeck, neckYaw, stopPosNeckYaw, initPosNeckYaw, 1);
@@ -881,20 +795,18 @@ void JointNeckClass::RESET(char LastCase)
 
     stepFuncXL320(servoNeck, neckYaw, stopPosNeckYaw, initPosNeckYaw, 1);
     break;
+
   case 'e': //dab färdig
+    initPosNeckPitch = 500;
+    initPosNeckYaw = 520;
     stopPosNeckPitchUp = 600;
     stopPosNeckPitchDown = 400;
-    initPosNeckPitch = 500;
+    stopPosNeckYaw = 350;
     posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
     posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
-
-    initPosNeckYaw = 520;
-    stopPosNeckYaw = 350;
-
     intervallTime = 10;
 
     // frammåt från neråt tittande
-
     for (int i = stopPosNeckPitchUp, k = stopPosNeckPitchDown; i >= initPosNeckPitch, k <= initPosNeckPitch; i--, k++)
     {
       servoNeck.moveJoint(neckPitchLeft, k);
@@ -903,7 +815,6 @@ void JointNeckClass::RESET(char LastCase)
     }
 
     stepFuncXL320(servoNeck, neckYaw, stopPosNeckYaw, initPosNeckYaw, 1);
-
     break;
 
   case 'k': //titta frammåt från neråt färdig
@@ -916,11 +827,9 @@ void JointNeckClass::RESET(char LastCase)
     initPosNeckPitch = 500;
     posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
     posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
-
     intervallTime = 10;
 
     //Frammåt från titta uppåt
-    
     for (int i = stopPosNeckPitchUp, k = stopPosNeckPitchDown; i >= initPosNeckPitch, k <= initPosNeckPitch; i--, k++)
     {
       servoNeck.moveJoint(neckPitchLeft, i);
@@ -935,12 +844,14 @@ void JointNeckClass::RESET(char LastCase)
 
     stepFuncXL320(servoNeck, neckYaw, stopPosNeckYaw, initPosNeckYaw, 1);
     break;
-  
+
   case 'v': //titta från höger till frammåt färdig
     initPosNeckYaw = 500;
     stopPosNeckYaw = 200;
+
     stepFuncXL320(servoNeck, neckYaw, stopPosNeckYaw, initPosNeckYaw, 1);
     break;
+
   case 'w': //titta fråmmåt från vänster roll färdig
     initPosNeckRoll = 520;
     stopPosNeckRoll = 450;
@@ -954,12 +865,6 @@ void JointNeckClass::RESET(char LastCase)
 
     stepFuncXL320(servoNeck, neckRoll, stopPosNeckRoll, initPosNeckRoll, 1);
     break;
-  
-  
-  
-  
-  
-  
   }
 }
 
@@ -970,11 +875,9 @@ void JointNeckClass::nod() //färdig
   initPosNeckPitch = 500;
   posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
   posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
-
   intervallTime = 10;
 
   // neråt från frammåt tittande
-
   for (int i = initPosNeckPitch, k = initPosNeckPitch; i <= stopPosNeckPitchUp, k >= stopPosNeckPitchDown; i++, k--)
   {
     servoNeck.moveJoint(neckPitchLeft, k);
@@ -983,7 +886,6 @@ void JointNeckClass::nod() //färdig
   }
 
   //Uppåt
-
   for (int i = stopPosNeckPitchDown, k = stopPosNeckPitchDown + posNeckPitchDiffMove; i <= stopPosNeckPitchUp, k >= stopPosNeckPitchDown; i++, k--)
   {
     servoNeck.moveJoint(neckPitchLeft, i);
@@ -1023,11 +925,9 @@ void JointNeckClass::neckPitchDown() //färdig
   initPosNeckPitch = 500;
   posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
   posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
-
   intervallTime = 10;
 
   // neråt från frammåt tittande
-
   for (int i = initPosNeckPitch, k = initPosNeckPitch; i <= stopPosNeckPitchUp, k >= stopPosNeckPitchDown; i++, k--)
   {
     servoNeck.moveJoint(neckPitchLeft, k);
@@ -1043,7 +943,6 @@ void JointNeckClass::neckPitchUp() //färdig
   initPosNeckPitch = 500;
   posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
   posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
-
   intervallTime = 10;
 
   //Uppåt från titta frammåt
@@ -1053,7 +952,6 @@ void JointNeckClass::neckPitchUp() //färdig
     servoNeck.moveJoint(neckPitchRight, k);
     internalTimer(intervallTime);
   }
- 
 }
 
 void JointNeckClass::neckYawLookLeft() //färdig
@@ -1068,6 +966,7 @@ void JointNeckClass::neckYawLookRight() //färdig
 {
   initPosNeckYaw = 500;
   stopPosNeckYaw = 200;
+
   stepFuncXL320(servoNeck, neckYaw, initPosNeckYaw, stopPosNeckYaw, 2);
 }
 
@@ -1078,11 +977,8 @@ void JointNeckClass::shake() //färdig
   stopPosNeckYawRight = 300;
 
   stepFuncXL320(servoNeck, neckYaw, initPosNeckYaw, stopPosNeckYawLeft, 1);
-
   stepFuncXL320(servoNeck, neckYaw, stopPosNeckYawLeft, stopPosNeckYawRight, 1);
-
   stepFuncXL320(servoNeck, neckYaw, stopPosNeckYawRight, stopPosNeckYawLeft, 1);
-
   stepFuncXL320(servoNeck, neckYaw, stopPosNeckYawLeft, initPosNeckYaw, 1);
 }
 
@@ -1109,11 +1005,9 @@ void JointNeckClass::wakeUp()
   initPosNeckPitch = 520;
   posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
   posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
-
   intervallTime = 10;
 
   // neråt från frammåt tittande
-
   for (int i = stopPosNeckPitchUp, k = stopPosNeckPitchDown; i >= initPosNeckPitch, k <= initPosNeckPitch; i--, k++)
   {
     servoNeck.moveJoint(neckPitchLeft, k);
@@ -1125,22 +1019,19 @@ void JointNeckClass::wakeUp()
 void JointNeckClass::wakeDown()
 {
   stopPosNeckPitchUp = 600;
-    stopPosNeckPitchDown = 400;
-    initPosNeckPitch = 500;
-    posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
-    posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
+  stopPosNeckPitchDown = 400;
+  initPosNeckPitch = 500;
+  posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
+  posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
+  intervallTime = 10;
 
-    intervallTime = 10;
-
-    //Frammåt från titta uppåt
-    
-    for (int i = stopPosNeckPitchUp, k = stopPosNeckPitchDown; i >= initPosNeckPitch, k <= initPosNeckPitch; i--, k++)
-    {
-      servoNeck.moveJoint(neckPitchLeft, i);
-      servoNeck.moveJoint(neckPitchRight, k);
-      internalTimer(intervallTime);
-    }
-    
+  //Frammåt från titta uppåt
+  for (int i = stopPosNeckPitchUp, k = stopPosNeckPitchDown; i >= initPosNeckPitch, k <= initPosNeckPitch; i--, k++)
+  {
+    servoNeck.moveJoint(neckPitchLeft, i);
+    servoNeck.moveJoint(neckPitchRight, k);
+    internalTimer(intervallTime);
+  }
 }
 
 //-------------------------------------Skriv nackfunktioner över------------------------------------------------//
@@ -1154,43 +1045,28 @@ MultiPartClass::MultiPartClass()
 }
 
 void MultiPartClass::RESET(char LastCase)
-{ /*
-  switch (LastCase)
-  {
-  case 
-
-
-    break;
-  
-  default:
-    break;
-  }*/
+{
 }
 
 void MultiPartClass::dab()
 {
   initPosArm = 0;
-  stopPosArm = 450;
   initPosArmLeftDab = 400;
   intervallTimeElbow = 10;
-
+  initPosNeckPitch = 500;
+  initPosNeckYaw = 520;
+  stopPosArm = 450;
   stopPosNeckPitchUp = 600;
   stopPosNeckPitchDown = 400;
-  initPosNeckPitch = 500;
+  stopPosNeckYaw = 350;
   posNeckPitchDiffMove = stopPosNeckPitchUp - stopPosNeckPitchDown;
   posNeckPitchDiffInit = stopPosNeckPitchUp - initPosNeckPitch;
-
-  initPosNeckYaw = 520;
-  stopPosNeckYaw = 350;
-
   intervallTime = 10;
 
   stepFunc(shoulderLeftPitch, 500, 499, 1, intervallTimeElbow);
-
   stepFunc(elbowLeft, stopPosArm, initPosArmLeftDab, 4, intervallTimeElbow);
 
   // neråt från frammåt tittande
-
   for (int i = initPosNeckPitch, k = initPosNeckPitch, j = initPosNeckYaw, l = initPosArmLeftDab; i <= stopPosNeckPitchUp, k >= stopPosNeckPitchDown, j >= stopPosNeckYaw, l >= initPosArm; i += 2, k -= 2, j -= 3, l -= 8)
   {
     servoNeck.moveJoint(neckPitchLeft, k);

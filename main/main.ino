@@ -1,13 +1,7 @@
 #include "Arduino.h"
 #include "robot.h"
 
-
-//char input = 'e';
-//char LastCase = 'e';
-//int a;
-//char dataString[50];
 char lastCommand;
-
 char incoming;
 boolean newData = false;
 
@@ -162,7 +156,6 @@ void selectCommand(char command)
 
   case 'R': // Full reset
     jointArmRight.RESET(lastCommand);
-    
     jointArmLeft.RESET(lastCommand);
     jointNeck.RESET(lastCommand);
     break;
@@ -199,18 +192,3 @@ void showNewData()
   }
   delay(10);
 }
-/*
-void sendSerial()
-{
-  a = 0;
-  dataString[50] = {0};
-  // Increment a every loop
-  a++;
-  // Convert a value to hexadecimal
-  sprintf(dataString, "%02X", a);
-  // Send the data to the serial stream
-  Serial.println(dataString);
-  // Delay before this method exits and can be ran again
-  //delay(1000);
-}
-*/
