@@ -1,2 +1,4 @@
-.vscode/*
-.vscode/arduino.json
+.vscode/**
+Main/.vscode/**
+.vscode/c_cpp_properties.json
+Main/.vscode/c_cpp_properties.json
