@@ -2,3 +2,5 @@
 Main/.vscode/**
 .vscode/c_cpp_properties.json
 Main/.vscode/c_cpp_properties.json
+Main/.vscode/settings.json
+.vscode/arduino.json
