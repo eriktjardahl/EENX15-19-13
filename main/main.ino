@@ -34,28 +34,28 @@ void selectCommand(char command)
     jointArmRight.close();
     jointArmRight.armMotionSSP();
     jointArmRight.paper();
-    lastCommand='a';
+    lastCommand = command;
     break;
 
   case 'b': //sax
     jointArmRight.close();
     jointArmRight.armMotionSSP();
     jointArmRight.scissor();
-    lastCommand='b';
+    lastCommand = command;
     break;
 
   case 'c': // sten
     jointArmRight.close();
     jointArmRight.armMotionSSP();
     jointArmRight.rock();
-    lastCommand='c';
+    lastCommand = command;
     break;
 
   case 'd': //ok
     jointArmRight.perpendicular();
     jointArmRight.ShoulderPitchPerp();
     jointArmRight.ok();
-    lastCommand='d';
+    lastCommand = command;
     break;
 
   case 'e': // DAB
@@ -64,16 +64,15 @@ void selectCommand(char command)
     jointArmLeft.maxElbow();
     jointArmLeft.dabPart1();
     multiPart.dab();
-    lastCommand='e';
+    lastCommand = command;
     break;
 
   case 'f': // fuck
-
     jointArmRight.perpendicular();
     jointArmRight.ShoulderPitchPerp();
     jointArmRight.fack();
     jointNeck.neckYawLookRight();
-    lastCommand='f';
+    lastCommand = command;
     break;
 
   case 'g': //test
@@ -82,17 +81,17 @@ void selectCommand(char command)
 
   case 'h':
     jointNeck.nod();
-    lastCommand='h';
+    lastCommand = command;
     break;
 
   case 'i': 
     jointNeck.shake();
-    lastCommand='i';
+    lastCommand = command;
     break;
 
   case 'k':
     jointNeck.neckPitchDown();
-    lastCommand = 'k';
+    lastCommand = command;
     break;  
 
   case 'l':
@@ -102,13 +101,13 @@ void selectCommand(char command)
   case 'o':
     jointArmRight.open();
     jointArmLeft.open();
-    lastCommand='o';
+    lastCommand = command;
     break;
 
   case 'p':
     jointArmRight.close();
     jointArmLeft.close();
-    lastCommand='p';
+    lastCommand = command;
     break;
 
   case 'q': //reset vänsterarm
@@ -126,32 +125,32 @@ void selectCommand(char command)
 
   case 't': //titta uppåt
     jointNeck.neckPitchUp();
-    lastCommand='t';
+    lastCommand = command;
     break;
 
   case 'u':
     jointNeck.neckYawLookLeft();
-    lastCommand='u';
+    lastCommand = command;
     break;
 
   case 'v':
     jointNeck.neckYawLookRight();
-    lastCommand='v';
+    lastCommand = command;
     break;
 
   case 'w':
     jointNeck.neckRollTiltLeft();
-    lastCommand='w';
+    lastCommand = command;
    break;
 
   case 'x':
     jointNeck.neckRollTiltRight();
-    lastCommand='x';
+    lastCommand = command;
     break;
 
   case 'y':
     jointNeck.wakeDown();
-    lastCommand='y';
+    lastCommand = command;
     break;
 
   case 'R': // Full reset
@@ -164,7 +163,6 @@ void selectCommand(char command)
     //Serial.println("Unknown command or wrong format!");
     break;
   }
-  //lastCommand = command;
 }
 
 char readSerial()
